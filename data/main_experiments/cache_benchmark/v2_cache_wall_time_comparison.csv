@@ -1,0 +1,2 @@
+﻿benchmark,normal_scenarios,single_fault_scenarios,multi_fault_scenarios,workers,population,generations,no_cache_wall_time_s,with_cache_wall_time_s,wall_time_delta_s,speedup_factor_no_cache_div_with_cache,time_reduction_pct
+nsga2_cache_acceleration_benchmark_v2,20,20,50,19,48,30,77.88319379999848,51.96197639999991,-25.921217399998568,1.4988497204274664,33.28217056244947

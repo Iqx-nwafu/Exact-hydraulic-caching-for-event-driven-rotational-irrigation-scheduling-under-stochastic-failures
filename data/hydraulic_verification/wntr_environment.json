@@ -1,0 +1,22 @@
+{
+  "python": "3.13.5 | packaged by Anaconda, Inc. | (main, Jun 12 2025, 16:37:03) [MSC v.1929 64 bit (AMD64)]",
+  "executable": "C:\\ProgramData\\anaconda3\\python.exe",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "numpy": "2.4.6",
+  "pandas": "2.2.3",
+  "wntr": "1.5.0",
+  "nodes": "data/network/Nodes.xlsx",
+  "pipes": "data/network/Pipes.xlsx",
+  "run_data_dir": "data/hydraulic_verification",
+  "output_dir": "outputs/hydraulic_verification",
+  "epanet_roughness_mm": {
+    "UPVC": 0.018,
+    "PE": 0.02
+  },
+  "kinematic_viscosity_m2s": 1e-06,
+  "emitter_demand_m3s": 0.013,
+  "local_loss_ratio": 0.1,
+  "random_cases": 100,
+  "random_seed": 20260709,
+  "random_emitters_per_case": 4
+}

@@ -1,0 +1,7 @@
+﻿case_id,category,source_head_m,emitters,nodes,origin,notes
+C01_near_original,near-end original rotation group,25.0,J11L;J11R;J12L;J12R,J11;J11;J12;J12,constructed_original,Original first group near J0.
+C02_far_original,far-end original rotation group,25.0,J105L;J105R;J106L;J106R,J105;J105;J106;J106,constructed_original,Original last group at the far end of branch 10.
+C03_cross_branch_optimized,cross-branch optimized group,25.0,J31L;J56R;J54R;J35L,J31;J56;J54;J35,normal_nsga3_groups,Selected from normal_nsga3_groups.csv by maximum branch coverage.
+C04_low_pressure_optimized,lowest-pressure optimized group,25.0,J51R;J36R;J56L;J35R,J51;J36;J56;J35,normal_nsga3_groups,Lowest roughness-based pressure among normal optimized groups: 23.832 m.
+C05_original_pressure_violation,original group with minimum-pressure violation,20.02426870548333,J105L;J105R;J106L;J106R,J105;J105;J106;J106,executed_schedule_records,"from scenario 178, start_h=111.537"
+C06_fault_reoptimized,post-fault reoptimized group,20.395609734492844,J65R;J66R;J65L;J12R,J65;J66;J65;J12,executed_schedule_records,"from scenario 54, repeat=4, start_h=113.556"

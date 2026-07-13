@@ -1,0 +1,3 @@
+﻿comparison,achievement_gain_pct_points,unmet_ratio_reduction_pct_points,average_deficit_reduction_m3_per_emitter,max_deficit_reduction_m3,pressure_uniformity_gain_pct_points,feasible_group_ratio_gain_pct_points,mean_nsga2_optimization_time_s
+nsga2_verified_vs_original_near_far,1.3530009013510238,10.35,2.532817687329083,36.68978792872811,13.361386000210985,49.446666666666665,11.38551058780001
+nsga2_verified_vs_random_rotation,0.0,0.0,0.0,0.0,0.09283348886515341,31.67866666666667,11.38551058780001

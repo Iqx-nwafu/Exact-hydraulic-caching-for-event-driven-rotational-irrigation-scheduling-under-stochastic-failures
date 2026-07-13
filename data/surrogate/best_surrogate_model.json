@@ -1,0 +1,5 @@
+{
+  "best_model": "lightgbm",
+  "model_path": "outputs/surrogate/models/lightgbm_surrogate.pkl",
+  "selection_score": 3.2064104648061673
+}

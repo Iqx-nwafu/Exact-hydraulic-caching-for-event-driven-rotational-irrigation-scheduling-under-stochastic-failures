@@ -1,0 +1,42 @@
+{
+  "created_at": "2026-07-09 16:34:15",
+  "python": "3.13.5 | packaged by Anaconda, Inc. | (main, Jun 12 2025, 16:37:03) [MSC v.1929 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "nodes": "data/network/Nodes.xlsx",
+  "pipes": "data/network/Pipes.xlsx",
+  "output_dir": "outputs/cache_benchmark/v2_no_cache",
+  "params": {
+    "design_head_m": 11.4,
+    "design_flow_m3s": 0.013,
+    "target_duration_h": 4.0,
+    "horizon_h": 120.0,
+    "group_size": 4,
+    "min_velocity_ms": 0.3,
+    "max_velocity_ms": 2.5,
+    "source_head_min_m": 20.0,
+    "source_head_max_m": 30.0,
+    "local_loss_ratio": 0.1,
+    "kinematic_viscosity_m2s": 1e-06
+  },
+  "roughness_mm": {
+    "UPVC": 0.018,
+    "PE": 0.02
+  },
+  "workers": 19,
+  "cpu_count": 24,
+  "normal_scenarios": 20,
+  "single_fault_scenarios": 20,
+  "multi_fault_scenarios": 50,
+  "random_repeats": 5,
+  "nsga_repeats": 2,
+  "dynamic_algorithms": [
+    "nsga2"
+  ],
+  "population": 48,
+  "generations": 30,
+  "cache_enabled": false,
+  "group_cache_max_items": 50000,
+  "plan_cache_max_items": 20000,
+  "pipe_loss_cache_max_items": 20000,
+  "total_wall_time_s": 77.88319379999848
+}

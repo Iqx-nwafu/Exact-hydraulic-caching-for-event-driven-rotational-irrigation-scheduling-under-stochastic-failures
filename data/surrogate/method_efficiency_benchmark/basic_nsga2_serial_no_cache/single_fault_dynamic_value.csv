@@ -1,0 +1,4 @@
+﻿experiment,scenario_id,optimizer_algorithm,achievement_gain_pct_points,unmet_ratio_reduction_pct_points,average_deficit_reduction_m3,affected_completion_gain_pct_points,dynamic_reoptimization_time_s
+single_fault,1,nsga2,0.0,0.0,0.0,2.842170943040401e-14,3.6552694999991218
+single_fault,2,nsga2,1.6666666666666572,1.6666666666666665,3.120000000000001,20.0,1.5106756999994104
+single_fault,3,nsga2,0.0,0.0,0.0,0.0,4.468594699999812
