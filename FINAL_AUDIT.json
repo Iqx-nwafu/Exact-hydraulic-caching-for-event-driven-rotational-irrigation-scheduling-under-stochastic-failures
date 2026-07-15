@@ -1,0 +1,26 @@
+{
+  "created_at": "2026-07-15 15:08:16",
+  "status": "PASS",
+  "formal_parallel_workers": 20,
+  "logical_cpu_count": 24,
+  "main_policy_rows": 10400,
+  "algorithm_quality_runs": 2400,
+  "cache_runs": 3240,
+  "scalability_runs": 160,
+  "information_set_rows": 240,
+  "surrogate_samples": 42000,
+  "surrogate_policy_rows": 1100,
+  "main_tables": 6,
+  "supplementary_tables": 10,
+  "main_figures": 5,
+  "supplementary_figures": 2,
+  "figure_export_files": 21,
+  "published_figure_formats": [
+    ".pdf",
+    ".png",
+    ".svg"
+  ],
+  "data_manifest_files": 95,
+  "temporary_data_directories": [],
+  "manuscript_edited_by_revision_pipeline": false
+}

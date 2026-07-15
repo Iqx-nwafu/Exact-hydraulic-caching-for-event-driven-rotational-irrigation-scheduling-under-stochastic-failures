@@ -1,0 +1,33 @@
+{
+  "created_at": "2026-07-15 03:33:08",
+  "python": "3.13.5 | packaged by Anaconda, Inc. | (main, Jun 12 2025, 16:37:03) [MSC v.1929 64 bit (AMD64)]",
+  "workers": 20,
+  "logical_cpu_count": 24,
+  "cache_task_composition": {
+    "normal": 20,
+    "single_fault": 20,
+    "multi_fault": 50
+  },
+  "cache_levels": {
+    "0": "none",
+    "1": "pipe",
+    "2": "pipe+group",
+    "3": "pipe+group+plan"
+  },
+  "cache_states": {
+    "cold": "empty cache",
+    "warm_cross_seed": "same scenario and budget pre-run with a different optimizer seed",
+    "hot_exact_replay": "identical scenario, budget, task, and optimizer seed pre-run"
+  },
+  "benchmark_repeats": 3,
+  "evaluation_budget": 480,
+  "scalability_emitter_counts": [
+    60,
+    120,
+    240,
+    480
+  ],
+  "wall_time_s": 3071.081405000001,
+  "cache_run_count": 3240,
+  "scalability_run_count": 160
+}

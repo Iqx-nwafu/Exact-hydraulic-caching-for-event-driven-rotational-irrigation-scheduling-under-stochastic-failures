@@ -1,80 +1,86 @@
-# Exact hydraulic caching for event-driven rotational irrigation scheduling
+# Closed-PDA rotational irrigation scheduling under stochastic failures
 
-This repository contains the code and numerical data used to evaluate event-driven rotational irrigation scheduling under stochastic pressure, pipe-node failures, and partial or complete recovery. It includes only reproducibility materials: source code, network inputs, EPANET/WNTR verification outputs, optimization results, cache benchmarks, surrogate benchmarks, and network-variant sensitivity results. Manuscript files and generated figures are intentionally excluded.
+This repository contains the revised, reviewer-audited implementation and numerical evidence for event-driven rotational irrigation scheduling. The published experiments use a hydraulically closed pressure-dependent analysis (PDA), causal fault/recovery decisions, canonical multiobjective algorithms, three-level exact caching, and scenario-level statistical inference.
 
-## Repository structure
+## What changed
 
-```text
-src/
-  hydraulic_check.py                       EPANET/WNTR hydraulic verification
-  main_experiment_after_verification.py    verified multi-scenario optimization experiments
-  nsga2_cache_benchmark.py                 exact-cache timing and equivalence benchmark
-  surrogate_assisted_nsga2.py              CatBoost/LightGBM/XGBoost comparison
-  variant_generalization_analysis.py       pressure, failure, and elevation sensitivity
-data/
-  network/                                  Nodes.xlsx and Pipes.xlsx
-  hydraulic_verification/                   100-case verification and EPANET INP files
-  main_experiments/                         normal, single-fault, and multi-fault results
-  surrogate/                                surrogate and solver-efficiency comparisons
-  variant_network/                          network-variant and sensitivity results
-```
+The current revision supersedes all pre-verification results. In particular, it:
 
-## Model and experiment scope
+- iterates emitter discharge, pipe flow, Darcy-Weisbach loss, and node pressure to hydraulic convergence;
+- validates 100 operational and low-pressure cases against EPANET/WNTR;
+- distinguishes causal, oracle, and rolling-prediction information sets;
+- compares NSGA-II, SPEA2, RVEA, and MOEA/D under matched evaluation and wall-time budgets;
+- reports independent L0-L3 cache ablations, memory use, and scaling from 60 to 480 emitters;
+- aggregates optimizer repeats within scenarios before bootstrap and paired inference;
+- treats surrogate-assisted NSGA-II as a negative supplementary result because it failed the predefined operational equivalence gate.
 
-- Darcy-Weisbach friction losses use Reynolds-number-dependent friction factors and material roughness values consistent with the EPANET/WNTR verification model.
-- EPANET comparison uses friction losses only. The optimization model applies the separate engineering correction `h_total = 1.1 * h_friction` for local losses.
-- Source pressure is sampled in the 20-30 m range in stochastic experiments.
-- Each emitter has a design discharge of 0.013 m3/s; available group flow is 0.052 m3/s.
-- Hydraulic feasibility requires node head at least 11.4 m and active-pipe velocity between 0.3 and 2.5 m/s.
-- The scheduling horizon is 120 h. Dynamic experiments include up to three failures and multiple partial, simultaneous, or absent recoveries.
-- Default random seed is `20260709`. Main experiments use 100 normal scenarios, 100 single-fault/single-recovery scenarios, and 500 multi-fault/multi-recovery scenarios.
+The main numerical conclusions are summarized in [RESULTS_SUMMARY.md](RESULTS_SUMMARY.md). The experimental protocol and reviewer-evidence map are in [EXPERIMENT_DESIGN.md](EXPERIMENT_DESIGN.md) and [REVIEWER_RESPONSE_EVIDENCE.md](REVIEWER_RESPONSE_EVIDENCE.md).
+
+## Repository layout
+
+~~~text
+code/                         experiment, analysis, table, figure, and audit scripts
+data/network/                 Nodes.xlsx and Pipes.xlsx
+data/hydraulic_validation/    closed-PDA versus EPANET/WNTR validation
+data/main_experiments/        normal, single-fault, and multi-fault policy results
+data/algorithm_tuning/        tuning grids and frozen algorithm parameters
+data/algorithm_quality/       Pareto fronts, convergence, HV, IGD+, epsilon, and spacing
+data/cache_scalability/       L0-L3 ablations, timing, memory, and network scaling
+data/information_set/         causal, oracle, persistence, and rolling controls
+data/surrogate_grouped/       leakage-controlled surrogate data and fitted models
+data/surrogate_experiments/   exact-final-evaluation surrogate-assisted results
+data/paper_statistics/        scenario-level summaries and inferential tests
+data/paper_tables/            main and supplementary tables
+data/figure_source_data/      source values for every published figure
+figures/                      PNG, SVG, and PDF publication figures
+~~~
+
+High-resolution TIFF exports and raw console logs are intentionally excluded from Git history. They are generated artifacts, and the TIFF files alone add about 260 MB. The figure script can regenerate them for submission.
 
 ## Environment
 
-The published runs used Python 3.13.5. Install the recorded package versions with:
+The formal runs used Python 3.13.5 and 20 worker processes on a 24-logical-core workstation. Exact package versions are recorded in [environment_versions.json](environment_versions.json) and [requirements.txt](requirements.txt).
 
-```bash
+~~~bash
 python -m pip install -r requirements.txt
-```
+~~~
+
+Publication figures additionally require R with ggplot2, patchwork, dplyr, tidyr, readr, scales, and ggrepel.
 
 ## Reproduction
 
-Run commands from the repository root. Each script writes new files under `outputs/`, leaving the published data unchanged.
+Run commands from the repository root. Computational scripts default to outputs/, so published data under data/ is not overwritten.
 
-Hydraulic verification:
+~~~bash
+python code/validate_closed_pda.py
+python code/tune_algorithms.py --workers 20
+python code/run_revised_main_experiments.py --workers 20
+python code/run_algorithm_quality_benchmark.py --workers 20
+python code/run_cache_scalability.py --workers 20
+python code/run_information_set_experiment.py --workers 20
+python code/generate_grouped_surrogate_dataset.py --workers 20
+python code/train_grouped_surrogates.py
+python code/run_surrogate_assisted_experiments.py --workers 20
+python code/analyze_revised_results.py
+~~~
 
-```bash
-python src/hydraulic_check.py
-```
+Regenerate tables and figures from the published data:
 
-Full verified experiment suite with automatic CPU allocation:
+~~~bash
+python code/generate_paper_tables.py
+Rscript code/make_publication_figures.R .
+~~~
 
-```bash
-python src/main_experiment_after_verification.py --workers auto
-```
+Validate the complete published package:
 
-Exact cache benchmark:
+~~~bash
+python code/final_audit.py
+~~~
 
-```bash
-python src/nsga2_cache_benchmark.py --workers auto
-```
+The full experiments are CPU intensive. Use each script's --help output to select reduced scenario counts for smoke tests.
 
-Surrogate-assisted comparison:
+## Published evidence
 
-```bash
-python src/surrogate_assisted_nsga2.py --workers auto
-```
+The repository includes 10,400 main policy rows, 2,400 independent algorithm-quality runs, 3,240 cache runs, 160 scalability runs, 240 information-set rows, 42,000 leakage-controlled surrogate samples, six main tables, ten supplementary tables, five main figures, and two supplementary figures. FINAL_AUDIT.json records the machine-checked package counts.
 
-Network-variant sensitivity experiment:
-
-```bash
-python src/variant_generalization_analysis.py --workers auto
-```
-
-Use each script's `--help` option for reduced-scale smoke tests and parameter overrides. The full experiments are CPU intensive; scenario-level multiprocessing is enabled by `--workers auto`.
-
-## Published data
-
-The CSV files retain scenario-level values, convergence traces, bootstrap confidence intervals, paired Wilcoxon tests, agricultural management metrics, exact cache hit/timing statistics, and paired cached-versus-uncached equivalence checks. JSON files record run parameters and software/hardware metadata. EPANET `.inp` files and the original Excel network tables are included to support independent hydraulic reconstruction.
-
-The exact-cache benchmark demonstrates evaluation equivalence using paired agricultural metrics. The surrogate outputs are retained as a comparative acceleration study; final reported surrogate candidates were reevaluated with the exact hydraulic model.
+See [DATA_REPLACEMENT_MANIFEST.md](DATA_REPLACEMENT_MANIFEST.md) for the authoritative replacement map and the results that must not be reused.

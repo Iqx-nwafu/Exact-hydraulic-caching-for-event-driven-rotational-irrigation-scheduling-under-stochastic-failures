@@ -1,0 +1,12 @@
+﻿setting,value
+Hydraulic solver,Closed iterative pressure-dependent analysis; Darcy-Weisbach/Colebrook-White
+Source head,"Hourly independent realization in [20, 30] m; causal future expectation 25 m"
+Emitter demand,0.013 m3/s required flow; 11.4 m required pressure; linear PDA exponent 1
+Normal scenarios,100; random 50 repeats/scenario; NSGA-II 5 repeats/scenario
+Single fault/recovery,100 paired scenarios
+Multiple fault/recovery,500 paired scenarios; 1-3 faults with partial or absent recovery
+Algorithms,"Tuned canonical NSGA-II, SPEA2, RVEA, MOEA/D"
+Main FE budgets,"2,400 initial; 1,200 per dynamic reoptimization"
+Pareto benchmark,"30 held-out contexts x 20 runs x 4 algorithms x 2,400 FE"
+Parallelism,Exactly 20 worker processes for formal scenario calculations
+Inference unit,Scenario/context after within-scenario repeat aggregation

@@ -1,0 +1,4 @@
+﻿model_family,selected_config_json,feasibility_threshold,validation_feasibility_balanced_accuracy,final_fit_time_s,model_size_mb,model_path
+catboost,"{""depth"": 6, ""iterations"": 800, ""l2_leaf_reg"": 5.0, ""learning_rate"": 0.03}",0.5280366112250088,0.9951100244498777,23.16360070000519,1.037949562072754,data/surrogate_grouped/best_catboost_surrogate.joblib
+lightgbm,"{""learning_rate"": 0.025, ""min_child_samples"": 50, ""n_estimators"": 900, ""num_leaves"": 63}",0.5158346473249059,0.9851078017337186,18.461522800003877,8.093257904052734,data/surrogate_grouped/best_lightgbm_surrogate.joblib
+xgboost,"{""learning_rate"": 0.03, ""max_depth"": 6, ""min_child_weight"": 3.0, ""n_estimators"": 800}",0.5248448348045349,0.980106690375639,26.59240019999561,4.377889633178711,data/surrogate_grouped/best_xgboost_surrogate.joblib

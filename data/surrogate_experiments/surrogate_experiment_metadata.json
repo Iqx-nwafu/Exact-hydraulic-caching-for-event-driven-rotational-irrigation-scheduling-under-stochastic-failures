@@ -1,0 +1,14 @@
+{
+  "created_at": "2026-07-15 05:18:05",
+  "python": "3.13.5 | packaged by Anaconda, Inc. | (main, Jun 12 2025, 16:37:03) [MSC v.1929 64 bit (AMD64)]",
+  "workers": 20,
+  "logical_cpu_count": 24,
+  "normal_scenarios": 100,
+  "normal_repeats": 5,
+  "single_fault_scenarios": 100,
+  "multi_fault_scenarios": 500,
+  "initial_reference_budget": 2400,
+  "reoptimization_reference_budget": 1200,
+  "final_metric_source": "closed iterative PDA exact hydraulic model",
+  "wall_time_s": 1606.0558246
+}

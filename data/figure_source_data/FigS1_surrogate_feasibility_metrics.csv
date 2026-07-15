@@ -1,0 +1,7 @@
+model_family,split,topology_id,target,n,mae,rmse,nrmse_iqr,r2,mape_nonzero_pct,balanced_accuracy,false_feasible_rate_pct,false_infeasible_rate_pct
+catboost,Internal grouped test,all,feasibility_classification,4500,NA,NA,NA,NA,NA,0.9915555555555556,0.8444444444444443,0
+catboost,External topologies,all,feasibility_classification,12000,NA,NA,NA,NA,NA,0.5,0,0.05
+lightgbm,Internal grouped test,all,feasibility_classification,4500,NA,NA,NA,NA,NA,0.9586666666666668,4.133333333333333,0
+lightgbm,External topologies,all,feasibility_classification,12000,NA,NA,NA,NA,NA,0.48628480907120225,2.7416666666666667,0.05
+xgboost,Internal grouped test,all,feasibility_classification,4500,NA,NA,NA,NA,NA,0.9422222222222222,5.777777777777778,0
+xgboost,External topologies,all,feasibility_classification,12000,NA,NA,NA,NA,NA,0.48670168417542103,2.658333333333333,0.05

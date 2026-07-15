@@ -1,0 +1,20 @@
+{
+  "created_at": "2026-07-15 02:41:10",
+  "python": "3.13.5 | packaged by Anaconda, Inc. | (main, Jun 12 2025, 16:37:03) [MSC v.1929 64 bit (AMD64)]",
+  "workers": 20,
+  "logical_cpu_count": 24,
+  "normal_scenarios": 100,
+  "single_fault_scenarios": 100,
+  "multi_fault_scenarios": 500,
+  "random_repeats": 50,
+  "nsga2_repeats": 5,
+  "initial_evaluation_budget": 2400,
+  "reoptimization_evaluation_budget": 1200,
+  "information_set": "causal: observed current/past source head, current faults, cumulative volumes; no future head or event times",
+  "future_head_assumption": "25 m expectation beyond decision time",
+  "best_config_path": "data/algorithm_tuning/best_algorithm_parameters.json",
+  "wall_time_s": 2641.5818903,
+  "policy_row_count": 10400,
+  "execution_record_count": 662095,
+  "pareto_point_count": 149819
+}

@@ -1,0 +1,17 @@
+{
+  "python": "3.13.5 | packaged by Anaconda, Inc. | (main, Jun 12 2025, 16:37:03) [MSC v.1929 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "numpy": "2.4.6",
+  "pandas": "2.2.3",
+  "scipy": "1.15.3",
+  "sklearn": "1.6.1",
+  "pymoo": "0.6.1.5",
+  "wntr": "1.5.0",
+  "catboost": "1.2.10",
+  "lightgbm": "4.6.0",
+  "xgboost": "3.3.0",
+  "joblib": "1.4.2",
+  "openpyxl": "3.1.5",
+  "pyarrow": "19.0.0",
+  "psutil": "5.9.0"
+}

@@ -1,9 +1,17 @@
+* text=auto
 *.py text eol=lf
+*.R text eol=lf
 *.md text eol=lf
 *.txt text eol=lf
 *.csv text eol=lf
 *.json text eol=lf
 *.inp text eol=lf
+*.sha256 text eol=lf
+*.svg text eol=lf
 *.xlsx binary
 *.parquet binary
-data/** -text
+*.joblib binary
+*.npz binary
+*.png binary
+*.pdf binary
+*.tiff binary
