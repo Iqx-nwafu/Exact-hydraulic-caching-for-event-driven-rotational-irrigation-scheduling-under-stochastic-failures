@@ -1,0 +1,11 @@
+{
+  "scenario_ids_present_in_multiple_splits": 0,
+  "exact_plan_hashes_present_in_multiple_splits": 0,
+  "nearest_train_plan_hamming_distance_for_validation_test": {
+    "minimum": 0.7333333333333333,
+    "p01": 0.7666666666666667,
+    "p05": 0.8,
+    "median": 0.8833333333333333,
+    "near_duplicate_count_below_0p05": 0
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "legacy_sample_count": 6000,
+  "legacy_feature_count": 510,
+  "label_columns": [
+    "obj_achievement_loss",
+    "obj_average_deficit",
+    "obj_pressure_nonuniformity",
+    "constraint_violation",
+    "achievement_pct",
+    "unmet_emitter_ratio_pct",
+    "average_deficit_m3_per_emitter",
+    "max_deficit_m3",
+    "pressure_uniformity_index_pct",
+    "feasible_group_ratio_pct",
+    "context_type",
+    "planned_emitters",
+    "unavailable_emitters",
+    "start_time_h"
+  ],
+  "scenario_id_available": false,
+  "topology_id_available": false,
+  "plan_id_or_hash_available": false,
+  "exact_duplicate_feature_rows": 0,
+  "split_implementation": "row-wise train_test_split(... test_size=0.25, shuffle=True)",
+  "group_split_possible_from_saved_data": false,
+  "external_topology_test_present": false,
+  "conclusion": "Not adequate to demonstrate scenario-independent or topology-external generalization; regenerate with scenario-grouped splits and held-out topologies."
+}

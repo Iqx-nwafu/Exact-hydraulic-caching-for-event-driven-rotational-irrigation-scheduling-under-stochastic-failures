@@ -1,0 +1,24 @@
+{
+  "created_at": "2026-07-15 03:54:45",
+  "python": "3.13.5 | packaged by Anaconda, Inc. | (main, Jun 12 2025, 16:37:03) [MSC v.1929 64 bit (AMD64)]",
+  "workers": 20,
+  "logical_cpu_count": 24,
+  "heldout_contexts": 30,
+  "context_composition": {
+    "normal": 10,
+    "post_fault": 10,
+    "post_recovery": 10
+  },
+  "independent_replicates": 20,
+  "algorithms": [
+    "nsga2",
+    "spea2",
+    "rvea",
+    "moead"
+  ],
+  "equal_function_evaluation_budget": 2400,
+  "empirical_reference_front": "non-dominated union of all algorithms and replicates within each held-out context",
+  "equal_wall_time_rule": "minimum terminal wall time across algorithms within each paired context and replicate",
+  "wall_time_s": 908.0098982000018,
+  "run_count": 2400
+}

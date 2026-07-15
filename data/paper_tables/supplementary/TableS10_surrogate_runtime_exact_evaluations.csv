@@ -1,0 +1,3 @@
+﻿method,normal_mean_optimization_time_s,fault_initial_mean_time_s,fault_reoptimization_mean_total_time_s,normal_mean_exact_evaluations
+Exact NSGA-II,10.880584886399832,10.549162936666665,10.333622326333389,2400.0
+Surrogate-assisted NSGA-II,19.11081091800009,19.19180079600017,15.205960415499867,1616.294

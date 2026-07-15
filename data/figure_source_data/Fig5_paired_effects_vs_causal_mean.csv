@@ -1,0 +1,721 @@
+experiment,scenario_id,policy,metric,value,metric_label,experiment_short,baseline
+Single fault/recovery,13,Oracle head,achievement_pct,1.560548547296932,Achievement,Single,97.6591771790546
+Single fault/recovery,13,Oracle head,average_deficit_m3_per_emitter,2.9213468805398417,Deficit reduction,Single,4.382020320809764
+Single fault/recovery,13,Oracle head,pressure_uniformity_index_pct,0.5301800983332186,Pressure uniformity,Single,90.49752835263874
+Single fault/recovery,13,Oracle head,total_optimization_time_s,-11.964649200010172,Time saving,Single,9.21899239999766
+Single fault/recovery,13,Causal persistence,achievement_pct,-0.7802742736484589,Achievement,Single,97.6591771790546
+Single fault/recovery,13,Causal persistence,average_deficit_m3_per_emitter,-1.4606734402699226,Deficit reduction,Single,4.382020320809764
+Single fault/recovery,13,Causal persistence,pressure_uniformity_index_pct,0.025308197779580155,Pressure uniformity,Single,90.49752835263874
+Single fault/recovery,13,Causal persistence,total_optimization_time_s,1.3746889999965788,Time saving,Single,9.21899239999766
+Single fault/recovery,13,Causal rolling,achievement_pct,-0.7802742736484589,Achievement,Single,97.6591771790546
+Single fault/recovery,13,Causal rolling,average_deficit_m3_per_emitter,-1.4606734402699226,Deficit reduction,Single,4.382020320809764
+Single fault/recovery,13,Causal rolling,pressure_uniformity_index_pct,-0.28124266245957585,Pressure uniformity,Single,90.49752835263874
+Single fault/recovery,13,Causal rolling,total_optimization_time_s,-58.95283079997898,Time saving,Single,9.21899239999766
+Single fault/recovery,8,Oracle head,achievement_pct,1.150475831622046,Achievement,Single,97.69904833675588
+Single fault/recovery,8,Oracle head,average_deficit_m3_per_emitter,2.1536907567964945,Deficit reduction,Single,4.307381513592989
+Single fault/recovery,8,Oracle head,pressure_uniformity_index_pct,0.14048654658681414,Pressure uniformity,Single,90.21264109890758
+Single fault/recovery,8,Oracle head,total_optimization_time_s,-17.79394269999466,Time saving,Single,7.617376400005014
+Single fault/recovery,8,Causal persistence,achievement_pct,0,Achievement,Single,97.69904833675588
+Single fault/recovery,8,Causal persistence,average_deficit_m3_per_emitter,0,Deficit reduction,Single,4.307381513592989
+Single fault/recovery,8,Causal persistence,pressure_uniformity_index_pct,0.3023294786816564,Pressure uniformity,Single,90.21264109890758
+Single fault/recovery,8,Causal persistence,total_optimization_time_s,-0.22427679999964312,Time saving,Single,7.617376400005014
+Single fault/recovery,8,Causal rolling,achievement_pct,0.5752379158110159,Achievement,Single,97.69904833675588
+Single fault/recovery,8,Causal rolling,average_deficit_m3_per_emitter,1.0768453783982475,Deficit reduction,Single,4.307381513592989
+Single fault/recovery,8,Causal rolling,pressure_uniformity_index_pct,5.743994416604892e-4,Pressure uniformity,Single,90.21264109890758
+Single fault/recovery,8,Causal rolling,total_optimization_time_s,-62.534640600002604,Time saving,Single,7.617376400005014
+Single fault/recovery,14,Oracle head,achievement_pct,0,Achievement,Single,96.9574076315082
+Single fault/recovery,14,Oracle head,average_deficit_m3_per_emitter,0,Deficit reduction,Single,5.695732913816588
+Single fault/recovery,14,Oracle head,pressure_uniformity_index_pct,-0.07634438886455541,Pressure uniformity,Single,90.98478163833784
+Single fault/recovery,14,Oracle head,total_optimization_time_s,-16.959415400007856,Time saving,Single,8.28992169999401
+Single fault/recovery,14,Causal persistence,achievement_pct,0,Achievement,Single,96.9574076315082
+Single fault/recovery,14,Causal persistence,average_deficit_m3_per_emitter,0,Deficit reduction,Single,5.695732913816588
+Single fault/recovery,14,Causal persistence,pressure_uniformity_index_pct,0.06573196672840709,Pressure uniformity,Single,90.98478163833784
+Single fault/recovery,14,Causal persistence,total_optimization_time_s,-0.8904105000037816,Time saving,Single,8.28992169999401
+Single fault/recovery,14,Causal rolling,achievement_pct,0.7606480921229632,Achievement,Single,96.9574076315082
+Single fault/recovery,14,Causal rolling,average_deficit_m3_per_emitter,1.423933228454147,Deficit reduction,Single,5.695732913816588
+Single fault/recovery,14,Causal rolling,pressure_uniformity_index_pct,-0.46956127413143633,Pressure uniformity,Single,90.98478163833784
+Single fault/recovery,14,Causal rolling,total_optimization_time_s,-61.63207119999424,Time saving,Single,8.28992169999401
+Single fault/recovery,1,Oracle head,achievement_pct,-2.842170943040401e-14,Achievement,Single,99.1619034677829
+Single fault/recovery,1,Oracle head,average_deficit_m3_per_emitter,0,Deficit reduction,Single,1.5689167083103792
+Single fault/recovery,1,Oracle head,pressure_uniformity_index_pct,-0.400419365954761,Pressure uniformity,Single,90.5856192262352
+Single fault/recovery,1,Oracle head,total_optimization_time_s,-23.769618599995738,Time saving,Single,5.7543285000065225
+Single fault/recovery,1,Causal persistence,achievement_pct,0.2793655107390123,Achievement,Single,99.1619034677829
+Single fault/recovery,1,Causal persistence,average_deficit_m3_per_emitter,0.5229722361034597,Deficit reduction,Single,1.5689167083103792
+Single fault/recovery,1,Causal persistence,pressure_uniformity_index_pct,-0.272591671572755,Pressure uniformity,Single,90.5856192262352
+Single fault/recovery,1,Causal persistence,total_optimization_time_s,-3.854119899995567,Time saving,Single,5.7543285000065225
+Single fault/recovery,1,Causal rolling,achievement_pct,0,Achievement,Single,99.1619034677829
+Single fault/recovery,1,Causal rolling,average_deficit_m3_per_emitter,0,Deficit reduction,Single,1.5689167083103792
+Single fault/recovery,1,Causal rolling,pressure_uniformity_index_pct,0.06665201677640198,Pressure uniformity,Single,90.5856192262352
+Single fault/recovery,1,Causal rolling,total_optimization_time_s,-62.50238559999707,Time saving,Single,5.7543285000065225
+Single fault/recovery,4,Oracle head,achievement_pct,0.9416454871324049,Achievement,Single,95
+Single fault/recovery,4,Oracle head,average_deficit_m3_per_emitter,1.7627603519118598,Deficit reduction,Single,9.359999999999998
+Single fault/recovery,4,Oracle head,pressure_uniformity_index_pct,0.15637993303812436,Pressure uniformity,Single,90.21120580872048
+Single fault/recovery,4,Oracle head,total_optimization_time_s,-20.366325900009542,Time saving,Single,7.437140799993358
+Single fault/recovery,4,Causal persistence,achievement_pct,0.8333333333333144,Achievement,Single,95
+Single fault/recovery,4,Causal persistence,average_deficit_m3_per_emitter,1.5599999999999987,Deficit reduction,Single,9.359999999999998
+Single fault/recovery,4,Causal persistence,pressure_uniformity_index_pct,0.17536811420416143,Pressure uniformity,Single,90.21120580872048
+Single fault/recovery,4,Causal persistence,total_optimization_time_s,-1.2840610000130255,Time saving,Single,7.437140799993358
+Single fault/recovery,4,Causal rolling,achievement_pct,0.8333333333333144,Achievement,Single,95
+Single fault/recovery,4,Causal rolling,average_deficit_m3_per_emitter,1.5599999999999987,Deficit reduction,Single,9.359999999999998
+Single fault/recovery,4,Causal rolling,pressure_uniformity_index_pct,0.4462934162210246,Pressure uniformity,Single,90.21120580872048
+Single fault/recovery,4,Causal rolling,total_optimization_time_s,-62.27625329999137,Time saving,Single,7.437140799993358
+Single fault/recovery,3,Oracle head,achievement_pct,0,Achievement,Single,97.74758036851586
+Single fault/recovery,3,Oracle head,average_deficit_m3_per_emitter,-8.881784197001252e-16,Deficit reduction,Single,4.2165295501383255
+Single fault/recovery,3,Oracle head,pressure_uniformity_index_pct,-0.07798846400811499,Pressure uniformity,Single,90.5071411133094
+Single fault/recovery,3,Oracle head,total_optimization_time_s,-23.828233300002466,Time saving,Single,7.372568899998441
+Single fault/recovery,3,Causal persistence,achievement_pct,0,Achievement,Single,97.74758036851586
+Single fault/recovery,3,Causal persistence,average_deficit_m3_per_emitter,-8.881784197001252e-16,Deficit reduction,Single,4.2165295501383255
+Single fault/recovery,3,Causal persistence,pressure_uniformity_index_pct,-0.013606245717042498,Pressure uniformity,Single,90.5071411133094
+Single fault/recovery,3,Causal persistence,total_optimization_time_s,-0.6729773999977624,Time saving,Single,7.372568899998441
+Single fault/recovery,3,Causal rolling,achievement_pct,0.7508065438280482,Achievement,Single,97.74758036851586
+Single fault/recovery,3,Causal rolling,average_deficit_m3_per_emitter,1.405509850046108,Deficit reduction,Single,4.2165295501383255
+Single fault/recovery,3,Causal rolling,pressure_uniformity_index_pct,-0.08471376564271793,Pressure uniformity,Single,90.5071411133094
+Single fault/recovery,3,Causal rolling,total_optimization_time_s,-60.941853199990874,Time saving,Single,7.372568899998441
+Single fault/recovery,10,Oracle head,achievement_pct,0,Achievement,Single,97.0100647232876
+Single fault/recovery,10,Oracle head,average_deficit_m3_per_emitter,0,Deficit reduction,Single,5.59715883800558
+Single fault/recovery,10,Oracle head,pressure_uniformity_index_pct,0.15426811180540767,Pressure uniformity,Single,90.8115988584802
+Single fault/recovery,10,Oracle head,total_optimization_time_s,-20.112751099994057,Time saving,Single,8.313741800011485
+Single fault/recovery,10,Causal persistence,achievement_pct,0,Achievement,Single,97.0100647232876
+Single fault/recovery,10,Causal persistence,average_deficit_m3_per_emitter,0,Deficit reduction,Single,5.59715883800558
+Single fault/recovery,10,Causal persistence,pressure_uniformity_index_pct,-0.38841572618991904,Pressure uniformity,Single,90.8115988584802
+Single fault/recovery,10,Causal persistence,total_optimization_time_s,-1.9606298999933642,Time saving,Single,8.313741800011485
+Single fault/recovery,10,Causal rolling,achievement_pct,0,Achievement,Single,97.0100647232876
+Single fault/recovery,10,Causal rolling,average_deficit_m3_per_emitter,0,Deficit reduction,Single,5.59715883800558
+Single fault/recovery,10,Causal rolling,pressure_uniformity_index_pct,-0.3022847708212595,Pressure uniformity,Single,90.8115988584802
+Single fault/recovery,10,Causal rolling,total_optimization_time_s,-62.94649859999481,Time saving,Single,8.313741800011485
+Single fault/recovery,19,Oracle head,achievement_pct,0,Achievement,Single,97.19942645609092
+Single fault/recovery,19,Oracle head,average_deficit_m3_per_emitter,0,Deficit reduction,Single,5.242673674197769
+Single fault/recovery,19,Oracle head,pressure_uniformity_index_pct,-0.24611979756348035,Pressure uniformity,Single,90.99505425046304
+Single fault/recovery,19,Oracle head,total_optimization_time_s,-21.825792500007083,Time saving,Single,9.251498500001617
+Single fault/recovery,19,Causal persistence,achievement_pct,0,Achievement,Single,97.19942645609092
+Single fault/recovery,19,Causal persistence,average_deficit_m3_per_emitter,0,Deficit reduction,Single,5.242673674197769
+Single fault/recovery,19,Causal persistence,pressure_uniformity_index_pct,-0.3343070908486254,Pressure uniformity,Single,90.99505425046304
+Single fault/recovery,19,Causal persistence,total_optimization_time_s,-0.40970210000523366,Time saving,Single,9.251498500001617
+Single fault/recovery,19,Causal rolling,achievement_pct,0.7001433859772845,Achievement,Single,97.19942645609092
+Single fault/recovery,19,Causal rolling,average_deficit_m3_per_emitter,1.3106684185494424,Deficit reduction,Single,5.242673674197769
+Single fault/recovery,19,Causal rolling,pressure_uniformity_index_pct,-0.44624561059106327,Pressure uniformity,Single,90.99505425046304
+Single fault/recovery,19,Causal rolling,total_optimization_time_s,-61.05296060001274,Time saving,Single,9.251498500001617
+Single fault/recovery,20,Oracle head,achievement_pct,0.584710857765188,Achievement,Single,97.66115656893928
+Single fault/recovery,20,Oracle head,average_deficit_m3_per_emitter,1.0945787257364108,Deficit reduction,Single,4.378314902945644
+Single fault/recovery,20,Oracle head,pressure_uniformity_index_pct,0.2026842851168027,Pressure uniformity,Single,90.1677161543674
+Single fault/recovery,20,Oracle head,total_optimization_time_s,-18.52590500000224,Time saving,Single,10.642061000005924
+Single fault/recovery,20,Causal persistence,achievement_pct,0.584710857765188,Achievement,Single,97.66115656893928
+Single fault/recovery,20,Causal persistence,average_deficit_m3_per_emitter,1.0945787257364108,Deficit reduction,Single,4.378314902945644
+Single fault/recovery,20,Causal persistence,pressure_uniformity_index_pct,0.23386367033512556,Pressure uniformity,Single,90.1677161543674
+Single fault/recovery,20,Causal persistence,total_optimization_time_s,0.6261471000107122,Time saving,Single,10.642061000005924
+Single fault/recovery,20,Causal rolling,achievement_pct,-1.4210854715202004e-14,Achievement,Single,97.66115656893928
+Single fault/recovery,20,Causal rolling,average_deficit_m3_per_emitter,0,Deficit reduction,Single,4.378314902945644
+Single fault/recovery,20,Causal rolling,pressure_uniformity_index_pct,-0.035136347369359555,Pressure uniformity,Single,90.1677161543674
+Single fault/recovery,20,Causal rolling,total_optimization_time_s,-60.389737200021045,Time saving,Single,10.642061000005924
+Single fault/recovery,7,Oracle head,achievement_pct,-1.4210854715202004e-14,Achievement,Single,99.92008762285134
+Single fault/recovery,7,Oracle head,average_deficit_m3_per_emitter,0,Deficit reduction,Single,0.14959597002227695
+Single fault/recovery,7,Oracle head,pressure_uniformity_index_pct,0.29191333251884544,Pressure uniformity,Single,90.96444629376715
+Single fault/recovery,7,Oracle head,total_optimization_time_s,-25.108998499992595,Time saving,Single,8.423674300007406
+Single fault/recovery,7,Causal persistence,achievement_pct,-0.02663745904958148,Achievement,Single,99.92008762285134
+Single fault/recovery,7,Causal persistence,average_deficit_m3_per_emitter,-0.049865323340758994,Deficit reduction,Single,0.14959597002227695
+Single fault/recovery,7,Causal persistence,pressure_uniformity_index_pct,0.06760912634510419,Pressure uniformity,Single,90.96444629376715
+Single fault/recovery,7,Causal persistence,total_optimization_time_s,-1.72755769998912,Time saving,Single,8.423674300007406
+Single fault/recovery,7,Causal rolling,achievement_pct,0.026637459049538847,Achievement,Single,99.92008762285134
+Single fault/recovery,7,Causal rolling,average_deficit_m3_per_emitter,0.049865323340758994,Deficit reduction,Single,0.14959597002227695
+Single fault/recovery,7,Causal rolling,pressure_uniformity_index_pct,-0.0877107265755086,Pressure uniformity,Single,90.96444629376715
+Single fault/recovery,7,Causal rolling,total_optimization_time_s,-62.72045459997753,Time saving,Single,8.423674300007406
+Single fault/recovery,16,Oracle head,achievement_pct,0,Achievement,Single,98.03746148329178
+Single fault/recovery,16,Oracle head,average_deficit_m3_per_emitter,0,Deficit reduction,Single,3.6738721032777546
+Single fault/recovery,16,Oracle head,pressure_uniformity_index_pct,0.46505940924932077,Pressure uniformity,Single,90.14868826756243
+Single fault/recovery,16,Oracle head,total_optimization_time_s,-20.32816850001109,Time saving,Single,10.689464499999303
+Single fault/recovery,16,Causal persistence,achievement_pct,0.4906346291770376,Achievement,Single,98.03746148329178
+Single fault/recovery,16,Causal persistence,average_deficit_m3_per_emitter,0.9184680258194384,Deficit reduction,Single,3.6738721032777546
+Single fault/recovery,16,Causal persistence,pressure_uniformity_index_pct,0.051618265657765505,Pressure uniformity,Single,90.14868826756243
+Single fault/recovery,16,Causal persistence,total_optimization_time_s,-0.1589218000008259,Time saving,Single,10.689464499999303
+Single fault/recovery,16,Causal rolling,achievement_pct,0,Achievement,Single,98.03746148329178
+Single fault/recovery,16,Causal rolling,average_deficit_m3_per_emitter,0,Deficit reduction,Single,3.6738721032777546
+Single fault/recovery,16,Causal rolling,pressure_uniformity_index_pct,0.34823053423365025,Pressure uniformity,Single,90.14868826756243
+Single fault/recovery,16,Causal rolling,total_optimization_time_s,-61.80216950000613,Time saving,Single,10.689464499999303
+Single fault/recovery,17,Oracle head,achievement_pct,0.11916017167938264,Achievement,Single,99.64251948496184
+Single fault/recovery,17,Oracle head,average_deficit_m3_per_emitter,0.22306784138379931,Deficit reduction,Single,0.6692035241514092
+Single fault/recovery,17,Oracle head,pressure_uniformity_index_pct,-0.003386960081954271,Pressure uniformity,Single,90.88041084924676
+Single fault/recovery,17,Oracle head,total_optimization_time_s,-24.21479919999547,Time saving,Single,9.926916200005508
+Single fault/recovery,17,Causal persistence,achievement_pct,-0.11916017167935422,Achievement,Single,99.64251948496184
+Single fault/recovery,17,Causal persistence,average_deficit_m3_per_emitter,-0.2230678413837992,Deficit reduction,Single,0.6692035241514092
+Single fault/recovery,17,Causal persistence,pressure_uniformity_index_pct,-0.0019566850868812935,Pressure uniformity,Single,90.88041084924676
+Single fault/recovery,17,Causal persistence,total_optimization_time_s,-0.37575490000017453,Time saving,Single,9.926916200005508
+Single fault/recovery,17,Causal rolling,achievement_pct,0.3574805150381195,Achievement,Single,99.64251948496184
+Single fault/recovery,17,Causal rolling,average_deficit_m3_per_emitter,0.6692035241513978,Deficit reduction,Single,0.6692035241514092
+Single fault/recovery,17,Causal rolling,pressure_uniformity_index_pct,-0.18983256983044328,Pressure uniformity,Single,90.88041084924676
+Single fault/recovery,17,Causal rolling,total_optimization_time_s,-62.077170499986096,Time saving,Single,9.926916200005508
+Single fault/recovery,12,Oracle head,achievement_pct,0,Achievement,Single,98.70186943831636
+Single fault/recovery,12,Oracle head,average_deficit_m3_per_emitter,0,Deficit reduction,Single,2.430100411471774
+Single fault/recovery,12,Oracle head,pressure_uniformity_index_pct,0.07290257102425812,Pressure uniformity,Single,91.02268477700416
+Single fault/recovery,12,Oracle head,total_optimization_time_s,-26.311186899998575,Time saving,Single,9.589727899998252
+Single fault/recovery,12,Causal persistence,achievement_pct,0.32453264042089813,Achievement,Single,98.70186943831636
+Single fault/recovery,12,Causal persistence,average_deficit_m3_per_emitter,0.6075251028679407,Deficit reduction,Single,2.430100411471774
+Single fault/recovery,12,Causal persistence,pressure_uniformity_index_pct,0.1928457833410846,Pressure uniformity,Single,91.02268477700416
+Single fault/recovery,12,Causal persistence,total_optimization_time_s,-0.8070863999964786,Time saving,Single,9.589727899998252
+Single fault/recovery,12,Causal rolling,achievement_pct,0.6490652808417963,Achievement,Single,98.70186943831636
+Single fault/recovery,12,Causal rolling,average_deficit_m3_per_emitter,1.2150502057358814,Deficit reduction,Single,2.430100411471774
+Single fault/recovery,12,Causal rolling,pressure_uniformity_index_pct,-0.2230481138794005,Pressure uniformity,Single,91.02268477700416
+Single fault/recovery,12,Causal rolling,total_optimization_time_s,-62.16928959998768,Time saving,Single,9.589727899998252
+Single fault/recovery,6,Oracle head,achievement_pct,0,Achievement,Single,98.09853003550673
+Single fault/recovery,6,Oracle head,average_deficit_m3_per_emitter,0,Deficit reduction,Single,3.5595517735313895
+Single fault/recovery,6,Oracle head,pressure_uniformity_index_pct,0.6796566595551923,Pressure uniformity,Single,90.1315624850436
+Single fault/recovery,6,Oracle head,total_optimization_time_s,-25.088379300002998,Time saving,Single,10.775027199997568
+Single fault/recovery,6,Causal persistence,achievement_pct,0,Achievement,Single,98.09853003550673
+Single fault/recovery,6,Causal persistence,average_deficit_m3_per_emitter,0,Deficit reduction,Single,3.5595517735313895
+Single fault/recovery,6,Causal persistence,pressure_uniformity_index_pct,0.3682579983218375,Pressure uniformity,Single,90.1315624850436
+Single fault/recovery,6,Causal persistence,total_optimization_time_s,1.7252591999931628,Time saving,Single,10.775027199997568
+Single fault/recovery,6,Causal rolling,achievement_pct,0,Achievement,Single,98.09853003550673
+Single fault/recovery,6,Causal rolling,average_deficit_m3_per_emitter,0,Deficit reduction,Single,3.5595517735313895
+Single fault/recovery,6,Causal rolling,pressure_uniformity_index_pct,0.41853204169112246,Pressure uniformity,Single,90.1315624850436
+Single fault/recovery,6,Causal rolling,total_optimization_time_s,-62.53125149997504,Time saving,Single,10.775027199997568
+Single fault/recovery,15,Oracle head,achievement_pct,0.41178286720962376,Achievement,Single,98.35286853116152
+Single fault/recovery,15,Oracle head,average_deficit_m3_per_emitter,0.7708575274164091,Deficit reduction,Single,3.083430109665636
+Single fault/recovery,15,Oracle head,pressure_uniformity_index_pct,-0.22923712131562013,Pressure uniformity,Single,91.18069825300506
+Single fault/recovery,15,Oracle head,total_optimization_time_s,-30.09914349999599,Time saving,Single,12.662209100002656
+Single fault/recovery,15,Causal persistence,achievement_pct,0,Achievement,Single,98.35286853116152
+Single fault/recovery,15,Causal persistence,average_deficit_m3_per_emitter,0,Deficit reduction,Single,3.083430109665636
+Single fault/recovery,15,Causal persistence,pressure_uniformity_index_pct,-0.258982642335738,Pressure uniformity,Single,91.18069825300506
+Single fault/recovery,15,Causal persistence,total_optimization_time_s,1.3882154000020819,Time saving,Single,12.662209100002656
+Single fault/recovery,15,Causal rolling,achievement_pct,0,Achievement,Single,98.35286853116152
+Single fault/recovery,15,Causal rolling,average_deficit_m3_per_emitter,0,Deficit reduction,Single,3.083430109665636
+Single fault/recovery,15,Causal rolling,pressure_uniformity_index_pct,-0.2204254447280647,Pressure uniformity,Single,91.18069825300506
+Single fault/recovery,15,Causal rolling,total_optimization_time_s,-61.56443809999473,Time saving,Single,12.662209100002656
+Single fault/recovery,5,Oracle head,achievement_pct,-0.5160250612765509,Achievement,Single,98.45192481617028
+Single fault/recovery,5,Oracle head,average_deficit_m3_per_emitter,-0.9659989147097319,Deficit reduction,Single,2.897996744129206
+Single fault/recovery,5,Oracle head,pressure_uniformity_index_pct,0.04978937778615489,Pressure uniformity,Single,90.52497638196976
+Single fault/recovery,5,Oracle head,total_optimization_time_s,-29.929000299991458,Time saving,Single,11.714730000006966
+Single fault/recovery,5,Causal persistence,achievement_pct,-0.5160250612765509,Achievement,Single,98.45192481617028
+Single fault/recovery,5,Causal persistence,average_deficit_m3_per_emitter,-0.9659989147097319,Deficit reduction,Single,2.897996744129206
+Single fault/recovery,5,Causal persistence,pressure_uniformity_index_pct,-0.06369926029816497,Pressure uniformity,Single,90.52497638196976
+Single fault/recovery,5,Causal persistence,total_optimization_time_s,-1.4266511999958293,Time saving,Single,11.714730000006966
+Single fault/recovery,5,Causal rolling,achievement_pct,0,Achievement,Single,98.45192481617028
+Single fault/recovery,5,Causal rolling,average_deficit_m3_per_emitter,0,Deficit reduction,Single,2.897996744129206
+Single fault/recovery,5,Causal rolling,pressure_uniformity_index_pct,-0.129718850145224,Pressure uniformity,Single,90.52497638196976
+Single fault/recovery,5,Causal rolling,total_optimization_time_s,-62.772058900001866,Time saving,Single,11.714730000006966
+Single fault/recovery,11,Oracle head,achievement_pct,0,Achievement,Single,98.8244863859197
+Single fault/recovery,11,Oracle head,average_deficit_m3_per_emitter,-8.881784197001252e-16,Deficit reduction,Single,2.2005614855583153
+Single fault/recovery,11,Oracle head,pressure_uniformity_index_pct,0.24443564315377841,Pressure uniformity,Single,89.71899207979413
+Single fault/recovery,11,Oracle head,total_optimization_time_s,-29.592942099996435,Time saving,Single,12.926291800002218
+Single fault/recovery,11,Causal persistence,achievement_pct,-1.4210854715202004e-14,Achievement,Single,98.8244863859197
+Single fault/recovery,11,Causal persistence,average_deficit_m3_per_emitter,-8.881784197001252e-16,Deficit reduction,Single,2.2005614855583153
+Single fault/recovery,11,Causal persistence,pressure_uniformity_index_pct,0.01948854962961377,Pressure uniformity,Single,89.71899207979413
+Single fault/recovery,11,Causal persistence,total_optimization_time_s,1.3726467999949818,Time saving,Single,12.926291800002218
+Single fault/recovery,11,Causal rolling,achievement_pct,0.29387840352006833,Achievement,Single,98.8244863859197
+Single fault/recovery,11,Causal rolling,average_deficit_m3_per_emitter,0.5501403713895769,Deficit reduction,Single,2.2005614855583153
+Single fault/recovery,11,Causal rolling,pressure_uniformity_index_pct,0.08901705180586816,Pressure uniformity,Single,89.71899207979413
+Single fault/recovery,11,Causal rolling,total_optimization_time_s,-61.65044010001293,Time saving,Single,12.926291800002218
+Single fault/recovery,18,Oracle head,achievement_pct,0,Achievement,Single,98.75986457493732
+Single fault/recovery,18,Oracle head,average_deficit_m3_per_emitter,0,Deficit reduction,Single,2.321533515717322
+Single fault/recovery,18,Oracle head,pressure_uniformity_index_pct,0.32032141057894137,Pressure uniformity,Single,89.87781272997601
+Single fault/recovery,18,Oracle head,total_optimization_time_s,-31.027181599994947,Time saving,Single,13.212813300000562
+Single fault/recovery,18,Causal persistence,achievement_pct,0,Achievement,Single,98.75986457493732
+Single fault/recovery,18,Causal persistence,average_deficit_m3_per_emitter,0,Deficit reduction,Single,2.321533515717322
+Single fault/recovery,18,Causal persistence,pressure_uniformity_index_pct,-0.12482386872197537,Pressure uniformity,Single,89.87781272997601
+Single fault/recovery,18,Causal persistence,total_optimization_time_s,0.614366699999664,Time saving,Single,13.212813300000562
+Single fault/recovery,18,Causal rolling,achievement_pct,0.3100338562656759,Achievement,Single,98.75986457493732
+Single fault/recovery,18,Causal rolling,average_deficit_m3_per_emitter,0.5803833789293278,Deficit reduction,Single,2.321533515717322
+Single fault/recovery,18,Causal rolling,pressure_uniformity_index_pct,-0.047575130618980666,Pressure uniformity,Single,89.87781272997601
+Single fault/recovery,18,Causal rolling,total_optimization_time_s,-60.59327570001187,Time saving,Single,13.212813300000562
+Single fault/recovery,9,Oracle head,achievement_pct,-0.6057456985628846,Achievement,Single,98.78850860287424
+Single fault/recovery,9,Oracle head,average_deficit_m3_per_emitter,-1.1339559477097003,Deficit reduction,Single,2.2679118954194
+Single fault/recovery,9,Oracle head,pressure_uniformity_index_pct,0.443438050015061,Pressure uniformity,Single,89.28925962752994
+Single fault/recovery,9,Oracle head,total_optimization_time_s,-32.39778959999239,Time saving,Single,12.736877900002582
+Single fault/recovery,9,Causal persistence,achievement_pct,-0.6057456985628846,Achievement,Single,98.78850860287424
+Single fault/recovery,9,Causal persistence,average_deficit_m3_per_emitter,-1.1339559477097003,Deficit reduction,Single,2.2679118954194
+Single fault/recovery,9,Causal persistence,pressure_uniformity_index_pct,0.5027230357064241,Pressure uniformity,Single,89.28925962752994
+Single fault/recovery,9,Causal persistence,total_optimization_time_s,0.7631962000086787,Time saving,Single,12.736877900002582
+Single fault/recovery,9,Causal rolling,achievement_pct,-0.6057456985628846,Achievement,Single,98.78850860287424
+Single fault/recovery,9,Causal rolling,average_deficit_m3_per_emitter,-1.1339559477097003,Deficit reduction,Single,2.2679118954194
+Single fault/recovery,9,Causal rolling,pressure_uniformity_index_pct,0.8130513408705724,Pressure uniformity,Single,89.28925962752994
+Single fault/recovery,9,Causal rolling,total_optimization_time_s,-61.9405814999991,Time saving,Single,12.736877900002582
+Single fault/recovery,2,Oracle head,achievement_pct,0.5576054401407902,Achievement,Single,97.76957823943673
+Single fault/recovery,2,Oracle head,average_deficit_m3_per_emitter,1.0438373839435986,Deficit reduction,Single,4.1753495357744015
+Single fault/recovery,2,Oracle head,pressure_uniformity_index_pct,0.19683210715481891,Pressure uniformity,Single,89.85888767702502
+Single fault/recovery,2,Oracle head,total_optimization_time_s,-35.607095400002436,Time saving,Single,12.815960399995674
+Single fault/recovery,2,Causal persistence,achievement_pct,0,Achievement,Single,97.76957823943673
+Single fault/recovery,2,Causal persistence,average_deficit_m3_per_emitter,0,Deficit reduction,Single,4.1753495357744015
+Single fault/recovery,2,Causal persistence,pressure_uniformity_index_pct,0.685721212264994,Pressure uniformity,Single,89.85888767702502
+Single fault/recovery,2,Causal persistence,total_optimization_time_s,-2.5530899000077625,Time saving,Single,12.815960399995674
+Single fault/recovery,2,Causal rolling,achievement_pct,0,Achievement,Single,97.76957823943673
+Single fault/recovery,2,Causal rolling,average_deficit_m3_per_emitter,0,Deficit reduction,Single,4.1753495357744015
+Single fault/recovery,2,Causal rolling,pressure_uniformity_index_pct,0.38331034592189894,Pressure uniformity,Single,89.85888767702502
+Single fault/recovery,2,Causal rolling,total_optimization_time_s,-61.85741030000645,Time saving,Single,12.815960399995674
+Single fault/recovery,21,Oracle head,achievement_pct,0.6471623954251129,Achievement,Single,98.05851281372456
+Single fault/recovery,21,Oracle head,average_deficit_m3_per_emitter,1.2114880042358873,Deficit reduction,Single,3.634464012707663
+Single fault/recovery,21,Oracle head,pressure_uniformity_index_pct,-0.07521777790407214,Pressure uniformity,Single,90.21886524084655
+Single fault/recovery,21,Oracle head,total_optimization_time_s,-23.197056700009853,Time saving,Single,10.531780399993297
+Single fault/recovery,21,Causal persistence,achievement_pct,0,Achievement,Single,98.05851281372456
+Single fault/recovery,21,Causal persistence,average_deficit_m3_per_emitter,0,Deficit reduction,Single,3.634464012707663
+Single fault/recovery,21,Causal persistence,pressure_uniformity_index_pct,0.03868884889556057,Pressure uniformity,Single,90.21886524084655
+Single fault/recovery,21,Causal persistence,total_optimization_time_s,0.943571099996916,Time saving,Single,10.531780399993297
+Single fault/recovery,21,Causal rolling,achievement_pct,0,Achievement,Single,98.05851281372456
+Single fault/recovery,21,Causal rolling,average_deficit_m3_per_emitter,0,Deficit reduction,Single,3.634464012707663
+Single fault/recovery,21,Causal rolling,pressure_uniformity_index_pct,0.1821101243293839,Pressure uniformity,Single,90.21886524084655
+Single fault/recovery,21,Causal rolling,total_optimization_time_s,-59.88717790001829,Time saving,Single,10.531780399993297
+Single fault/recovery,23,Oracle head,achievement_pct,0.9278629956456683,Achievement,Single,98.1442740087086
+Single fault/recovery,23,Oracle head,average_deficit_m3_per_emitter,1.736959527848742,Deficit reduction,Single,3.473919055697484
+Single fault/recovery,23,Oracle head,pressure_uniformity_index_pct,0.28737779728142243,Pressure uniformity,Single,89.5871240177355
+Single fault/recovery,23,Oracle head,total_optimization_time_s,-22.385912999998254,Time saving,Single,9.52357029999257
+Single fault/recovery,23,Causal persistence,achievement_pct,0.46393149782282705,Achievement,Single,98.1442740087086
+Single fault/recovery,23,Causal persistence,average_deficit_m3_per_emitter,0.8684797639243707,Deficit reduction,Single,3.473919055697484
+Single fault/recovery,23,Causal persistence,pressure_uniformity_index_pct,0.043170506034115874,Pressure uniformity,Single,89.5871240177355
+Single fault/recovery,23,Causal persistence,total_optimization_time_s,0.8411601999905542,Time saving,Single,9.52357029999257
+Single fault/recovery,23,Causal rolling,achievement_pct,0.9278629956456683,Achievement,Single,98.1442740087086
+Single fault/recovery,23,Causal rolling,average_deficit_m3_per_emitter,1.736959527848742,Deficit reduction,Single,3.473919055697484
+Single fault/recovery,23,Causal rolling,pressure_uniformity_index_pct,0.5461316008612158,Pressure uniformity,Single,89.5871240177355
+Single fault/recovery,23,Causal rolling,total_optimization_time_s,-61.18258930000593,Time saving,Single,9.52357029999257
+Single fault/recovery,24,Oracle head,achievement_pct,0,Achievement,Single,98.47069180992428
+Single fault/recovery,24,Oracle head,average_deficit_m3_per_emitter,0,Deficit reduction,Single,2.862864931821711
+Single fault/recovery,24,Oracle head,pressure_uniformity_index_pct,-0.42741239827064703,Pressure uniformity,Single,90.56171594548216
+Single fault/recovery,24,Oracle head,total_optimization_time_s,-21.67073510001501,Time saving,Single,8.558872599991446
+Single fault/recovery,24,Causal persistence,achievement_pct,0,Achievement,Single,98.47069180992428
+Single fault/recovery,24,Causal persistence,average_deficit_m3_per_emitter,0,Deficit reduction,Single,2.862864931821711
+Single fault/recovery,24,Causal persistence,pressure_uniformity_index_pct,0.06104535529063071,Pressure uniformity,Single,90.56171594548216
+Single fault/recovery,24,Causal persistence,total_optimization_time_s,-2.591412500012666,Time saving,Single,8.558872599991446
+Single fault/recovery,24,Causal rolling,achievement_pct,0,Achievement,Single,98.47069180992428
+Single fault/recovery,24,Causal rolling,average_deficit_m3_per_emitter,0,Deficit reduction,Single,2.862864931821711
+Single fault/recovery,24,Causal rolling,pressure_uniformity_index_pct,-0.021149979707601574,Pressure uniformity,Single,90.56171594548216
+Single fault/recovery,24,Causal rolling,total_optimization_time_s,-62.281912500016915,Time saving,Single,8.558872599991446
+Single fault/recovery,22,Oracle head,achievement_pct,0,Achievement,Single,97.91211302872158
+Single fault/recovery,22,Oracle head,average_deficit_m3_per_emitter,0,Deficit reduction,Single,3.908524410233169
+Single fault/recovery,22,Oracle head,pressure_uniformity_index_pct,0.027332926739930485,Pressure uniformity,Single,89.65026514203657
+Single fault/recovery,22,Oracle head,total_optimization_time_s,-18.51421589999518,Time saving,Single,10.910105399998429
+Single fault/recovery,22,Causal persistence,achievement_pct,-0.6959623237594599,Achievement,Single,97.91211302872158
+Single fault/recovery,22,Causal persistence,average_deficit_m3_per_emitter,-1.3028414700777198,Deficit reduction,Single,3.908524410233169
+Single fault/recovery,22,Causal persistence,pressure_uniformity_index_pct,0.3471798136044697,Pressure uniformity,Single,89.65026514203657
+Single fault/recovery,22,Causal persistence,total_optimization_time_s,-4.7369999083457515e-4,Time saving,Single,10.910105399998429
+Single fault/recovery,22,Causal rolling,achievement_pct,-0.6959623237594599,Achievement,Single,97.91211302872158
+Single fault/recovery,22,Causal rolling,average_deficit_m3_per_emitter,-1.3028414700777198,Deficit reduction,Single,3.908524410233169
+Single fault/recovery,22,Causal rolling,pressure_uniformity_index_pct,-0.385374090464083,Pressure uniformity,Single,89.65026514203657
+Single fault/recovery,22,Causal rolling,total_optimization_time_s,-60.424297799996566,Time saving,Single,10.910105399998429
+Single fault/recovery,25,Oracle head,achievement_pct,0.47816656783258793,Achievement,Single,98.56550029650217
+Single fault/recovery,25,Oracle head,average_deficit_m3_per_emitter,0.8951278149826527,Deficit reduction,Single,2.685383444947957
+Single fault/recovery,25,Oracle head,pressure_uniformity_index_pct,0.5118004249700334,Pressure uniformity,Single,89.49691973007602
+Single fault/recovery,25,Oracle head,total_optimization_time_s,-20.374800199992023,Time saving,Single,10.622264900004666
+Single fault/recovery,25,Causal persistence,achievement_pct,-0.4781665678326448,Achievement,Single,98.56550029650217
+Single fault/recovery,25,Causal persistence,average_deficit_m3_per_emitter,-0.8951278149826516,Deficit reduction,Single,2.685383444947957
+Single fault/recovery,25,Causal persistence,pressure_uniformity_index_pct,0.4796346672114282,Pressure uniformity,Single,89.49691973007602
+Single fault/recovery,25,Causal persistence,total_optimization_time_s,2.51636280000821,Time saving,Single,10.622264900004666
+Single fault/recovery,25,Causal rolling,achievement_pct,0,Achievement,Single,98.56550029650217
+Single fault/recovery,25,Causal rolling,average_deficit_m3_per_emitter,0,Deficit reduction,Single,2.685383444947957
+Single fault/recovery,25,Causal rolling,pressure_uniformity_index_pct,0.8940462367647655,Pressure uniformity,Single,89.49691973007602
+Single fault/recovery,25,Causal rolling,total_optimization_time_s,-61.099477400006435,Time saving,Single,10.622264900004666
+Single fault/recovery,26,Oracle head,achievement_pct,0,Achievement,Single,99.15009101827124
+Single fault/recovery,26,Oracle head,average_deficit_m3_per_emitter,0,Deficit reduction,Single,1.591029613796216
+Single fault/recovery,26,Oracle head,pressure_uniformity_index_pct,0.16328256179470202,Pressure uniformity,Single,90.73779128057056
+Single fault/recovery,26,Oracle head,total_optimization_time_s,-22.390784899995197,Time saving,Single,9.611047400001553
+Single fault/recovery,26,Causal persistence,achievement_pct,0.42495449086437986,Achievement,Single,99.15009101827124
+Single fault/recovery,26,Causal persistence,average_deficit_m3_per_emitter,0.7955148068981082,Deficit reduction,Single,1.591029613796216
+Single fault/recovery,26,Causal persistence,pressure_uniformity_index_pct,-0.5714905999050615,Pressure uniformity,Single,90.73779128057056
+Single fault/recovery,26,Causal persistence,total_optimization_time_s,2.727380500000436,Time saving,Single,9.611047400001553
+Single fault/recovery,26,Causal rolling,achievement_pct,0.21247724543218283,Achievement,Single,99.15009101827124
+Single fault/recovery,26,Causal rolling,average_deficit_m3_per_emitter,0.3977574034490543,Deficit reduction,Single,1.591029613796216
+Single fault/recovery,26,Causal rolling,pressure_uniformity_index_pct,-0.17528630858137717,Pressure uniformity,Single,90.73779128057056
+Single fault/recovery,26,Causal rolling,total_optimization_time_s,-63.278194200014696,Time saving,Single,9.611047400001553
+Single fault/recovery,29,Oracle head,achievement_pct,0,Achievement,Single,99.68577056687464
+Single fault/recovery,29,Oracle head,average_deficit_m3_per_emitter,0,Deficit reduction,Single,0.5882374988106297
+Single fault/recovery,29,Oracle head,pressure_uniformity_index_pct,0.1465670056759194,Pressure uniformity,Single,90.31343471478108
+Single fault/recovery,29,Oracle head,total_optimization_time_s,-14.582295799998976,Time saving,Single,9.965253800000935
+Single fault/recovery,29,Causal persistence,achievement_pct,0,Achievement,Single,99.68577056687464
+Single fault/recovery,29,Causal persistence,average_deficit_m3_per_emitter,0,Deficit reduction,Single,0.5882374988106297
+Single fault/recovery,29,Causal persistence,pressure_uniformity_index_pct,-0.34185340790364194,Pressure uniformity,Single,90.31343471478108
+Single fault/recovery,29,Causal persistence,total_optimization_time_s,2.0632939000060997,Time saving,Single,9.965253800000935
+Single fault/recovery,29,Causal rolling,achievement_pct,0.2356720748440182,Achievement,Single,99.68577056687464
+Single fault/recovery,29,Causal rolling,average_deficit_m3_per_emitter,0.4411781241079723,Deficit reduction,Single,0.5882374988106297
+Single fault/recovery,29,Causal rolling,pressure_uniformity_index_pct,-0.19674301000584649,Pressure uniformity,Single,90.31343471478108
+Single fault/recovery,29,Causal rolling,total_optimization_time_s,-63.303711499982455,Time saving,Single,9.965253800000935
+Single fault/recovery,30,Oracle head,achievement_pct,0.6228600265356476,Achievement,Single,97.50855989385744
+Single fault/recovery,30,Oracle head,average_deficit_m3_per_emitter,1.165993969674716,Deficit reduction,Single,4.663975878698863
+Single fault/recovery,30,Oracle head,pressure_uniformity_index_pct,-0.027004196655624924,Pressure uniformity,Single,90.60265872808094
+Single fault/recovery,30,Oracle head,total_optimization_time_s,-16.11458760001551,Time saving,Single,10.802522399993904
+Single fault/recovery,30,Causal persistence,achievement_pct,0,Achievement,Single,97.50855989385744
+Single fault/recovery,30,Causal persistence,average_deficit_m3_per_emitter,0,Deficit reduction,Single,4.663975878698863
+Single fault/recovery,30,Causal persistence,pressure_uniformity_index_pct,-0.5430480966604989,Pressure uniformity,Single,90.60265872808094
+Single fault/recovery,30,Causal persistence,total_optimization_time_s,1.716066499997396,Time saving,Single,10.802522399993904
+Single fault/recovery,30,Causal rolling,achievement_pct,0,Achievement,Single,97.50855989385744
+Single fault/recovery,30,Causal rolling,average_deficit_m3_per_emitter,0,Deficit reduction,Single,4.663975878698863
+Single fault/recovery,30,Causal rolling,pressure_uniformity_index_pct,-0.4761320173252983,Pressure uniformity,Single,90.60265872808094
+Single fault/recovery,30,Causal rolling,total_optimization_time_s,-59.489345400019374,Time saving,Single,10.802522399993904
+Multiple faults/recoveries,4,Oracle head,achievement_pct,0.9222766126579671,Achievement,Multiple,97.95316860963663
+Multiple faults/recoveries,4,Oracle head,average_deficit_m3_per_emitter,1.726501818895704,Deficit reduction,Multiple,3.8316683627602
+Multiple faults/recoveries,4,Oracle head,pressure_uniformity_index_pct,0.14037754427194216,Pressure uniformity,Multiple,91.26727884554478
+Multiple faults/recoveries,4,Oracle head,total_optimization_time_s,-16.949531299986116,Time saving,Multiple,9.636878200006322
+Multiple faults/recoveries,4,Causal persistence,achievement_pct,0.782763792071492,Achievement,Multiple,97.95316860963663
+Multiple faults/recoveries,4,Causal persistence,average_deficit_m3_per_emitter,1.4653338187578018,Deficit reduction,Multiple,3.8316683627602
+Multiple faults/recoveries,4,Causal persistence,pressure_uniformity_index_pct,-0.23959222831541638,Pressure uniformity,Multiple,91.26727884554478
+Multiple faults/recoveries,4,Causal persistence,total_optimization_time_s,0.923814100009622,Time saving,Multiple,9.636878200006322
+Multiple faults/recoveries,4,Causal rolling,achievement_pct,0.542111888961287,Achievement,Multiple,97.95316860963663
+Multiple faults/recoveries,4,Causal rolling,average_deficit_m3_per_emitter,1.0148334561355035,Deficit reduction,Multiple,3.8316683627602
+Multiple faults/recoveries,4,Causal rolling,pressure_uniformity_index_pct,-0.20036994603376002,Pressure uniformity,Multiple,91.26727884554478
+Multiple faults/recoveries,4,Causal rolling,total_optimization_time_s,-58.045488199997635,Time saving,Multiple,9.636878200006322
+Single fault/recovery,28,Oracle head,achievement_pct,-0.4390414658743964,Achievement,Single,98.68287560237675
+Single fault/recovery,28,Oracle head,average_deficit_m3_per_emitter,-0.821885624116883,Deficit reduction,Single,2.4656568723506505
+Single fault/recovery,28,Oracle head,pressure_uniformity_index_pct,-0.03100576837212543,Pressure uniformity,Single,90.75000696801956
+Single fault/recovery,28,Oracle head,total_optimization_time_s,-31.036650799978815,Time saving,Single,7.324819200010097
+Single fault/recovery,28,Causal persistence,achievement_pct,0.43904146587442483,Achievement,Single,98.68287560237675
+Single fault/recovery,28,Causal persistence,average_deficit_m3_per_emitter,0.8218856241168837,Deficit reduction,Single,2.4656568723506505
+Single fault/recovery,28,Causal persistence,pressure_uniformity_index_pct,0.034971940934937606,Pressure uniformity,Single,90.75000696801956
+Single fault/recovery,28,Causal persistence,total_optimization_time_s,-0.9024994999927003,Time saving,Single,7.324819200010097
+Single fault/recovery,28,Causal rolling,achievement_pct,0.43904146587442483,Achievement,Single,98.68287560237675
+Single fault/recovery,28,Causal rolling,average_deficit_m3_per_emitter,0.8218856241168837,Deficit reduction,Single,2.4656568723506505
+Single fault/recovery,28,Causal rolling,pressure_uniformity_index_pct,-0.12182819672148071,Pressure uniformity,Single,90.75000696801956
+Single fault/recovery,28,Causal rolling,total_optimization_time_s,-62.516570599982515,Time saving,Single,7.324819200010097
+Single fault/recovery,27,Oracle head,achievement_pct,0,Achievement,Single,97.828497613214
+Single fault/recovery,27,Oracle head,average_deficit_m3_per_emitter,0,Deficit reduction,Single,4.06505246806337
+Single fault/recovery,27,Oracle head,pressure_uniformity_index_pct,-0.08460747518118694,Pressure uniformity,Single,89.98773256269918
+Single fault/recovery,27,Oracle head,total_optimization_time_s,-27.21954619999451,Time saving,Single,12.200496100005694
+Single fault/recovery,27,Causal persistence,achievement_pct,0.5428755966964758,Achievement,Single,97.828497613214
+Single fault/recovery,27,Causal persistence,average_deficit_m3_per_emitter,1.0162631170158396,Deficit reduction,Single,4.06505246806337
+Single fault/recovery,27,Causal persistence,pressure_uniformity_index_pct,-0.02613863222892121,Pressure uniformity,Single,89.98773256269918
+Single fault/recovery,27,Causal persistence,total_optimization_time_s,1.7862206000063452,Time saving,Single,12.200496100005694
+Single fault/recovery,27,Causal rolling,achievement_pct,0,Achievement,Single,97.828497613214
+Single fault/recovery,27,Causal rolling,average_deficit_m3_per_emitter,0,Deficit reduction,Single,4.06505246806337
+Single fault/recovery,27,Causal rolling,pressure_uniformity_index_pct,0.14773418606242217,Pressure uniformity,Single,89.98773256269918
+Single fault/recovery,27,Causal rolling,total_optimization_time_s,-62.622082100002444,Time saving,Single,12.200496100005694
+Multiple faults/recoveries,8,Oracle head,achievement_pct,-0.43897992041483747,Achievement,Multiple,98.508181251555
+Multiple faults/recoveries,8,Oracle head,average_deficit_m3_per_emitter,-0.8217704110166015,Deficit reduction,Multiple,2.7926846970890247
+Multiple faults/recoveries,8,Oracle head,pressure_uniformity_index_pct,0.7000472619318145,Pressure uniformity,Multiple,89.90593714859449
+Multiple faults/recoveries,8,Oracle head,total_optimization_time_s,-35.627354300013394,Time saving,Multiple,9.842303799996444
+Multiple faults/recoveries,8,Causal persistence,achievement_pct,0,Achievement,Multiple,98.508181251555
+Multiple faults/recoveries,8,Causal persistence,average_deficit_m3_per_emitter,0,Deficit reduction,Multiple,2.7926846970890247
+Multiple faults/recoveries,8,Causal persistence,pressure_uniformity_index_pct,0.6442940978805467,Pressure uniformity,Multiple,89.90593714859449
+Multiple faults/recoveries,8,Causal persistence,total_optimization_time_s,0.533787599983043,Time saving,Multiple,9.842303799996444
+Multiple faults/recoveries,8,Causal rolling,achievement_pct,0.43897992041483747,Achievement,Multiple,98.508181251555
+Multiple faults/recoveries,8,Causal rolling,average_deficit_m3_per_emitter,0.8217704110166011,Deficit reduction,Multiple,2.7926846970890247
+Multiple faults/recoveries,8,Causal rolling,pressure_uniformity_index_pct,0.1865540332028246,Pressure uniformity,Multiple,89.90593714859449
+Multiple faults/recoveries,8,Causal rolling,total_optimization_time_s,-60.54606999998214,Time saving,Multiple,9.842303799996444
+Multiple faults/recoveries,3,Oracle head,achievement_pct,0.10497737453735567,Achievement,Multiple,96.891326640295
+Multiple faults/recoveries,3,Oracle head,average_deficit_m3_per_emitter,0.1965176451339543,Deficit reduction,Multiple,5.81943652936776
+Multiple faults/recoveries,3,Oracle head,pressure_uniformity_index_pct,-0.1468033600147436,Pressure uniformity,Multiple,90.23553772916782
+Multiple faults/recoveries,3,Oracle head,total_optimization_time_s,-31.311917599989094,Time saving,Multiple,15.285199100013417
+Multiple faults/recoveries,3,Causal persistence,achievement_pct,-0.22465997362834855,Achievement,Multiple,96.891326640295
+Multiple faults/recoveries,3,Causal persistence,average_deficit_m3_per_emitter,-0.4205634706322394,Deficit reduction,Multiple,5.81943652936776
+Multiple faults/recoveries,3,Causal persistence,pressure_uniformity_index_pct,-0.13347330478003983,Pressure uniformity,Multiple,90.23553772916782
+Multiple faults/recoveries,3,Causal persistence,total_optimization_time_s,2.199372800016137,Time saving,Multiple,15.285199100013417
+Multiple faults/recoveries,3,Causal rolling,achievement_pct,0.3840133860766315,Achievement,Multiple,96.891326640295
+Multiple faults/recoveries,3,Causal rolling,average_deficit_m3_per_emitter,0.7188730587355208,Deficit reduction,Multiple,5.81943652936776
+Multiple faults/recoveries,3,Causal rolling,pressure_uniformity_index_pct,-0.12791656120883488,Pressure uniformity,Multiple,90.23553772916782
+Multiple faults/recoveries,3,Causal rolling,total_optimization_time_s,-61.137024399977236,Time saving,Multiple,15.285199100013417
+Multiple faults/recoveries,1,Oracle head,achievement_pct,-2.035248092639179,Achievement,Multiple,96.8900505126536
+Multiple faults/recoveries,1,Oracle head,average_deficit_m3_per_emitter,-3.8099844294205045,Deficit reduction,Multiple,5.821825440312466
+Multiple faults/recoveries,1,Oracle head,pressure_uniformity_index_pct,0.44695425860400917,Pressure uniformity,Multiple,89.60942759605365
+Multiple faults/recoveries,1,Oracle head,total_optimization_time_s,-45.4562608999986,Time saving,Multiple,16.59275440000056
+Multiple faults/recoveries,1,Causal persistence,achievement_pct,-0.47062231451911885,Achievement,Multiple,96.8900505126536
+Multiple faults/recoveries,1,Causal persistence,average_deficit_m3_per_emitter,-0.8810049727797757,Deficit reduction,Multiple,5.821825440312466
+Multiple faults/recoveries,1,Causal persistence,pressure_uniformity_index_pct,0.18641215739482675,Pressure uniformity,Multiple,89.60942759605365
+Multiple faults/recoveries,1,Causal persistence,total_optimization_time_s,1.6861399999979767,Time saving,Multiple,16.59275440000056
+Multiple faults/recoveries,1,Causal rolling,achievement_pct,-1.6591054120895166,Achievement,Multiple,96.8900505126536
+Multiple faults/recoveries,1,Causal rolling,average_deficit_m3_per_emitter,-3.105845331431569,Deficit reduction,Multiple,5.821825440312466
+Multiple faults/recoveries,1,Causal rolling,pressure_uniformity_index_pct,0.5114626332063068,Pressure uniformity,Multiple,89.60942759605365
+Multiple faults/recoveries,1,Causal rolling,total_optimization_time_s,-53.912041900002805,Time saving,Multiple,16.59275440000056
+Multiple faults/recoveries,5,Oracle head,achievement_pct,0.029748726534450043,Achievement,Multiple,94.16666666666669
+Multiple faults/recoveries,5,Oracle head,average_deficit_m3_per_emitter,0.055689616072541526,Deficit reduction,Multiple,10.919999999999998
+Multiple faults/recoveries,5,Oracle head,pressure_uniformity_index_pct,0.31116492266379225,Pressure uniformity,Multiple,90.26864777375177
+Multiple faults/recoveries,5,Oracle head,total_optimization_time_s,-39.608969299995806,Time saving,Multiple,14.362183500001263
+Multiple faults/recoveries,5,Causal persistence,achievement_pct,-0.8333333333333712,Achievement,Multiple,94.16666666666669
+Multiple faults/recoveries,5,Causal persistence,average_deficit_m3_per_emitter,-1.5600000000000023,Deficit reduction,Multiple,10.919999999999998
+Multiple faults/recoveries,5,Causal persistence,pressure_uniformity_index_pct,-0.3126321184959977,Pressure uniformity,Multiple,90.26864777375177
+Multiple faults/recoveries,5,Causal persistence,total_optimization_time_s,1.334078999992924,Time saving,Multiple,14.362183500001263
+Multiple faults/recoveries,5,Causal rolling,achievement_pct,0.8333333333333144,Achievement,Multiple,94.16666666666669
+Multiple faults/recoveries,5,Causal rolling,average_deficit_m3_per_emitter,1.5600000000000005,Deficit reduction,Multiple,10.919999999999998
+Multiple faults/recoveries,5,Causal rolling,pressure_uniformity_index_pct,-0.2648281991705801,Pressure uniformity,Multiple,90.26864777375177
+Multiple faults/recoveries,5,Causal rolling,total_optimization_time_s,-57.530289200010884,Time saving,Multiple,14.362183500001263
+Multiple faults/recoveries,2,Oracle head,achievement_pct,0.02846966433992293,Achievement,Multiple,92.5
+Multiple faults/recoveries,2,Oracle head,average_deficit_m3_per_emitter,0.053295211644318385,Deficit reduction,Multiple,14.040000000000004
+Multiple faults/recoveries,2,Oracle head,pressure_uniformity_index_pct,0.2427784117721643,Pressure uniformity,Multiple,90.31865200593028
+Multiple faults/recoveries,2,Oracle head,total_optimization_time_s,-45.57051449998107,Time saving,Multiple,20.285401600012847
+Multiple faults/recoveries,2,Causal persistence,achievement_pct,0,Achievement,Multiple,92.5
+Multiple faults/recoveries,2,Causal persistence,average_deficit_m3_per_emitter,-5.3290705182007514e-15,Deficit reduction,Multiple,14.040000000000004
+Multiple faults/recoveries,2,Causal persistence,pressure_uniformity_index_pct,-0.13833162490085726,Pressure uniformity,Multiple,90.31865200593028
+Multiple faults/recoveries,2,Causal persistence,total_optimization_time_s,3.258935800018662,Time saving,Multiple,20.285401600012847
+Multiple faults/recoveries,2,Causal rolling,achievement_pct,0,Achievement,Multiple,92.5
+Multiple faults/recoveries,2,Causal rolling,average_deficit_m3_per_emitter,-5.3290705182007514e-15,Deficit reduction,Multiple,14.040000000000004
+Multiple faults/recoveries,2,Causal rolling,pressure_uniformity_index_pct,-0.20091072767834817,Pressure uniformity,Multiple,90.31865200593028
+Multiple faults/recoveries,2,Causal rolling,total_optimization_time_s,-52.437421600014204,Time saving,Multiple,20.285401600012847
+Multiple faults/recoveries,9,Oracle head,achievement_pct,0.5361901015001536,Achievement,Multiple,95.33589267985349
+Multiple faults/recoveries,9,Oracle head,average_deficit_m3_per_emitter,1.0037478700082794,Deficit reduction,Multiple,8.731208903314268
+Multiple faults/recoveries,9,Oracle head,pressure_uniformity_index_pct,-0.0032842055423429883,Pressure uniformity,Multiple,90.17721228528792
+Multiple faults/recoveries,9,Oracle head,total_optimization_time_s,-32.34281500000361,Time saving,Multiple,18.381330700001858
+Multiple faults/recoveries,9,Causal persistence,achievement_pct,0,Achievement,Multiple,95.33589267985349
+Multiple faults/recoveries,9,Causal persistence,average_deficit_m3_per_emitter,-1.7763568394002505e-15,Deficit reduction,Multiple,8.731208903314268
+Multiple faults/recoveries,9,Causal persistence,pressure_uniformity_index_pct,-0.11414443344480674,Pressure uniformity,Multiple,90.17721228528792
+Multiple faults/recoveries,9,Causal persistence,total_optimization_time_s,1.5824055000121042,Time saving,Multiple,18.381330700001858
+Multiple faults/recoveries,9,Causal rolling,achievement_pct,0.5361901015001536,Achievement,Multiple,95.33589267985349
+Multiple faults/recoveries,9,Causal rolling,average_deficit_m3_per_emitter,1.003747870008282,Deficit reduction,Multiple,8.731208903314268
+Multiple faults/recoveries,9,Causal rolling,pressure_uniformity_index_pct,0.2185196224087349,Pressure uniformity,Multiple,90.17721228528792
+Multiple faults/recoveries,9,Causal rolling,total_optimization_time_s,-54.72102829997311,Time saving,Multiple,18.381330700001858
+Multiple faults/recoveries,6,Oracle head,achievement_pct,-0.781623978356933,Achievement,Multiple,97.31380559388867
+Multiple faults/recoveries,6,Oracle head,average_deficit_m3_per_emitter,-1.4632000874841697,Deficit reduction,Multiple,5.028555928240369
+Multiple faults/recoveries,6,Oracle head,pressure_uniformity_index_pct,0.22486674368167314,Pressure uniformity,Multiple,90.15730150893845
+Multiple faults/recoveries,6,Oracle head,total_optimization_time_s,-36.83761870000308,Time saving,Multiple,16.818041199992876
+Multiple faults/recoveries,6,Causal persistence,achievement_pct,-0.17088462536234772,Achievement,Multiple,97.31380559388867
+Multiple faults/recoveries,6,Causal persistence,average_deficit_m3_per_emitter,-0.3198960186783646,Deficit reduction,Multiple,5.028555928240369
+Multiple faults/recoveries,6,Causal persistence,pressure_uniformity_index_pct,-0.12249849932960899,Pressure uniformity,Multiple,90.15730150893845
+Multiple faults/recoveries,6,Causal persistence,total_optimization_time_s,2.301875099990866,Time saving,Multiple,16.818041199992876
+Multiple faults/recoveries,6,Causal rolling,achievement_pct,0,Achievement,Multiple,97.31380559388867
+Multiple faults/recoveries,6,Causal rolling,average_deficit_m3_per_emitter,0,Deficit reduction,Multiple,5.028555928240369
+Multiple faults/recoveries,6,Causal rolling,pressure_uniformity_index_pct,-0.19578895329749457,Pressure uniformity,Multiple,90.15730150893845
+Multiple faults/recoveries,6,Causal rolling,total_optimization_time_s,-61.88010259998555,Time saving,Multiple,16.818041199992876
+Multiple faults/recoveries,7,Oracle head,achievement_pct,-0.38840275087947873,Achievement,Multiple,97.35896884853264
+Multiple faults/recoveries,7,Oracle head,average_deficit_m3_per_emitter,-0.7270899496464702,Deficit reduction,Multiple,4.94401031554681
+Multiple faults/recoveries,7,Oracle head,pressure_uniformity_index_pct,-0.37978564487575284,Pressure uniformity,Multiple,90.42103125139208
+Multiple faults/recoveries,7,Oracle head,total_optimization_time_s,-40.73446000000695,Time saving,Multiple,16.58240129999467
+Multiple faults/recoveries,7,Causal persistence,achievement_pct,-1.9924032257050186,Achievement,Multiple,97.35896884853264
+Multiple faults/recoveries,7,Causal persistence,average_deficit_m3_per_emitter,-3.729778838519846,Deficit reduction,Multiple,4.94401031554681
+Multiple faults/recoveries,7,Causal persistence,pressure_uniformity_index_pct,-0.23864729105952165,Pressure uniformity,Multiple,90.42103125139208
+Multiple faults/recoveries,7,Causal persistence,total_optimization_time_s,1.6048620000001392,Time saving,Multiple,16.58240129999467
+Multiple faults/recoveries,7,Causal rolling,achievement_pct,-2.0550694175461643,Achievement,Multiple,97.35896884853264
+Multiple faults/recoveries,7,Causal rolling,average_deficit_m3_per_emitter,-3.8470899496464694,Deficit reduction,Multiple,4.94401031554681
+Multiple faults/recoveries,7,Causal rolling,pressure_uniformity_index_pct,-0.06820962673043596,Pressure uniformity,Multiple,90.42103125139208
+Multiple faults/recoveries,7,Causal rolling,total_optimization_time_s,-59.581002799997805,Time saving,Multiple,16.58240129999467
+Multiple faults/recoveries,10,Oracle head,achievement_pct,-1.0604226782290453,Achievement,Multiple,91.89375601156236
+Multiple faults/recoveries,10,Oracle head,average_deficit_m3_per_emitter,-1.9851112536447548,Deficit reduction,Multiple,15.174888746355252
+Multiple faults/recoveries,10,Oracle head,pressure_uniformity_index_pct,0.1703738411098925,Pressure uniformity,Multiple,90.81464631354646
+Multiple faults/recoveries,10,Oracle head,total_optimization_time_s,-39.1824950000082,Time saving,Multiple,18.380320099990058
+Multiple faults/recoveries,10,Causal persistence,achievement_pct,4.549268825033138,Achievement,Multiple,91.89375601156236
+Multiple faults/recoveries,10,Causal persistence,average_deficit_m3_per_emitter,8.516231240462055,Deficit reduction,Multiple,15.174888746355252
+Multiple faults/recoveries,10,Causal persistence,pressure_uniformity_index_pct,-0.23188314234749896,Pressure uniformity,Multiple,90.81464631354646
+Multiple faults/recoveries,10,Causal persistence,total_optimization_time_s,1.4694201999736833,Time saving,Multiple,18.380320099990058
+Multiple faults/recoveries,10,Causal rolling,achievement_pct,2.7331767096228816,Achievement,Multiple,91.89375601156236
+Multiple faults/recoveries,10,Causal rolling,average_deficit_m3_per_emitter,5.116506800413996,Deficit reduction,Multiple,15.174888746355252
+Multiple faults/recoveries,10,Causal rolling,pressure_uniformity_index_pct,-0.5039276127338042,Pressure uniformity,Multiple,90.81464631354646
+Multiple faults/recoveries,10,Causal rolling,total_optimization_time_s,-52.16717019999487,Time saving,Multiple,18.380320099990058
+Multiple faults/recoveries,14,Oracle head,achievement_pct,-0.534219441959209,Achievement,Multiple,98.93156111608155
+Multiple faults/recoveries,14,Oracle head,average_deficit_m3_per_emitter,-1.0000587953476359,Deficit reduction,Multiple,2.0001175906952717
+Multiple faults/recoveries,14,Oracle head,pressure_uniformity_index_pct,-0.02982941764430791,Pressure uniformity,Multiple,90.23513738615314
+Multiple faults/recoveries,14,Oracle head,total_optimization_time_s,-20.891630099991747,Time saving,Multiple,9.046015300002182
+Multiple faults/recoveries,14,Causal persistence,achievement_pct,-0.534219441959209,Achievement,Multiple,98.93156111608155
+Multiple faults/recoveries,14,Causal persistence,average_deficit_m3_per_emitter,-1.0000587953476359,Deficit reduction,Multiple,2.0001175906952717
+Multiple faults/recoveries,14,Causal persistence,pressure_uniformity_index_pct,0.19793303099821458,Pressure uniformity,Multiple,90.23513738615314
+Multiple faults/recoveries,14,Causal persistence,total_optimization_time_s,-0.9584840999959869,Time saving,Multiple,9.046015300002182
+Multiple faults/recoveries,14,Causal rolling,achievement_pct,-1.0684388839183896,Achievement,Multiple,98.93156111608155
+Multiple faults/recoveries,14,Causal rolling,average_deficit_m3_per_emitter,-2.0001175906952717,Deficit reduction,Multiple,2.0001175906952717
+Multiple faults/recoveries,14,Causal rolling,pressure_uniformity_index_pct,-0.15799693248854396,Pressure uniformity,Multiple,90.23513738615314
+Multiple faults/recoveries,14,Causal rolling,total_optimization_time_s,-59.9528328999877,Time saving,Multiple,9.046015300002182
+Multiple faults/recoveries,21,Oracle head,achievement_pct,0,Achievement,Multiple,98.509682536929
+Multiple faults/recoveries,21,Oracle head,average_deficit_m3_per_emitter,0,Deficit reduction,Multiple,2.7898742908688545
+Multiple faults/recoveries,21,Oracle head,pressure_uniformity_index_pct,0.08288767676195619,Pressure uniformity,Multiple,90.49301190168364
+Multiple faults/recoveries,21,Oracle head,total_optimization_time_s,-10.597499999996217,Time saving,Multiple,8.574491200008197
+Multiple faults/recoveries,21,Causal persistence,achievement_pct,0.7451587315354686,Achievement,Multiple,98.509682536929
+Multiple faults/recoveries,21,Causal persistence,average_deficit_m3_per_emitter,1.3949371454344266,Deficit reduction,Multiple,2.7898742908688545
+Multiple faults/recoveries,21,Causal persistence,pressure_uniformity_index_pct,0.23859360804750906,Pressure uniformity,Multiple,90.49301190168364
+Multiple faults/recoveries,21,Causal persistence,total_optimization_time_s,0.48578040001302725,Time saving,Multiple,8.574491200008197
+Multiple faults/recoveries,21,Causal rolling,achievement_pct,0.7451587315354686,Achievement,Multiple,98.509682536929
+Multiple faults/recoveries,21,Causal rolling,average_deficit_m3_per_emitter,1.3949371454344266,Deficit reduction,Multiple,2.7898742908688545
+Multiple faults/recoveries,21,Causal rolling,pressure_uniformity_index_pct,0.12259279168685566,Pressure uniformity,Multiple,90.49301190168364
+Multiple faults/recoveries,21,Causal rolling,total_optimization_time_s,-61.971347699953185,Time saving,Multiple,8.574491200008197
+Multiple faults/recoveries,19,Oracle head,achievement_pct,-1.4210854715202004e-14,Achievement,Multiple,99.4248263721525
+Multiple faults/recoveries,19,Oracle head,average_deficit_m3_per_emitter,2.6645352591003757e-15,Deficit reduction,Multiple,1.076725031330541
+Multiple faults/recoveries,19,Oracle head,pressure_uniformity_index_pct,-0.43065262869882304,Pressure uniformity,Multiple,90.0598639341495
+Multiple faults/recoveries,19,Oracle head,total_optimization_time_s,-17.88248400000157,Time saving,Multiple,10.173149499998544
+Multiple faults/recoveries,19,Causal persistence,achievement_pct,-1.4210854715202004e-14,Achievement,Multiple,99.4248263721525
+Multiple faults/recoveries,19,Causal persistence,average_deficit_m3_per_emitter,0,Deficit reduction,Multiple,1.076725031330541
+Multiple faults/recoveries,19,Causal persistence,pressure_uniformity_index_pct,-0.06471015565402638,Pressure uniformity,Multiple,90.0598639341495
+Multiple faults/recoveries,19,Causal persistence,total_optimization_time_s,-1.3684828999976162,Time saving,Multiple,10.173149499998544
+Multiple faults/recoveries,19,Causal rolling,achievement_pct,-1.4210854715202004e-14,Achievement,Multiple,99.4248263721525
+Multiple faults/recoveries,19,Causal rolling,average_deficit_m3_per_emitter,0,Deficit reduction,Multiple,1.076725031330541
+Multiple faults/recoveries,19,Causal rolling,pressure_uniformity_index_pct,-0.39285656801051516,Pressure uniformity,Multiple,90.0598639341495
+Multiple faults/recoveries,19,Causal rolling,total_optimization_time_s,-61.45000859998254,Time saving,Multiple,10.173149499998544
+Multiple faults/recoveries,15,Oracle head,achievement_pct,0,Achievement,Multiple,98.59324747533496
+Multiple faults/recoveries,15,Oracle head,average_deficit_m3_per_emitter,0,Deficit reduction,Multiple,2.6334407261729416
+Multiple faults/recoveries,15,Oracle head,pressure_uniformity_index_pct,0.5050288585803742,Pressure uniformity,Multiple,90.41054296975912
+Multiple faults/recoveries,15,Oracle head,total_optimization_time_s,-31.39557860000059,Time saving,Multiple,12.134095800000068
+Multiple faults/recoveries,15,Causal persistence,achievement_pct,0,Achievement,Multiple,98.59324747533496
+Multiple faults/recoveries,15,Causal persistence,average_deficit_m3_per_emitter,0,Deficit reduction,Multiple,2.6334407261729416
+Multiple faults/recoveries,15,Causal persistence,pressure_uniformity_index_pct,0.07764346006591438,Pressure uniformity,Multiple,90.41054296975912
+Multiple faults/recoveries,15,Causal persistence,total_optimization_time_s,1.2421095999961835,Time saving,Multiple,12.134095800000068
+Multiple faults/recoveries,15,Causal rolling,achievement_pct,0.7033762623324975,Achievement,Multiple,98.59324747533496
+Multiple faults/recoveries,15,Causal rolling,average_deficit_m3_per_emitter,1.316720363086468,Deficit reduction,Multiple,2.6334407261729416
+Multiple faults/recoveries,15,Causal rolling,pressure_uniformity_index_pct,0.42559354603770316,Pressure uniformity,Multiple,90.41054296975912
+Multiple faults/recoveries,15,Causal rolling,total_optimization_time_s,-59.067508200016164,Time saving,Multiple,12.134095800000068
+Multiple faults/recoveries,12,Oracle head,achievement_pct,0,Achievement,Multiple,99.24619510321536
+Multiple faults/recoveries,12,Oracle head,average_deficit_m3_per_emitter,0,Deficit reduction,Multiple,1.4111227667808062
+Multiple faults/recoveries,12,Oracle head,pressure_uniformity_index_pct,0.5253332161816502,Pressure uniformity,Multiple,90.36868166175366
+Multiple faults/recoveries,12,Oracle head,total_optimization_time_s,-25.24223229999916,Time saving,Multiple,14.587901700004297
+Multiple faults/recoveries,12,Causal persistence,achievement_pct,-0.2270534793787391,Achievement,Multiple,99.24619510321536
+Multiple faults/recoveries,12,Causal persistence,average_deficit_m3_per_emitter,-0.4250441133970506,Deficit reduction,Multiple,1.4111227667808062
+Multiple faults/recoveries,12,Causal persistence,pressure_uniformity_index_pct,0.29959666254744377,Pressure uniformity,Multiple,90.36868166175366
+Multiple faults/recoveries,12,Causal persistence,total_optimization_time_s,2.4681764999913884,Time saving,Multiple,14.587901700004297
+Multiple faults/recoveries,12,Causal rolling,achievement_pct,0.24521459404085988,Achievement,Multiple,99.24619510321536
+Multiple faults/recoveries,12,Causal rolling,average_deficit_m3_per_emitter,0.4590417200444632,Deficit reduction,Multiple,1.4111227667808062
+Multiple faults/recoveries,12,Causal rolling,pressure_uniformity_index_pct,0.036693015010385466,Pressure uniformity,Multiple,90.36868166175366
+Multiple faults/recoveries,12,Causal rolling,total_optimization_time_s,-58.21182530000078,Time saving,Multiple,14.587901700004297
+Multiple faults/recoveries,20,Oracle head,achievement_pct,-0.1817813305815008,Achievement,Multiple,95.31293040031436
+Multiple faults/recoveries,20,Oracle head,average_deficit_m3_per_emitter,-0.3402946508485716,Deficit reduction,Multiple,8.774194290611513
+Multiple faults/recoveries,20,Oracle head,pressure_uniformity_index_pct,-0.3257989752367223,Pressure uniformity,Multiple,90.3044471932885
+Multiple faults/recoveries,20,Oracle head,total_optimization_time_s,-30.822433700006513,Time saving,Multiple,12.061277299995709
+Multiple faults/recoveries,20,Causal persistence,achievement_pct,0.02988454803556806,Achievement,Multiple,95.31293040031436
+Multiple faults/recoveries,20,Causal persistence,average_deficit_m3_per_emitter,0.05594387392259215,Deficit reduction,Multiple,8.774194290611513
+Multiple faults/recoveries,20,Causal persistence,pressure_uniformity_index_pct,-0.36418808390703816,Pressure uniformity,Multiple,90.3044471932885
+Multiple faults/recoveries,20,Causal persistence,total_optimization_time_s,-1.1306457000100636,Time saving,Multiple,12.061277299995709
+Multiple faults/recoveries,20,Causal rolling,achievement_pct,-0.18178133058151502,Achievement,Multiple,95.31293040031436
+Multiple faults/recoveries,20,Causal rolling,average_deficit_m3_per_emitter,-0.3402946508485716,Deficit reduction,Multiple,8.774194290611513
+Multiple faults/recoveries,20,Causal rolling,pressure_uniformity_index_pct,-0.7844710271451021,Pressure uniformity,Multiple,90.3044471932885
+Multiple faults/recoveries,20,Causal rolling,total_optimization_time_s,-56.0429447000206,Time saving,Multiple,12.061277299995709
+Multiple faults/recoveries,18,Oracle head,achievement_pct,-0.27201395376552284,Achievement,Multiple,97.8486859446828
+Multiple faults/recoveries,18,Oracle head,average_deficit_m3_per_emitter,-0.5092101214490592,Deficit reduction,Multiple,4.027259911553771
+Multiple faults/recoveries,18,Oracle head,pressure_uniformity_index_pct,0.30226013405408025,Pressure uniformity,Multiple,89.50880009531015
+Multiple faults/recoveries,18,Oracle head,total_optimization_time_s,-33.553337200020906,Time saving,Multiple,14.631908999996083
+Multiple faults/recoveries,18,Causal persistence,achievement_pct,-0.48464738865051515,Achievement,Multiple,97.8486859446828
+Multiple faults/recoveries,18,Causal persistence,average_deficit_m3_per_emitter,-0.9072599115537701,Deficit reduction,Multiple,4.027259911553771
+Multiple faults/recoveries,18,Causal persistence,pressure_uniformity_index_pct,0.607569388695012,Pressure uniformity,Multiple,89.50880009531015
+Multiple faults/recoveries,18,Causal persistence,total_optimization_time_s,1.0887935999853635,Time saving,Multiple,14.631908999996083
+Multiple faults/recoveries,18,Causal rolling,achievement_pct,-0.48464738865051515,Achievement,Multiple,97.8486859446828
+Multiple faults/recoveries,18,Causal rolling,average_deficit_m3_per_emitter,-0.9072599115537701,Deficit reduction,Multiple,4.027259911553771
+Multiple faults/recoveries,18,Causal rolling,pressure_uniformity_index_pct,0.6570080104729925,Pressure uniformity,Multiple,89.50880009531015
+Multiple faults/recoveries,18,Causal rolling,total_optimization_time_s,-55.505861300021934,Time saving,Multiple,14.631908999996083
+Multiple faults/recoveries,17,Oracle head,achievement_pct,0.35130583839529095,Achievement,Multiple,97.41663446522595
+Multiple faults/recoveries,17,Oracle head,average_deficit_m3_per_emitter,0.657644529475899,Deficit reduction,Multiple,4.836060281096939
+Multiple faults/recoveries,17,Oracle head,pressure_uniformity_index_pct,0.484984408084955,Pressure uniformity,Multiple,89.84859837827675
+Multiple faults/recoveries,17,Oracle head,total_optimization_time_s,-36.12743069999851,Time saving,Multiple,16.230883100004576
+Multiple faults/recoveries,17,Causal persistence,achievement_pct,0.3098976163928455,Achievement,Multiple,97.41663446522595
+Multiple faults/recoveries,17,Causal persistence,average_deficit_m3_per_emitter,0.5801283378873547,Deficit reduction,Multiple,4.836060281096939
+Multiple faults/recoveries,17,Causal persistence,pressure_uniformity_index_pct,0.26543691438278927,Pressure uniformity,Multiple,89.84859837827675
+Multiple faults/recoveries,17,Causal persistence,total_optimization_time_s,0.7618595000021742,Time saving,Multiple,16.230883100004576
+Multiple faults/recoveries,17,Causal rolling,achievement_pct,-0.041408222002388584,Achievement,Multiple,97.41663446522595
+Multiple faults/recoveries,17,Causal rolling,average_deficit_m3_per_emitter,-0.0775161915885425,Deficit reduction,Multiple,4.836060281096939
+Multiple faults/recoveries,17,Causal rolling,pressure_uniformity_index_pct,0.6874817068582502,Pressure uniformity,Multiple,89.84859837827675
+Multiple faults/recoveries,17,Causal rolling,total_optimization_time_s,-55.092463400011184,Time saving,Multiple,16.230883100004576
+Multiple faults/recoveries,16,Oracle head,achievement_pct,0,Achievement,Multiple,97.76016422570171
+Multiple faults/recoveries,16,Oracle head,average_deficit_m3_per_emitter,0,Deficit reduction,Multiple,4.192972569486341
+Multiple faults/recoveries,16,Oracle head,pressure_uniformity_index_pct,0.12299350691341715,Pressure uniformity,Multiple,90.1948348510875
+Multiple faults/recoveries,16,Oracle head,total_optimization_time_s,-37.23878180000611,Time saving,Multiple,17.911877699996694
+Multiple faults/recoveries,16,Causal persistence,achievement_pct,-0.22435345258899986,Achievement,Multiple,97.76016422570171
+Multiple faults/recoveries,16,Causal persistence,average_deficit_m3_per_emitter,-0.41998966324663733,Deficit reduction,Multiple,4.192972569486341
+Multiple faults/recoveries,16,Causal persistence,pressure_uniformity_index_pct,-0.2661620121113799,Pressure uniformity,Multiple,90.1948348510875
+Multiple faults/recoveries,16,Causal persistence,total_optimization_time_s,2.447882499996922,Time saving,Multiple,17.911877699996694
+Multiple faults/recoveries,16,Causal rolling,achievement_pct,0.1673404015438109,Achievement,Multiple,97.76016422570171
+Multiple faults/recoveries,16,Causal rolling,average_deficit_m3_per_emitter,0.31326123168996967,Deficit reduction,Multiple,4.192972569486341
+Multiple faults/recoveries,16,Causal rolling,pressure_uniformity_index_pct,0.011292321242180492,Pressure uniformity,Multiple,90.1948348510875
+Multiple faults/recoveries,16,Causal rolling,total_optimization_time_s,-54.397695199993905,Time saving,Multiple,17.911877699996694
+Multiple faults/recoveries,24,Oracle head,achievement_pct,-1.4665144220691815,Achievement,Multiple,98.53348557793078
+Multiple faults/recoveries,24,Oracle head,average_deficit_m3_per_emitter,-2.7453149981135474,Deficit reduction,Multiple,2.7453149981135474
+Multiple faults/recoveries,24,Oracle head,pressure_uniformity_index_pct,-0.28021329867713973,Pressure uniformity,Multiple,91.26253106690714
+Multiple faults/recoveries,24,Oracle head,total_optimization_time_s,-22.86149419999856,Time saving,Multiple,9.087146400001076
+Multiple faults/recoveries,24,Causal persistence,achievement_pct,-1.4665144220691815,Achievement,Multiple,98.53348557793078
+Multiple faults/recoveries,24,Causal persistence,average_deficit_m3_per_emitter,-2.7453149981135474,Deficit reduction,Multiple,2.7453149981135474
+Multiple faults/recoveries,24,Causal persistence,pressure_uniformity_index_pct,-0.029516110611425006,Pressure uniformity,Multiple,91.26253106690714
+Multiple faults/recoveries,24,Causal persistence,total_optimization_time_s,-0.6452311000102764,Time saving,Multiple,9.087146400001076
+Multiple faults/recoveries,24,Causal rolling,achievement_pct,-0.7332572110345978,Achievement,Multiple,98.53348557793078
+Multiple faults/recoveries,24,Causal rolling,average_deficit_m3_per_emitter,-1.3726574990567735,Deficit reduction,Multiple,2.7453149981135474
+Multiple faults/recoveries,24,Causal rolling,pressure_uniformity_index_pct,0.1600582652692566,Pressure uniformity,Multiple,91.26253106690714
+Multiple faults/recoveries,24,Causal rolling,total_optimization_time_s,-54.598299699981,Time saving,Multiple,9.087146400001076
+Multiple faults/recoveries,13,Oracle head,achievement_pct,-0.052145259808682454,Achievement,Multiple,96.17018580729808
+Multiple faults/recoveries,13,Oracle head,average_deficit_m3_per_emitter,-0.09761592636188787,Deficit reduction,Multiple,7.1694121687379795
+Multiple faults/recoveries,13,Oracle head,pressure_uniformity_index_pct,0.27295658214504215,Pressure uniformity,Multiple,90.4467599429982
+Multiple faults/recoveries,13,Oracle head,total_optimization_time_s,-46.98454009999841,Time saving,Multiple,20.94351130000723
+Multiple faults/recoveries,13,Causal persistence,achievement_pct,-0.6051651738734449,Achievement,Multiple,96.17018580729808
+Multiple faults/recoveries,13,Causal persistence,average_deficit_m3_per_emitter,-1.1328692054910334,Deficit reduction,Multiple,7.1694121687379795
+Multiple faults/recoveries,13,Causal persistence,pressure_uniformity_index_pct,0.22222618476924083,Pressure uniformity,Multiple,90.4467599429982
+Multiple faults/recoveries,13,Causal persistence,total_optimization_time_s,2.226955400015868,Time saving,Multiple,20.94351130000723
+Multiple faults/recoveries,13,Causal rolling,achievement_pct,-0.6029682764297064,Achievement,Multiple,96.17018580729808
+Multiple faults/recoveries,13,Causal rolling,average_deficit_m3_per_emitter,-1.1287566134763924,Deficit reduction,Multiple,7.1694121687379795
+Multiple faults/recoveries,13,Causal rolling,pressure_uniformity_index_pct,0.2511613902094041,Pressure uniformity,Multiple,90.4467599429982
+Multiple faults/recoveries,13,Causal rolling,total_optimization_time_s,-45.19364169997425,Time saving,Multiple,20.94351130000723
+Multiple faults/recoveries,27,Oracle head,achievement_pct,-0.6247561300572215,Achievement,Multiple,97.29142279672388
+Multiple faults/recoveries,27,Oracle head,average_deficit_m3_per_emitter,-1.1695434754671563,Deficit reduction,Multiple,5.070456524532843
+Multiple faults/recoveries,27,Oracle head,pressure_uniformity_index_pct,0.6529188544377291,Pressure uniformity,Multiple,89.31893009487804
+Multiple faults/recoveries,27,Oracle head,total_optimization_time_s,-18.47783360000176,Time saving,Multiple,9.936640400002943
+Multiple faults/recoveries,27,Causal persistence,achievement_pct,-1.4580894633905643,Achievement,Multiple,97.29142279672388
+Multiple faults/recoveries,27,Causal persistence,average_deficit_m3_per_emitter,-2.729543475467156,Deficit reduction,Multiple,5.070456524532843
+Multiple faults/recoveries,27,Causal persistence,pressure_uniformity_index_pct,0.3941338917248345,Pressure uniformity,Multiple,89.31893009487804
+Multiple faults/recoveries,27,Causal persistence,total_optimization_time_s,1.5034015999990515,Time saving,Multiple,9.936640400002943
+Multiple faults/recoveries,27,Causal rolling,achievement_pct,-0.6247561300572215,Achievement,Multiple,97.29142279672388
+Multiple faults/recoveries,27,Causal rolling,average_deficit_m3_per_emitter,-1.1695434754671563,Deficit reduction,Multiple,5.070456524532843
+Multiple faults/recoveries,27,Causal rolling,pressure_uniformity_index_pct,0.3150505870190585,Pressure uniformity,Multiple,89.31893009487804
+Multiple faults/recoveries,27,Causal rolling,total_optimization_time_s,-51.56819989999349,Time saving,Multiple,9.936640400002943
+Multiple faults/recoveries,11,Oracle head,achievement_pct,-0.6471181756176776,Achievement,Multiple,95.80893308962104
+Multiple faults/recoveries,11,Oracle head,average_deficit_m3_per_emitter,-1.211405224756259,Deficit reduction,Multiple,7.845677256229388
+Multiple faults/recoveries,11,Oracle head,pressure_uniformity_index_pct,0.6379200356213062,Pressure uniformity,Multiple,89.10684830032527
+Multiple faults/recoveries,11,Oracle head,total_optimization_time_s,-54.850851600022,Time saving,Multiple,20.988277399992512
+Multiple faults/recoveries,11,Causal persistence,achievement_pct,-2.2954401502718724,Achievement,Multiple,95.80893308962104
+Multiple faults/recoveries,11,Causal persistence,average_deficit_m3_per_emitter,-4.2970639613089325,Deficit reduction,Multiple,7.845677256229388
+Multiple faults/recoveries,11,Causal persistence,pressure_uniformity_index_pct,0.19526580356266265,Pressure uniformity,Multiple,89.10684830032527
+Multiple faults/recoveries,11,Causal persistence,total_optimization_time_s,-0.04582850000587868,Time saving,Multiple,20.988277399992512
+Multiple faults/recoveries,11,Causal rolling,achievement_pct,-0.7882934318293593,Achievement,Multiple,95.80893308962104
+Multiple faults/recoveries,11,Causal rolling,average_deficit_m3_per_emitter,-1.4756853043845801,Deficit reduction,Multiple,7.845677256229388
+Multiple faults/recoveries,11,Causal rolling,pressure_uniformity_index_pct,0.9804927709821669,Pressure uniformity,Multiple,89.10684830032527
+Multiple faults/recoveries,11,Causal rolling,total_optimization_time_s,-42.033784199971706,Time saving,Multiple,20.988277399992512
+Multiple faults/recoveries,26,Oracle head,achievement_pct,-0.48626689949493596,Achievement,Multiple,98.0169823949087
+Multiple faults/recoveries,26,Oracle head,average_deficit_m3_per_emitter,-0.9102916358544979,Deficit reduction,Multiple,3.7122089567308834
+Multiple faults/recoveries,26,Oracle head,pressure_uniformity_index_pct,0.15324693669583667,Pressure uniformity,Multiple,90.2326070087188
+Multiple faults/recoveries,26,Oracle head,total_optimization_time_s,-18.246688499995802,Time saving,Multiple,12.035224200008088
+Multiple faults/recoveries,26,Causal persistence,achievement_pct,-0.34706643383839264,Achievement,Multiple,98.0169823949087
+Multiple faults/recoveries,26,Causal persistence,average_deficit_m3_per_emitter,-0.6497083641455017,Deficit reduction,Multiple,3.7122089567308834
+Multiple faults/recoveries,26,Causal persistence,pressure_uniformity_index_pct,-0.4271292820390755,Pressure uniformity,Multiple,90.2326070087188
+Multiple faults/recoveries,26,Causal persistence,total_optimization_time_s,1.0154976000048919,Time saving,Multiple,12.035224200008088
+Multiple faults/recoveries,26,Causal rolling,achievement_pct,-0.2277757020405744,Achievement,Multiple,98.0169823949087
+Multiple faults/recoveries,26,Causal rolling,average_deficit_m3_per_emitter,-0.4263961142199397,Deficit reduction,Multiple,3.7122089567308834
+Multiple faults/recoveries,26,Causal rolling,pressure_uniformity_index_pct,-0.17742184742188272,Pressure uniformity,Multiple,90.2326070087188
+Multiple faults/recoveries,26,Causal rolling,total_optimization_time_s,-49.84822599998006,Time saving,Multiple,12.035224200008088
+Multiple faults/recoveries,25,Oracle head,achievement_pct,-0.6503395489022665,Achievement,Multiple,97.68299378443106
+Multiple faults/recoveries,25,Oracle head,average_deficit_m3_per_emitter,-1.2174356355450104,Deficit reduction,Multiple,4.337435635545012
+Multiple faults/recoveries,25,Oracle head,pressure_uniformity_index_pct,-0.551124818477021,Pressure uniformity,Multiple,90.60091961256524
+Multiple faults/recoveries,25,Oracle head,total_optimization_time_s,-29.922314800001914,Time saving,Multiple,10.489516399997228
+Multiple faults/recoveries,25,Causal persistence,achievement_pct,0,Achievement,Multiple,97.68299378443106
+Multiple faults/recoveries,25,Causal persistence,average_deficit_m3_per_emitter,8.881784197001252e-16,Deficit reduction,Multiple,4.337435635545012
+Multiple faults/recoveries,25,Causal persistence,pressure_uniformity_index_pct,-0.3477026802484744,Pressure uniformity,Multiple,90.60091961256524
+Multiple faults/recoveries,25,Causal persistence,total_optimization_time_s,-0.9364996000076644,Time saving,Multiple,10.489516399997228
+Multiple faults/recoveries,25,Causal rolling,achievement_pct,1.4210854715202004e-14,Achievement,Multiple,97.68299378443106
+Multiple faults/recoveries,25,Causal rolling,average_deficit_m3_per_emitter,8.881784197001252e-16,Deficit reduction,Multiple,4.337435635545012
+Multiple faults/recoveries,25,Causal rolling,pressure_uniformity_index_pct,-0.23985610480301034,Pressure uniformity,Multiple,90.60091961256524
+Multiple faults/recoveries,25,Causal rolling,total_optimization_time_s,-51.073301300013554,Time saving,Multiple,10.489516399997228
+Multiple faults/recoveries,30,Oracle head,achievement_pct,-0.8333333333333286,Achievement,Multiple,98.91937520287154
+Multiple faults/recoveries,30,Oracle head,average_deficit_m3_per_emitter,-1.56,Deficit reduction,Multiple,2.022929620224495
+Multiple faults/recoveries,30,Oracle head,pressure_uniformity_index_pct,0.4498138122951616,Pressure uniformity,Multiple,90.5463876733508
+Multiple faults/recoveries,30,Oracle head,total_optimization_time_s,-23.122433899981843,Time saving,Multiple,9.265121700009333
+Multiple faults/recoveries,30,Causal persistence,achievement_pct,0,Achievement,Multiple,98.91937520287154
+Multiple faults/recoveries,30,Causal persistence,average_deficit_m3_per_emitter,0,Deficit reduction,Multiple,2.022929620224495
+Multiple faults/recoveries,30,Causal persistence,pressure_uniformity_index_pct,0.3470912818058025,Pressure uniformity,Multiple,90.5463876733508
+Multiple faults/recoveries,30,Causal persistence,total_optimization_time_s,1.613789600007296,Time saving,Multiple,9.265121700009333
+Multiple faults/recoveries,30,Causal rolling,achievement_pct,-2.500000000000014,Achievement,Multiple,98.91937520287154
+Multiple faults/recoveries,30,Causal rolling,average_deficit_m3_per_emitter,-4.68,Deficit reduction,Multiple,2.022929620224495
+Multiple faults/recoveries,30,Causal rolling,pressure_uniformity_index_pct,0.5307409430927663,Pressure uniformity,Multiple,90.5463876733508
+Multiple faults/recoveries,30,Causal rolling,total_optimization_time_s,-48.84120729999995,Time saving,Multiple,9.265121700009333
+Multiple faults/recoveries,23,Oracle head,achievement_pct,-0.3377512498791333,Achievement,Multiple,97.18924234576004
+Multiple faults/recoveries,23,Oracle head,average_deficit_m3_per_emitter,-0.6322703397737559,Deficit reduction,Multiple,5.261738328737166
+Multiple faults/recoveries,23,Oracle head,pressure_uniformity_index_pct,0.23245559137662042,Pressure uniformity,Multiple,90.57787926153922
+Multiple faults/recoveries,23,Oracle head,total_optimization_time_s,-38.17883370000345,Time saving,Multiple,18.17264540000906
+Multiple faults/recoveries,23,Causal persistence,achievement_pct,-0.07646341033243687,Achievement,Multiple,97.18924234576004
+Multiple faults/recoveries,23,Causal persistence,average_deficit_m3_per_emitter,-0.1431395041423391,Deficit reduction,Multiple,5.261738328737166
+Multiple faults/recoveries,23,Causal persistence,pressure_uniformity_index_pct,-0.4595983574050848,Pressure uniformity,Multiple,90.57787926153922
+Multiple faults/recoveries,23,Causal persistence,total_optimization_time_s,1.0163200000097277,Time saving,Multiple,18.17264540000906
+Multiple faults/recoveries,23,Causal rolling,achievement_pct,-0.5225756790933787,Achievement,Multiple,97.18924234576004
+Multiple faults/recoveries,23,Causal rolling,average_deficit_m3_per_emitter,-0.9782616712628336,Deficit reduction,Multiple,5.261738328737166
+Multiple faults/recoveries,23,Causal rolling,pressure_uniformity_index_pct,-0.8627776333568562,Pressure uniformity,Multiple,90.57787926153922
+Multiple faults/recoveries,23,Causal rolling,total_optimization_time_s,-39.487759699979506,Time saving,Multiple,18.17264540000906
+Multiple faults/recoveries,29,Oracle head,achievement_pct,-0.5065050500073198,Achievement,Multiple,98.48048484997796
+Multiple faults/recoveries,29,Oracle head,average_deficit_m3_per_emitter,-0.948177453613742,Deficit reduction,Multiple,2.84453236084123
+Multiple faults/recoveries,29,Oracle head,pressure_uniformity_index_pct,-0.27897742230044287,Pressure uniformity,Multiple,90.17280436483657
+Multiple faults/recoveries,29,Oracle head,total_optimization_time_s,-27.720185799982573,Time saving,Multiple,12.881439100012358
+Multiple faults/recoveries,29,Causal persistence,achievement_pct,0.5065050500073482,Achievement,Multiple,98.48048484997796
+Multiple faults/recoveries,29,Causal persistence,average_deficit_m3_per_emitter,0.9481774536137411,Deficit reduction,Multiple,2.84453236084123
+Multiple faults/recoveries,29,Causal persistence,pressure_uniformity_index_pct,0.11502679906881497,Pressure uniformity,Multiple,90.17280436483657
+Multiple faults/recoveries,29,Causal persistence,total_optimization_time_s,-0.33115259998157853,Time saving,Multiple,12.881439100012358
+Multiple faults/recoveries,29,Causal rolling,achievement_pct,0,Achievement,Multiple,98.48048484997796
+Multiple faults/recoveries,29,Causal rolling,average_deficit_m3_per_emitter,0,Deficit reduction,Multiple,2.84453236084123
+Multiple faults/recoveries,29,Causal rolling,pressure_uniformity_index_pct,0.11289099633113153,Pressure uniformity,Multiple,90.17280436483657
+Multiple faults/recoveries,29,Causal rolling,total_optimization_time_s,-43.67468020000524,Time saving,Multiple,12.881439100012358
+Multiple faults/recoveries,28,Oracle head,achievement_pct,-0.11833319044829693,Achievement,Multiple,96.109720922503
+Multiple faults/recoveries,28,Oracle head,average_deficit_m3_per_emitter,-0.221519732519198,Deficit reduction,Multiple,7.282602433074375
+Multiple faults/recoveries,28,Oracle head,pressure_uniformity_index_pct,0.306372086518536,Pressure uniformity,Multiple,89.5179743269217
+Multiple faults/recoveries,28,Oracle head,total_optimization_time_s,-32.94221079999261,Time saving,Multiple,15.00200490000134
+Multiple faults/recoveries,28,Causal persistence,achievement_pct,0.2499067836542821,Achievement,Multiple,96.109720922503
+Multiple faults/recoveries,28,Causal persistence,average_deficit_m3_per_emitter,0.4678254990008064,Deficit reduction,Multiple,7.282602433074375
+Multiple faults/recoveries,28,Causal persistence,pressure_uniformity_index_pct,-0.12211542492181593,Pressure uniformity,Multiple,89.5179743269217
+Multiple faults/recoveries,28,Causal persistence,total_optimization_time_s,2.6234717999977892,Time saving,Multiple,15.00200490000134
+Multiple faults/recoveries,28,Causal rolling,achievement_pct,-0.37868319977060594,Achievement,Multiple,96.109720922503
+Multiple faults/recoveries,28,Causal rolling,average_deficit_m3_per_emitter,-0.7088949499705715,Deficit reduction,Multiple,7.282602433074375
+Multiple faults/recoveries,28,Causal rolling,pressure_uniformity_index_pct,0.09871456256034605,Pressure uniformity,Multiple,89.5179743269217
+Multiple faults/recoveries,28,Causal rolling,total_optimization_time_s,-40.86694019999413,Time saving,Multiple,15.00200490000134
+Multiple faults/recoveries,22,Oracle head,achievement_pct,-1.0796055218135194,Achievement,Multiple,97.13752885533304
+Multiple faults/recoveries,22,Oracle head,average_deficit_m3_per_emitter,-2.0210215368349065,Deficit reduction,Multiple,5.358545982816537
+Multiple faults/recoveries,22,Oracle head,pressure_uniformity_index_pct,-0.1064718571428358,Pressure uniformity,Multiple,90.29712172121052
+Multiple faults/recoveries,22,Oracle head,total_optimization_time_s,-53.83348199998727,Time saving,Multiple,19.9724516000133
+Multiple faults/recoveries,22,Causal persistence,achievement_pct,-1.3637358335856078,Achievement,Multiple,97.13752885533304
+Multiple faults/recoveries,22,Causal persistence,average_deficit_m3_per_emitter,-2.5529134804721743,Deficit reduction,Multiple,5.358545982816537
+Multiple faults/recoveries,22,Causal persistence,pressure_uniformity_index_pct,-0.2043940705257512,Pressure uniformity,Multiple,90.29712172121052
+Multiple faults/recoveries,22,Causal persistence,total_optimization_time_s,3.858272700010275,Time saving,Multiple,19.9724516000133
+Multiple faults/recoveries,22,Causal rolling,achievement_pct,-0.8333333333333428,Achievement,Multiple,97.13752885533304
+Multiple faults/recoveries,22,Causal rolling,average_deficit_m3_per_emitter,-1.5600000000000005,Deficit reduction,Multiple,5.358545982816537
+Multiple faults/recoveries,22,Causal rolling,pressure_uniformity_index_pct,0.22736196159677036,Pressure uniformity,Multiple,90.29712172121052
+Multiple faults/recoveries,22,Causal rolling,total_optimization_time_s,-35.34177489999274,Time saving,Multiple,19.9724516000133

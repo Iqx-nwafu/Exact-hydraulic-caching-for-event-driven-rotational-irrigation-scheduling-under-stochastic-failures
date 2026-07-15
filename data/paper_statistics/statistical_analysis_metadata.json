@@ -1,0 +1,10 @@
+{
+  "created_at": "2026-07-15 05:28:01",
+  "independent_unit": "scenario/context; optimizer repeats were aggregated within scenario before inference",
+  "confidence_interval": "10,000-replicate nonparametric bootstrap of scenario means",
+  "paired_test": "two-sided paired Wilcoxon signed-rank",
+  "multiple_testing": "Holm adjustment within analysis and metric families",
+  "algorithm_global_test": "Friedman test on scenario-aggregated independent algorithm runs",
+  "descriptive_row_count": 354,
+  "paired_test_count": 474
+}

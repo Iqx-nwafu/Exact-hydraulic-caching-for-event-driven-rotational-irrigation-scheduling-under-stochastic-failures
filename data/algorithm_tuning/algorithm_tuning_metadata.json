@@ -1,0 +1,18 @@
+{
+  "created_at": "2026-07-15 01:52:54",
+  "python": "3.13.5 | packaged by Anaconda, Inc. | (main, Jun 12 2025, 16:37:03) [MSC v.1929 64 bit (AMD64)]",
+  "workers": 20,
+  "logical_cpu_count": 24,
+  "contexts": 12,
+  "context_composition": {
+    "normal": 4,
+    "post_fault": 4,
+    "post_recovery": 4
+  },
+  "replicates_per_context": 3,
+  "candidate_configs_per_algorithm": 8,
+  "evaluation_budget": 960,
+  "total_tasks": 1152,
+  "wall_time_s": 336.6740384000004,
+  "test_scenarios_used_for_tuning": false
+}

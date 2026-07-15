@@ -1,0 +1,30 @@
+{
+  "created_at": "2026-07-15 04:17:10",
+  "python": "3.13.5 | packaged by Anaconda, Inc. | (main, Jun 12 2025, 16:37:03) [MSC v.1929 64 bit (AMD64)]",
+  "workers": 20,
+  "logical_cpu_count": 24,
+  "development_scenarios": 1500,
+  "development_samples": 30000,
+  "external_scenarios": 600,
+  "external_samples": 12000,
+  "plans_per_scenario": 20,
+  "group_split": "scenario_id; 70% train, 15% validation, 15% internal test",
+  "external_topologies": [
+    "6 branches x 10 nodes",
+    "20 branches x 3 nodes",
+    "5 branches x 12 nodes"
+  ],
+  "feature_count": 442,
+  "wall_time_s": 30.98464519999834,
+  "leakage_audit": {
+    "scenario_ids_present_in_multiple_splits": 0,
+    "exact_plan_hashes_present_in_multiple_splits": 0,
+    "nearest_train_plan_hamming_distance_for_validation_test": {
+      "minimum": 0.7333333333333333,
+      "p01": 0.7666666666666667,
+      "p05": 0.8,
+      "median": 0.8833333333333333,
+      "near_duplicate_count_below_0p05": 0
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "created_at": "2026-07-15 04:38:30",
+  "python": "3.13.5 | packaged by Anaconda, Inc. | (main, Jun 12 2025, 16:37:03) [MSC v.1929 64 bit (AMD64)]",
+  "logical_cpu_count": 24,
+  "training_parallelism": "CatBoost thread_count=20; LightGBM/XGBoost targets fitted sequentially with 20 threads per target",
+  "selection_rule": "lowest grouped-validation operational score = mean target-wise IQR-normalized RMSE + 0.5*(1-feasibility balanced accuracy)",
+  "selected_family": "lightgbm",
+  "selected_configs": {
+    "catboost": {
+      "iterations": 800,
+      "depth": 6,
+      "learning_rate": 0.03,
+      "l2_leaf_reg": 5.0
+    },
+    "lightgbm": {
+      "n_estimators": 900,
+      "num_leaves": 63,
+      "learning_rate": 0.025,
+      "min_child_samples": 50
+    },
+    "xgboost": {
+      "n_estimators": 800,
+      "max_depth": 6,
+      "learning_rate": 0.03,
+      "min_child_weight": 3.0
+    }
+  },
+  "train_samples": 21000,
+  "validation_samples": 4500,
+  "internal_test_samples": 4500,
+  "external_test_samples": 12000,
+  "wall_time_s": 514.2836468000023
+}
