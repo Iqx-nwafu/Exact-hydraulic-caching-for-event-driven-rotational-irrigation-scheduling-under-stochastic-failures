@@ -145,6 +145,11 @@ def load_network(nodes_path: Path, pipes_path: Path, roughness_mm_by_material: d
     if not required_pipes.issubset(pipes.columns):
         raise ValueError(f"Pipes.xlsx missing columns: {sorted(required_pipes - set(pipes.columns))}")
 
+    if nodes["node_id"].duplicated().any():
+        raise ValueError("Duplicated node IDs exist in Nodes.xlsx.")
+    if pipes["Pipe ID"].duplicated().any():
+        raise ValueError("Duplicated pipe IDs exist in Pipes.xlsx.")
+
     node_set = set(nodes["node_id"])
     missing_nodes = (set(pipes["FromNode"]) | set(pipes["ToNode"])) - node_set
     if missing_nodes:
@@ -976,7 +981,9 @@ def simulate_plan_with_events(
     active_faults: set[str] = set()
     event_idx = 0
     t = 0.0
-    plan = initial_plan
+    # Keep a private plan copy because a static plan may need its current group
+    # shortened after a mid-group fault.
+    plan = list(initial_plan)
     plan_idx = 0
     records: list[dict[str, Any]] = []
     traces: list[dict[str, Any]] = []
@@ -1074,6 +1081,12 @@ def simulate_plan_with_events(
             event_idx, _ = process_events_until(events, event_idx, t, active_faults)
             if dynamic:
                 plan_idx = len(plan)
+            else:
+                remaining_duration = group_end - t
+                if remaining_duration > EPS:
+                    plan[plan_idx] = Group(group.emitters, remaining_duration, group.stage)
+                else:
+                    plan_idx += 1
             continue
         plan_idx += 1
         if next_event and next_event.time_h < group_end - EPS and next_event.kind == "recovery":

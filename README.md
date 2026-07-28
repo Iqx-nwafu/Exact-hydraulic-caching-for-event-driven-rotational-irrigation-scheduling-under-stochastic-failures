@@ -37,6 +37,23 @@ The published runs used Python 3.13.5. Install the recorded package versions wit
 python -m pip install -r requirements.txt
 ```
 
+## Tests and coverage
+
+Install the test dependencies and run the unit, integration, and EPANET smoke tests:
+
+```bash
+python -m pip install -r requirements-test.txt
+python -m pytest -q
+```
+
+Measure statement and branch coverage:
+
+```bash
+python -m pytest -q --cov=src --cov-branch --cov-report=term-missing --cov-report=xml:coverage.xml
+```
+
+The coverage configuration enforces a 65% repository-wide minimum.
+
 ## Reproduction
 
 Run commands from the repository root. Each script writes new files under `outputs/`, leaving the published data unchanged.
