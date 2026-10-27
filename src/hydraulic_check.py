@@ -15,6 +15,8 @@ import numpy as np
 import pandas as pd
 import wntr
 
+from network_topology import add_network_args, derive_tree, lateral_emitter_groups, network_paths, pipe_roughness_mm, read_network_tables
+
 
 G = 9.80665
 EPS = 1e-12
@@ -42,6 +44,9 @@ class PipeNetworkData:
     emitter_to_node: list[str]
     emitter_index: dict[str, int]
     node_to_path: dict[str, tuple[int, ...]]
+    source_node: str
+    laterals: tuple[tuple[str, ...], ...]
+    node_lateral: dict[str, int]
 
 
 @dataclass(frozen=True)
@@ -73,15 +78,8 @@ def node_key(node_id: str) -> tuple[int, str]:
     return (int(node_id[1:]), node_id) if node_id.startswith("J") and node_id[1:].isdigit() else (10**9, node_id)
 
 
-def branch_position(node_id: str) -> tuple[int, int]:
-    num = int(node_id[1:])
-    if num >= 100:
-        return 10, num - 100
-    return num // 10, num % 10
-
-
-def emitter_node(emitter: str) -> str:
-    return emitter[:-1]
+def emitter_node(network: "PipeNetworkData", emitter: str) -> str:
+    return network.emitter_to_node[network.emitter_index[emitter]]
 
 
 def parse_emitter_list(value: Any) -> tuple[str, ...]:
@@ -92,69 +90,13 @@ def parse_emitter_list(value: Any) -> tuple[str, ...]:
 
 def load_network(
     nodes_path: Path,
-    pipes_path: Path,
+    pipes_path: Path | None,
     roughness_mm_by_material: dict[str, float],
+    emitters_path: Path | None = None,
 ) -> PipeNetworkData:
-    nodes = pd.read_excel(nodes_path)
-    pipes = pd.read_excel(pipes_path)
-    nodes.columns = [str(c).strip() for c in nodes.columns]
-    pipes.columns = [str(c).strip() for c in pipes.columns]
-    nodes = nodes.rename(columns={nodes.columns[0]: "node_id"})
-    required_nodes = {"node_id", "X", "Y", "Z"}
-    required_pipes = {"Pipe ID", "FromNode", "ToNode", "Length_m", "Diameter_m", "Material"}
-    if not required_nodes.issubset(nodes.columns):
-        raise ValueError(f"Nodes.xlsx missing columns: {sorted(required_nodes - set(nodes.columns))}")
-    if not required_pipes.issubset(pipes.columns):
-        raise ValueError(f"Pipes.xlsx missing columns: {sorted(required_pipes - set(pipes.columns))}")
-
-    nodes["node_id"] = nodes["node_id"].astype(str).str.strip()
-    pipes["Pipe ID"] = pipes["Pipe ID"].astype(str).str.strip()
-    pipes["FromNode"] = pipes["FromNode"].astype(str).str.strip()
-    pipes["ToNode"] = pipes["ToNode"].astype(str).str.strip()
-    pipes["Material"] = pipes["Material"].astype(str).str.upper().str.strip()
-
-    if nodes["node_id"].duplicated().any():
-        raise ValueError("Duplicated node IDs exist in Nodes.xlsx.")
-    if pipes["Pipe ID"].duplicated().any():
-        raise ValueError("Duplicated pipe IDs exist in Pipes.xlsx.")
-    node_set = set(nodes["node_id"])
-    missing = (set(pipes["FromNode"]) | set(pipes["ToNode"])) - node_set
-    if missing:
-        raise ValueError(f"Pipes.xlsx references node IDs not present in Nodes.xlsx: {sorted(missing)}")
-
-    materials = pipes["Material"].tolist()
-    missing_r = sorted(set(materials) - set(roughness_mm_by_material))
-    if missing_r:
-        raise ValueError(f"Missing material roughness parameters: {missing_r}")
-
-    parent_pipe: dict[str, int] = {}
-    for idx, to_node in enumerate(pipes["ToNode"].tolist()):
-        if to_node in parent_pipe:
-            raise ValueError(f"Node {to_node} has multiple upstream pipes; this check assumes a tree network.")
-        parent_pipe[to_node] = idx
-
-    main_nodes = {f"J{i}" for i in range(11)}
-    irrigation_nodes = [n for n in sorted(node_set, key=node_key) if n not in main_nodes]
-    emitters = [f"{n}{side}" for n in irrigation_nodes for side in ("L", "R")]
-    emitter_to_node = [emitter_node(e) for e in emitters]
-    emitter_index = {e: i for i, e in enumerate(emitters)}
-
-    node_to_path: dict[str, tuple[int, ...]] = {}
-    from_nodes = pipes["FromNode"].tolist()
-    to_nodes = pipes["ToNode"].tolist()
-    for node_id in irrigation_nodes:
-        current = node_id
-        path: list[int] = []
-        seen: set[str] = set()
-        while current != "J0":
-            if current in seen:
-                raise ValueError(f"Cycle detected while tracing path to {node_id}.")
-            seen.add(current)
-            pipe_idx = parent_pipe[current]
-            path.append(pipe_idx)
-            current = from_nodes[pipe_idx]
-        node_to_path[node_id] = tuple(reversed(path))
-
+    tables = read_network_tables(nodes_path, pipes_path, emitters_path)
+    tree = derive_tree(tables)
+    nodes, pipes = tables.nodes, tables.pipes
     diameters = pipes["Diameter_m"].astype(float).to_numpy()
     return PipeNetworkData(
         nodes=nodes,
@@ -163,19 +105,22 @@ def load_network(
         node_x=nodes.set_index("node_id")["X"].astype(float).to_dict(),
         node_y=nodes.set_index("node_id")["Y"].astype(float).to_dict(),
         pipe_ids=pipes["Pipe ID"].tolist(),
-        from_nodes=from_nodes,
-        to_nodes=to_nodes,
+        from_nodes=pipes["FromNode"].tolist(),
+        to_nodes=pipes["ToNode"].tolist(),
         lengths_m=pipes["Length_m"].astype(float).to_numpy(),
         diameters_m=diameters,
         areas_m2=math.pi * np.square(diameters) / 4.0,
-        materials=materials,
-        roughness_mm=np.array([roughness_mm_by_material[m] for m in materials], dtype=float),
-        parent_pipe=parent_pipe,
-        irrigation_nodes=irrigation_nodes,
-        emitters=emitters,
-        emitter_to_node=emitter_to_node,
-        emitter_index=emitter_index,
-        node_to_path=node_to_path,
+        materials=pipes["Material"].tolist(),
+        roughness_mm=np.array(pipe_roughness_mm(tables, roughness_mm_by_material), dtype=float),
+        parent_pipe=tree.parent_pipe,
+        irrigation_nodes=tree.irrigation_nodes,
+        emitters=tree.emitters,
+        emitter_to_node=tree.emitter_to_node,
+        emitter_index=tree.emitter_index,
+        node_to_path=tree.node_to_path,
+        source_node=tree.source_node,
+        laterals=tree.laterals,
+        node_lateral=tree.node_lateral,
     )
 
 
@@ -188,6 +133,8 @@ def build_wntr_model(
     wn = wntr.network.WaterNetworkModel()
     wn.options.hydraulic.headloss = "D-W"
     wn.options.hydraulic.demand_model = "DDA"
+    # EPANET's VISCOSITY is relative to 1.1e-5 ft2/s (1.022e-6 m2/s); match the model's 1.0e-6 m2/s.
+    wn.options.hydraulic.viscosity = WATER_KINEMATIC_VISCOSITY_M2S / (1.1e-5 * 0.3048**2)
     wn.options.time.duration = 0
     wn.options.time.hydraulic_timestep = 3600
     wn.options.time.report_timestep = 3600
@@ -196,13 +143,14 @@ def build_wntr_model(
     except Exception:
         pass
 
-    wn.add_reservoir("J0", base_head=float(source_head_m))
+    source = network.source_node
+    wn.add_reservoir(source, base_head=float(source_head_m))
     try:
-        wn.get_node("J0").coordinates = (float(network.node_x["J0"]), float(network.node_y["J0"]))
+        wn.get_node(source).coordinates = (float(network.node_x[source]), float(network.node_y[source]))
     except Exception:
         pass
 
-    for node_id in sorted((set(network.nodes["node_id"]) - {"J0"}), key=node_key):
+    for node_id in sorted((set(network.nodes["node_id"]) - {source}), key=node_key):
         wn.add_junction(
             node_id,
             base_demand=float(node_demands_m3s.get(node_id, 0.0)),
@@ -227,42 +175,28 @@ def build_wntr_model(
     return wn
 
 
-def colebrook_white_friction_factor(
-    reynolds: float,
-    roughness_m: float,
-    diameter_m: float,
-    max_iter: int = 30,
-    tol: float = 1e-12,
-) -> float:
-    if reynolds <= EPS:
+def darcy_friction_factor(reynolds: float, roughness_m: float, diameter_m: float) -> float:
+    """EPANET 2.2 all-regime Darcy factor, identical to the workbench's ``friction.darcy_friction_factor``.
+
+    64/Re up to Re = 2000, Swamee-Jain from Re = 4000, Dunlop's cubic anchored at Re = 4000 in between.
+    """
+    if reynolds <= 0.0:
         return 0.0
-    if reynolds < 2000.0:
+    if reynolds <= 2000.0:
         return 64.0 / reynolds
-
-    def turbulent_factor(re_value: float) -> float:
-        rel_roughness = max(roughness_m / max(diameter_m, EPS), 0.0)
-        # Haaland approximation is used only as a stable initial value.
-        f = 1.0 / max(
-            (-1.8 * math.log10((rel_roughness / 3.7) ** 1.11 + 6.9 / max(re_value, EPS))) ** 2,
-            EPS,
-        )
-        for _ in range(max_iter):
-            inv_sqrt_f = -2.0 * math.log10(rel_roughness / 3.7 + 2.51 / (re_value * math.sqrt(f)))
-            new_f = 1.0 / max(inv_sqrt_f * inv_sqrt_f, EPS)
-            if abs(new_f - f) <= tol:
-                return float(new_f)
-            f = new_f
-        return float(f)
-
+    rr = max(roughness_m / diameter_m, 0.0)
     if reynolds >= 4000.0:
-        return turbulent_factor(reynolds)
-
-    laminar = 64.0 / reynolds
-    turbulent = turbulent_factor(4000.0)
-    t = (reynolds - 2000.0) / 2000.0
-    smooth = t * t * (3.0 - 2.0 * t)
-    return float((1.0 - smooth) * laminar + smooth * turbulent)
-
+        return 0.25 / math.log10(rr / 3.7 + 5.74 / reynolds**0.9) ** 2
+    y2 = rr / 3.7 + 0.0032889547634539906  # 5.74 / 4000**0.9
+    y3 = -2.0 * math.log10(y2)
+    fa = y3**-2
+    fb = fa * (2.0 - 0.005142149657990938 / (y2 * y3))
+    ratio = reynolds / 2000.0
+    x1 = 7.0 * fa - fb
+    x2 = 0.128 - 17.0 * fa + 2.5 * fb
+    x3 = -0.128 + 13.0 * fa - 2.0 * fb
+    x4 = ratio * (0.032 - 3.0 * fa + 0.5 * fb)
+    return x1 + ratio * (x2 + ratio * (x3 + x4))
 
 def darcy_factors_from_roughness(
     flows_m3s: np.ndarray,
@@ -277,7 +211,7 @@ def darcy_factors_from_roughness(
     reynolds[active] = np.abs(velocities_ms[active]) * diameters_m[active] / max(kinematic_viscosity_m2s, EPS)
     roughness_m = roughness_mm / 1000.0
     for idx in np.flatnonzero(active):
-        factors[idx] = colebrook_white_friction_factor(
+        factors[idx] = darcy_friction_factor(
             float(reynolds[idx]),
             float(roughness_m[idx]),
             float(diameters_m[idx]),
@@ -293,7 +227,7 @@ def compute_my_hydraulics(
     local_loss_ratio: float,
     kinematic_viscosity_m2s: float = WATER_KINEMATIC_VISCOSITY_M2S,
 ) -> MyHydraulics:
-    counts = Counter(emitter_node(e) for e in emitters)
+    counts = Counter(emitter_node(network, e) for e in emitters)
     node_demands = {node: count * emitter_demand_m3s for node, count in counts.items()}
     pipe_flows = np.zeros(len(network.pipe_ids), dtype=float)
     for node_id, demand in node_demands.items():
@@ -347,13 +281,11 @@ def compute_my_hydraulics(
     )
 
 
-def original_groups(network: PipeNetworkData) -> list[tuple[str, ...]]:
-    groups: list[tuple[str, ...]] = []
-    for branch in range(1, 11):
-        nodes = [f"J{branch}{i}" for i in range(1, 7)] if branch < 10 else [f"J10{i}" for i in range(1, 7)]
-        for start in (0, 2, 4):
-            groups.append(tuple(f"{node}{side}" for node in nodes[start : start + 2] for side in ("L", "R")))
-    return groups
+def original_groups(network: PipeNetworkData, group_size: int = 4) -> list[tuple[str, ...]]:
+    return [
+        tuple(network.emitters[i] for i in group)
+        for group in lateral_emitter_groups(network.laterals, network.emitter_to_node, network.node_to_path, group_size)
+    ]
 
 
 def read_normal_groups(run_data_dir: Path) -> list[tuple[str, ...]]:
@@ -394,12 +326,12 @@ def choose_lowest_pressure_group(
     return best_group, float(best_min_pressure)
 
 
-def choose_cross_branch_group(groups: list[tuple[str, ...]]) -> tuple[str, ...] | None:
+def choose_cross_branch_group(network: PipeNetworkData, groups: list[tuple[str, ...]]) -> tuple[str, ...] | None:
     best: tuple[str, ...] | None = None
     best_score: tuple[int, int, int] = (-1, -1, -1)
     for group in groups:
-        nodes = [emitter_node(e) for e in group]
-        branches = {branch_position(node)[0] for node in nodes}
+        nodes = [emitter_node(network, e) for e in group]
+        branches = {network.node_lateral[node] for node in nodes}
         unique_nodes = set(nodes)
         score = (len(branches), len(unique_nodes), len(group))
         if score > best_score:
@@ -531,7 +463,7 @@ def select_typical_groups(
             "near-end original rotation group",
             source_head_m,
             originals[0],
-            "Original first group near J0.",
+            f"Original first group near {network.source_node}.",
             "constructed_original",
         )
     )
@@ -547,7 +479,7 @@ def select_typical_groups(
     )
 
     if normal_groups:
-        cross = choose_cross_branch_group(normal_groups)
+        cross = choose_cross_branch_group(network, normal_groups)
         if cross:
             cases.append(
                 GroupCase(
@@ -1014,7 +946,7 @@ def write_random_validation_report(
         "- Each case uses 4 distinct emitters sampled without replacement from the 120 emitters.",
         "- Source head is sampled uniformly from 20-30 m.",
         "- EPANET/WNTR uses demand-driven Darcy-Weisbach analysis with fixed emitter demand.",
-        "- The project verification model uses roughness-based Darcy-Weisbach with Colebrook-White friction factors.",
+        "- The project verification model uses roughness-based Darcy-Weisbach with the EPANET 2.2 friction law (Swamee-Jain, Dunlop transition).",
         "- Minor/local loss is excluded from the direct EPANET comparison; `1.1 * h_friction` remains an engineering correction output.",
         "",
         "## Overall Error Metrics",
@@ -1085,10 +1017,10 @@ def write_report(
         "",
         "## Scope",
         "",
-        "- Excel network data were converted to WNTR/EPANET models with J0 as a fixed-head reservoir and J1-J106 as junctions.",
+        "- Excel network data were converted to WNTR/EPANET models with the tree root (source node) as a fixed-head reservoir and all other nodes as junctions.",
         "- EPANET/WNTR was run in demand-driven mode with fixed emitter demand; pressure-flow reduction was intentionally excluded.",
         "- Headloss option was set to Darcy-Weisbach. Minor losses were set to zero in EPANET and excluded from the direct comparison.",
-        "- The project model was evaluated with the same Darcy-Weisbach roughness formulation: roughness, Reynolds number, and Colebrook-White friction factor.",
+        "- The project model was evaluated with the same Darcy-Weisbach roughness formulation: roughness, Reynolds number, and the EPANET 2.2 friction factor.",
         "- The engineering correction `h_total = 1.1 * h_friction` is reported separately and is not mixed into the EPANET comparison.",
         "",
         "## Environment",
@@ -1103,7 +1035,7 @@ def write_report(
         "",
         "EPANET's Darcy-Weisbach pipe parameter is roughness, not a fixed Darcy friction factor. "
         "The exported INP files use roughness values in millimetres (UPVC=0.018 mm, PE=0.020 mm). "
-        "The project-side verification model now calculates Darcy `f` from roughness and Reynolds number by Colebrook-White iteration, "
+        "The project-side verification model now calculates Darcy `f` from roughness and Reynolds number with the EPANET 2.2 all-regime law, "
         "so the comparison is no longer based on the earlier fixed-f simplification.",
         "",
         "## Typical Groups",
@@ -1167,8 +1099,7 @@ def build_parser() -> argparse.ArgumentParser:
     root = Path(__file__).resolve().parents[1]
     network_dir = root / "data" / "network"
     parser = argparse.ArgumentParser(description="Hydraulic verification with WNTR/EPANET and roughness-based Darcy-Weisbach model.")
-    parser.add_argument("--nodes", type=Path, default=network_dir / "Nodes.xlsx")
-    parser.add_argument("--pipes", type=Path, default=network_dir / "Pipes.xlsx")
+    add_network_args(parser, network_dir)
     parser.add_argument(
         "--run-data-dir",
         type=Path,
@@ -1200,7 +1131,8 @@ def main() -> None:
     args.output_dir.mkdir(parents=True, exist_ok=True)
 
     roughness = {"UPVC": args.roughness_upvc_mm, "PE": args.roughness_pe_mm}
-    network = load_network(args.nodes, args.pipes, roughness)
+    nodes, pipes, emitters = network_paths(args)
+    network = load_network(Path(nodes), Path(pipes) if pipes else None, roughness, Path(emitters) if emitters else None)
 
     export_inp(args.output_dir / "base_network_darcy_weibach.inp", network, {}, args.source_head)
 
@@ -1219,7 +1151,7 @@ def main() -> None:
                 "category": c.category,
                 "source_head_m": c.source_head_m,
                 "emitters": ";".join(c.emitters),
-                "nodes": ";".join(emitter_node(e) for e in c.emitters),
+                "nodes": ";".join(emitter_node(network, e) for e in c.emitters),
                 "origin": c.origin,
                 "notes": c.notes,
             }
@@ -1273,7 +1205,7 @@ def main() -> None:
                 "category": c.category,
                 "source_head_m": c.source_head_m,
                 "emitters": ";".join(c.emitters),
-                "nodes": ";".join(emitter_node(e) for e in c.emitters),
+                "nodes": ";".join(emitter_node(network, e) for e in c.emitters),
                 "origin": c.origin,
                 "notes": c.notes,
             }
@@ -1327,8 +1259,9 @@ def main() -> None:
         "numpy": np.__version__,
         "pandas": pd.__version__,
         "wntr": wntr.__version__,
-        "nodes": str(args.nodes),
-        "pipes": str(args.pipes),
+        "nodes": nodes,
+        "pipes": pipes,
+        "emitters": emitters,
         "run_data_dir": str(args.run_data_dir),
         "output_dir": str(args.output_dir),
         "epanet_roughness_mm": roughness,

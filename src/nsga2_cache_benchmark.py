@@ -9,11 +9,14 @@ from pathlib import Path
 
 import pandas as pd
 
+from network_topology import add_network_args, network_cli_args, network_paths
+
 
 def parse_args() -> argparse.Namespace:
     root = Path(__file__).resolve().parents[1]
     p = argparse.ArgumentParser(description="Benchmark NSGA-II evaluation caches.")
     p.add_argument("--main-script", type=Path, default=Path(__file__).with_name("main_experiment_after_verification.py"))
+    add_network_args(p, root / "data" / "network")
     p.add_argument("--output-base", type=Path, default=root / "outputs" / "cache_benchmark")
     p.add_argument("--workers", type=str, default="auto")
     p.add_argument("--normal-scenarios", type=int, default=20)
@@ -55,7 +58,7 @@ def run_case(args: argparse.Namespace, label: str, disable_cache: bool) -> Path:
         str(args.generations),
         "--base-seed",
         str(args.base_seed),
-    ]
+    ] + network_cli_args(*network_paths(args))
     if disable_cache:
         cmd.append("--disable-cache")
     subprocess.run(cmd, check=True)
