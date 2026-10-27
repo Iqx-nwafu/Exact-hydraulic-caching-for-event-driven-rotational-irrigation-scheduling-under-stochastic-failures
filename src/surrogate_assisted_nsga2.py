@@ -23,7 +23,7 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error
 from sklearn.model_selection import train_test_split
 from sklearn.multioutput import MultiOutputRegressor
 
-from network_topology import add_network_args, network_cli_args, network_paths
+from network_topology import add_network_args, file_sha256, network_cli_args, network_files, network_paths
 
 
 warnings.filterwarnings("ignore", message="X does not have valid feature names")
@@ -1405,12 +1405,22 @@ def main() -> None:
     start = time.perf_counter()
     x_path = args.output_dir / "surrogate_training_features.parquet"
     y_path = args.output_dir / "surrogate_training_labels.csv"
-    if x_path.exists() and y_path.exists():
+    key_path = args.output_dir / "surrogate_training_key.json"
+    # Reuse cached training data only if it was generated for the same network and sampling settings.
+    training_key = {
+        "network_sha256": [file_sha256(p) for p in network_files(*NETWORK_PATHS)],
+        "roughness_mm": roughness,
+        "training_samples": args.training_samples,
+        "base_seed": args.base_seed,
+    }
+    cached_key = json.loads(key_path.read_text(encoding="utf-8")) if key_path.exists() else None
+    if x_path.exists() and y_path.exists() and cached_key == training_key:
         x_df = pd.read_parquet(x_path)
         y_df = pd.read_csv(y_path)
         print(f"Loaded existing surrogate training data: {len(x_df)} samples", flush=True)
     else:
         x_df, y_df = generate_training_dataset(args.output_dir, args.training_samples, args.base_seed, roughness)
+        key_path.write_text(json.dumps(training_key, indent=2), encoding="utf-8")
     model_names = [m.strip().lower() for m in args.models.split(",") if m.strip()]
     model_comparison, best_path, best_name = train_and_compare_surrogates(
         args.output_dir, x_df, y_df, model_names, args.base_seed, args.train_threads

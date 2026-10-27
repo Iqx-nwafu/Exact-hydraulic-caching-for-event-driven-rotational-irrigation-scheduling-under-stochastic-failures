@@ -383,7 +383,7 @@ def hydraulic_group(
 
 
 def original_plan(network: Network, params: Params) -> list[Group]:
-    return [Group(g, params.target_duration_h, "original") for g in lateral_emitter_groups(network.laterals, network.emitter_to_node, params.group_size)]
+    return [Group(g, params.target_duration_h, "original") for g in lateral_emitter_groups(network.laterals, network.emitter_to_node, network.node_to_path, params.group_size)]
 
 
 def groups_from_order(order: list[int], params: Params, stage: str) -> list[Group]:
