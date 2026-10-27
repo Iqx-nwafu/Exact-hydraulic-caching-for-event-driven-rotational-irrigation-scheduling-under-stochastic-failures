@@ -1177,7 +1177,8 @@ def run_surrogate_experiment(
     metrics_df = pd.DataFrame(all_rows)
     records_df = pd.DataFrame(all_records)
     traces_df = pd.DataFrame(all_traces)
-    summary_df = BASE.aggregate_by_policy(metrics_df)
+    summary_input = BASE.canonical_row_order(metrics_df)
+    summary_df = BASE.aggregate_by_policy(summary_input)
     metrics_df.to_csv(output_dir / "surrogate_policy_metrics.csv", index=False, encoding="utf-8-sig")
     metrics_df[metrics_df["experiment"].eq("normal")].to_csv(output_dir / "surrogate_normal_policy_metrics.csv", index=False, encoding="utf-8-sig")
     metrics_df[metrics_df["experiment"].eq("single_fault")].to_csv(output_dir / "surrogate_single_fault_policy_metrics.csv", index=False, encoding="utf-8-sig")
@@ -1185,7 +1186,7 @@ def run_surrogate_experiment(
     records_df.to_csv(output_dir / "surrogate_fault_execution_records.csv", index=False, encoding="utf-8-sig")
     traces_df.to_csv(output_dir / "surrogate_nsga2_convergence.csv", index=False, encoding="utf-8-sig")
     summary_df.to_csv(output_dir / "surrogate_policy_summary.csv", index=False, encoding="utf-8-sig")
-    return metrics_df, summary_df
+    return summary_input, summary_df
 
 
 def paired_surrogate_comparison(output_dir: Path, surrogate_df: pd.DataFrame, baseline_dir: Path = PUBLISHED_MAIN_DATA) -> pd.DataFrame:

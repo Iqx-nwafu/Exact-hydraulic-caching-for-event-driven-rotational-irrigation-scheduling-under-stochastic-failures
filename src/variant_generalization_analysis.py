@@ -114,6 +114,15 @@ def variant_specs() -> list[VariantSpec]:
     return specs
 
 
+SCENARIO_KEY_COLUMNS = ("variant_category", "variant_level", "experiment", "scenario_id", "policy", "repeat")
+
+
+def canonical_row_order(df: pd.DataFrame) -> pd.DataFrame:
+    """Bootstrap resampling and float sums depend on row order; fix it independently of worker completion order."""
+    keys = [c for c in SCENARIO_KEY_COLUMNS if c in df.columns]
+    return df.sort_values(keys, kind="mergesort").reset_index(drop=True)
+
+
 def worker_count(value: str) -> int:
     cpu = os.cpu_count() or 1
     if value.lower() == "auto":
@@ -723,12 +732,13 @@ def main() -> None:
 
     metrics_df = pd.DataFrame(all_rows)
     traces_df = pd.DataFrame(all_traces)
-    summary_df = aggregate_metrics(metrics_df, args.base_seed + 901)
-    dynamic_gain = dynamic_gain_table(metrics_df)
+    summary_input = canonical_row_order(metrics_df)
+    summary_df = aggregate_metrics(summary_input, args.base_seed + 901)
+    dynamic_gain = dynamic_gain_table(summary_input)
     degradation = degradation_table(summary_df)
     sensitivity = sensitivity_table(summary_df)
-    wilcoxon_df = paired_wilcoxon(metrics_df)
-    create_figures(args.output_dir, metrics_df, dynamic_gain)
+    wilcoxon_df = paired_wilcoxon(summary_input)
+    create_figures(args.output_dir, summary_input, dynamic_gain)
     elapsed = time.perf_counter() - start
 
     metrics_df.to_csv(args.output_dir / "variant_all_metrics.csv", index=False, encoding="utf-8-sig")
