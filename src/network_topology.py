@@ -350,7 +350,7 @@ def to_platform_json(
             "topology_source": tables.source,
             "source_sha256": {Path(p).name: file_sha256(p) for p in (source_files or [])},
             "research_model": {
-                "friction": "Darcy-Weisbach, Colebrook-White friction factor",
+                "friction": "Darcy-Weisbach, EPANET 2.2 friction factor (Swamee-Jain, Dunlop transition)",
                 "local_loss_ratio": local_loss_ratio,
                 "emitter_outflow": "q = q_design * min(p / h_design, 1)",
                 "demand": "demand-driven, each field is one emitter",
