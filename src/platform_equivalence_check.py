@@ -29,8 +29,9 @@ def cases(network: base.Network, root: Path, n_random: int, seed: int) -> list[t
     out = []
     table = pd.read_csv(root / "data" / "hydraulic_verification" / "random100_cases.csv", encoding="utf-8-sig")
     for row in table.itertuples(index=False):
-        emitters = tuple(network.emitter_index[e] for e in str(row.emitters).split(";"))
-        out.append((str(row.case_id), emitters, set(), float(row.source_head_m)))
+        names = str(row.emitters).split(";")
+        if all(e in network.emitter_index for e in names):  # published cases only fit the default network
+            out.append((str(row.case_id), tuple(network.emitter_index[e] for e in names), set(), float(row.source_head_m)))
     rng = random.Random(seed)
     nodes = [n for n in network.downstream_emitters if n != network.source_node]
     for i in range(n_random):
