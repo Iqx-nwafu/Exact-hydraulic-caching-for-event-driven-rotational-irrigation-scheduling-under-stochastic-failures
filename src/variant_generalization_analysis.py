@@ -22,6 +22,8 @@ from scipy.stats import wilcoxon
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
+from network_topology import add_network_args, network_paths
+
 
 BASE_MODULE: Any | None = None
 BASE_NETWORK: Any | None = None
@@ -128,6 +130,7 @@ def init_worker(
     group_cache_max_items: int,
     plan_cache_max_items: int,
     pipe_loss_cache_max_items: int,
+    emitters: str | None = None,
 ) -> None:
     global BASE_MODULE, BASE_NETWORK, BASE_PARAMS
     BASE_MODULE = load_base_module(Path(main_script))
@@ -141,6 +144,7 @@ def init_worker(
         group_cache_max_items,
         plan_cache_max_items,
         pipe_loss_cache_max_items,
+        emitters,
     )
     BASE_NETWORK = BASE_MODULE.WORKER_NETWORK
     BASE_PARAMS = BASE_MODULE.WORKER_PARAMS
@@ -158,7 +162,7 @@ def network_with_elevation_disturbance(network: Any, sd_m: float, seed: int) -> 
     node_z = dict(network.node_z)
     nodes = network.nodes.copy()
     for node in node_z:
-        if node == "J0":
+        if node == network.source_node:
             continue
         node_z[node] = float(node_z[node] + rng.normal(0.0, sd_m))
     nodes["Z"] = nodes["node_id"].map(node_z).astype(float)
@@ -635,8 +639,7 @@ def parse_args() -> argparse.Namespace:
     network_dir = root / "data" / "network"
     p = argparse.ArgumentParser(description="Variant network generalization analysis.")
     p.add_argument("--main-script", type=Path, default=Path(__file__).with_name("main_experiment_after_verification.py"))
-    p.add_argument("--nodes", type=Path, default=network_dir / "Nodes.xlsx")
-    p.add_argument("--pipes", type=Path, default=network_dir / "Pipes.xlsx")
+    add_network_args(p, network_dir)
     p.add_argument("--output-dir", type=Path, default=root / "outputs" / "variant_network")
     p.add_argument("--workers", type=str, default="auto")
     p.add_argument("--base-seed", type=int, default=20260709)
@@ -691,15 +694,17 @@ def main() -> None:
     }
     (args.output_dir / "variant_experiment_metadata.json").write_text(json.dumps(metadata, ensure_ascii=False, indent=2), encoding="utf-8")
 
+    nodes, pipes, emitters = network_paths(args)
     init_args = (
         str(args.main_script),
-        str(args.nodes),
-        str(args.pipes),
+        nodes,
+        pipes,
         roughness,
         not args.disable_cache,
         50000,
         20000,
         20000,
+        emitters,
     )
     all_rows: list[dict[str, Any]] = []
     all_traces: list[dict[str, Any]] = []

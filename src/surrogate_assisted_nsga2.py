@@ -23,12 +23,15 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error
 from sklearn.model_selection import train_test_split
 from sklearn.multioutput import MultiOutputRegressor
 
+from network_topology import add_network_args, network_cli_args, network_paths
+
 
 warnings.filterwarnings("ignore", message="X does not have valid feature names")
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE_SCRIPT = Path(__file__).with_name("main_experiment_after_verification.py")
 NETWORK_DIR = ROOT / "data" / "network"
+NETWORK_PATHS: tuple[str, str, str | None] = (str(NETWORK_DIR / "Nodes.xlsx"), str(NETWORK_DIR / "Pipes.xlsx"), None)
 PUBLISHED_MAIN_DATA = ROOT / "data" / "main_experiments"
 DATA_ROOT = ROOT / "outputs" / "surrogate"
 TARGET_COLUMNS = ["obj_achievement_loss", "obj_average_deficit", "obj_pressure_nonuniformity", "constraint_violation"]
@@ -77,11 +80,6 @@ WORKER_SURROGATE: SurrogateBundle | None = None
 WORKER_BASE = None
 
 
-def node_branch(node_id: str) -> int:
-    num = int(node_id[1:])
-    return 10 if num >= 100 else num // 10
-
-
 def source_stats(source_profile: list[float], start_time_h: float, horizon_h: float) -> tuple[float, float, float, float, float]:
     start_idx = int(min(max(math.floor(start_time_h), 0), len(source_profile) - 1))
     end_idx = int(min(max(math.ceil(horizon_h), start_idx + 1), len(source_profile)))
@@ -125,12 +123,10 @@ def plan_features(
         group_denom = max(len(plan) - 1, 1)
         group_ids[group_ids >= 0] /= group_denom
 
-    branch_counts = np.zeros(10, dtype=float)
+    branch_counts = np.zeros(len(network.laterals), dtype=float)
     for emitter in flat:
-        branch = node_branch(network.emitter_to_node[emitter])
-        if 1 <= branch <= 10:
-            branch_counts[branch - 1] += 1.0
-    branch_counts /= 12.0
+        branch_counts[network.node_lateral[network.emitter_to_node[emitter]]] += 1.0
+    branch_counts /= lateral_emitter_counts(network)
 
     active_nodes = [network.emitter_to_node[e] for e in flat]
     z_values = np.asarray([network.node_z[n] for n in active_nodes], dtype=float) if active_nodes else np.asarray([0.0])
@@ -168,12 +164,17 @@ def plan_features(
     return np.concatenate([ranks, group_ids, unavailable_mask, volume_fraction, branch_counts, scalar])
 
 
-def feature_columns(n_emitters: int) -> list[str]:
+def lateral_emitter_counts(network) -> np.ndarray:
+    return np.bincount([network.node_lateral[n] for n in network.emitter_to_node], minlength=len(network.laterals)).astype(float)
+
+
+def feature_columns(network) -> list[str]:
+    n_emitters = len(network.emitters)
     cols = [f"rank_{i}" for i in range(n_emitters)]
     cols += [f"group_{i}" for i in range(n_emitters)]
     cols += [f"unavailable_{i}" for i in range(n_emitters)]
     cols += [f"volume_fraction_{i}" for i in range(n_emitters)]
-    cols += [f"branch_count_{i}" for i in range(1, 11)]
+    cols += [f"branch_count_{i}" for i in range(1, len(network.laterals) + 1)]
     cols += [
         "start_time_norm",
         "remaining_time_norm",
@@ -249,7 +250,8 @@ def generate_training_dataset(
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     output_dir.mkdir(parents=True, exist_ok=True)
     params = BASE.Params()
-    network = BASE.load_network(NETWORK_DIR / "Nodes.xlsx", NETWORK_DIR / "Pipes.xlsx", roughness)
+    nodes, pipes, emitters = NETWORK_PATHS
+    network = BASE.load_network(Path(nodes), Path(pipes) if pipes else None, roughness, Path(emitters) if emitters else None)
     BASE.WORKER_CACHE_ENABLED = True
     BASE.WORKER_GROUP_CACHE_MAX_ITEMS = 100000
     BASE.WORKER_PLAN_CACHE_MAX_ITEMS = 50000
@@ -258,7 +260,7 @@ def generate_training_dataset(
     rng = random.Random(seed)
     x_rows: list[np.ndarray] = []
     y_rows: list[dict[str, float]] = []
-    fcols = feature_columns(len(network.emitters))
+    fcols = feature_columns(network)
     t0 = time.perf_counter()
     for sample_id in range(1, samples + 1):
         ctx = random_context(rng, network, params, sample_id)
@@ -763,10 +765,11 @@ def worker_init(
     roughness: dict[str, float],
     surrogate_path: str | None,
     cache_enabled: bool,
+    emitters: str | None = None,
 ) -> None:
     global WORKER_SURROGATE, WORKER_BASE
     WORKER_BASE = load_base_module()
-    WORKER_BASE.init_worker(nodes, pipes, params_dict, roughness, cache_enabled, 100000, 50000, 50000)
+    WORKER_BASE.init_worker(nodes, pipes, params_dict, roughness, cache_enabled, 100000, 50000, 50000, emitters)
     if surrogate_path:
         with Path(surrogate_path).open("rb") as f:
             WORKER_SURROGATE = pickle.load(f)
@@ -1106,12 +1109,13 @@ def run_surrogate_experiment(
     }
     (output_dir / "surrogate_experiment_metadata.json").write_text(json.dumps(metadata, ensure_ascii=False, indent=2), encoding="utf-8")
     init_args = (
-        str(NETWORK_DIR / "Nodes.xlsx"),
-        str(NETWORK_DIR / "Pipes.xlsx"),
+        NETWORK_PATHS[0],
+        NETWORK_PATHS[1],
         params.__dict__,
         roughness,
         str(surrogate_path),
         True,
+        NETWORK_PATHS[2],
     )
     normal_tasks = [
         {
@@ -1273,6 +1277,7 @@ def run_base_script(output_dir: Path, workers: str, disable_cache: bool, normal:
         "--base-seed",
         str(seed),
     ]
+    cmd += network_cli_args(*NETWORK_PATHS)
     if disable_cache:
         cmd.append("--disable-cache")
     subprocess.run(cmd, check=True)
@@ -1370,6 +1375,7 @@ def write_report(
 
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description="Surrogate-assisted NSGA-II workflow.")
+    add_network_args(p, NETWORK_DIR)
     p.add_argument("--output-dir", type=Path, default=DATA_ROOT)
     p.add_argument("--base-seed", type=int, default=20260709)
     p.add_argument("--training-samples", type=int, default=6000)
@@ -1391,7 +1397,9 @@ def parse_args() -> argparse.Namespace:
 
 
 def main() -> None:
+    global NETWORK_PATHS
     args = parse_args()
+    NETWORK_PATHS = network_paths(args)
     args.output_dir.mkdir(parents=True, exist_ok=True)
     roughness = {"UPVC": args.roughness_upvc_mm, "PE": args.roughness_pe_mm}
     start = time.perf_counter()

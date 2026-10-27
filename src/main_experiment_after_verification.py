@@ -22,6 +22,8 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from scipy.stats import wilcoxon
 
+from network_topology import add_network_args, derive_tree, lateral_emitter_groups, network_paths, pipe_roughness_mm, read_network_tables
+
 
 G = 9.80665
 EPS = 1e-12
@@ -65,6 +67,10 @@ class Network:
     emitter_to_node: list[str]
     emitter_index: dict[str, int]
     node_to_path: dict[str, tuple[int, ...]]
+    source_node: str
+    laterals: tuple[tuple[str, ...], ...]
+    node_lateral: dict[str, int]
+    downstream_emitters: dict[str, tuple[int, ...]]
 
 
 @dataclass(frozen=True)
@@ -115,88 +121,38 @@ CACHE_STAT_KEYS = (
 )
 
 
-def node_key(node_id: str) -> tuple[int, str]:
-    return (int(node_id[1:]), node_id) if node_id.startswith("J") and node_id[1:].isdigit() else (10**9, node_id)
-
-
-def branch_position(node_id: str) -> tuple[int, int]:
-    num = int(node_id[1:])
-    if num >= 100:
-        return 10, num - 100
-    return num // 10, num % 10
-
-
-def load_network(nodes_path: Path, pipes_path: Path, roughness_mm_by_material: dict[str, float]) -> Network:
-    nodes = pd.read_excel(nodes_path)
-    pipes = pd.read_excel(pipes_path)
-    nodes.columns = [str(c).strip() for c in nodes.columns]
-    pipes.columns = [str(c).strip() for c in pipes.columns]
-    nodes = nodes.rename(columns={nodes.columns[0]: "node_id"})
-    nodes["node_id"] = nodes["node_id"].astype(str).str.strip()
-    pipes["Pipe ID"] = pipes["Pipe ID"].astype(str).str.strip()
-    pipes["FromNode"] = pipes["FromNode"].astype(str).str.strip()
-    pipes["ToNode"] = pipes["ToNode"].astype(str).str.strip()
-    pipes["Material"] = pipes["Material"].astype(str).str.upper().str.strip()
-
-    required_nodes = {"node_id", "X", "Y", "Z"}
-    required_pipes = {"Pipe ID", "FromNode", "ToNode", "Length_m", "Diameter_m", "Material"}
-    if not required_nodes.issubset(nodes.columns):
-        raise ValueError(f"Nodes.xlsx missing columns: {sorted(required_nodes - set(nodes.columns))}")
-    if not required_pipes.issubset(pipes.columns):
-        raise ValueError(f"Pipes.xlsx missing columns: {sorted(required_pipes - set(pipes.columns))}")
-
-    node_set = set(nodes["node_id"])
-    missing_nodes = (set(pipes["FromNode"]) | set(pipes["ToNode"])) - node_set
-    if missing_nodes:
-        raise ValueError(f"Pipes reference missing nodes: {sorted(missing_nodes)}")
-    missing_materials = sorted(set(pipes["Material"]) - set(roughness_mm_by_material))
-    if missing_materials:
-        raise ValueError(f"Missing roughness for materials: {missing_materials}")
-
-    parent_pipe: dict[str, int] = {}
-    for idx, to_node in enumerate(pipes["ToNode"].tolist()):
-        if to_node in parent_pipe:
-            raise ValueError(f"Node {to_node} has multiple upstream pipes; tree topology is assumed.")
-        parent_pipe[to_node] = idx
-
-    from_nodes = pipes["FromNode"].tolist()
-    main_nodes = {f"J{i}" for i in range(11)}
-    irrigation_nodes = [n for n in sorted(node_set, key=node_key) if n not in main_nodes]
-    emitter_names = [f"{node}{side}" for node in irrigation_nodes for side in ("L", "R")]
-    emitter_to_node = [name[:-1] for name in emitter_names]
-    emitter_index = {name: i for i, name in enumerate(emitter_names)}
-    node_to_path: dict[str, tuple[int, ...]] = {}
-    for node in irrigation_nodes:
-        cur = node
-        path: list[int] = []
-        seen: set[str] = set()
-        while cur != "J0":
-            if cur in seen:
-                raise ValueError(f"Cycle detected while tracing {node}.")
-            seen.add(cur)
-            idx = parent_pipe[cur]
-            path.append(idx)
-            cur = from_nodes[idx]
-        node_to_path[node] = tuple(reversed(path))
-
+def load_network(
+    nodes_path: Path,
+    pipes_path: Path | None,
+    roughness_mm_by_material: dict[str, float],
+    emitters_path: Path | None = None,
+) -> Network:
+    """Load Excel tables (Nodes/Pipes + Emitters.csv) or, when ``nodes_path`` is a .json, a platform planning JSON."""
+    tables = read_network_tables(nodes_path, pipes_path, emitters_path)
+    tree = derive_tree(tables)
+    nodes, pipes = tables.nodes, tables.pipes
     diameters = pipes["Diameter_m"].astype(float).to_numpy()
     return Network(
         nodes=nodes,
         pipes=pipes,
         node_z=nodes.set_index("node_id")["Z"].astype(float).to_dict(),
         pipe_ids=pipes["Pipe ID"].tolist(),
-        from_nodes=from_nodes,
+        from_nodes=pipes["FromNode"].tolist(),
         to_nodes=pipes["ToNode"].tolist(),
         lengths_m=pipes["Length_m"].astype(float).to_numpy(),
         diameters_m=diameters,
         areas_m2=math.pi * np.square(diameters) / 4.0,
-        roughness_mm=np.array([roughness_mm_by_material[m] for m in pipes["Material"].tolist()], dtype=float),
-        parent_pipe=parent_pipe,
-        irrigation_nodes=irrigation_nodes,
-        emitters=emitter_names,
-        emitter_to_node=emitter_to_node,
-        emitter_index=emitter_index,
-        node_to_path=node_to_path,
+        roughness_mm=np.array(pipe_roughness_mm(tables, roughness_mm_by_material), dtype=float),
+        parent_pipe=tree.parent_pipe,
+        irrigation_nodes=tree.irrigation_nodes,
+        emitters=tree.emitters,
+        emitter_to_node=tree.emitter_to_node,
+        emitter_index=tree.emitter_index,
+        node_to_path=tree.node_to_path,
+        source_node=tree.source_node,
+        laterals=tree.laterals,
+        node_lateral=tree.node_lateral,
+        downstream_emitters=tree.downstream_emitters,
     )
 
 
@@ -370,15 +326,7 @@ def hydraulic_base(
 
 
 def isolated_emitters_after_fault(network: Network, fault_node: str) -> set[int]:
-    branch, position = branch_position(fault_node)
-    nodes = [f"J{branch}{p}" if branch < 10 else f"J10{p}" for p in range(position, 7)]
-    out: set[int] = set()
-    for node in nodes:
-        for side in ("L", "R"):
-            name = f"{node}{side}"
-            if name in network.emitter_index:
-                out.add(network.emitter_index[name])
-    return out
+    return set(network.downstream_emitters[fault_node])
 
 
 def hydraulic_group(
@@ -435,13 +383,7 @@ def hydraulic_group(
 
 
 def original_plan(network: Network, params: Params) -> list[Group]:
-    groups: list[Group] = []
-    for branch in range(1, 11):
-        nodes = [f"J{branch}{i}" for i in range(1, 7)] if branch < 10 else [f"J10{i}" for i in range(1, 7)]
-        for start in (0, 2, 4):
-            emitters = tuple(network.emitter_index[f"{node}{side}"] for node in nodes[start : start + 2] for side in ("L", "R"))
-            groups.append(Group(emitters, params.target_duration_h, "original"))
-    return groups
+    return [Group(g, params.target_duration_h, "original") for g in lateral_emitter_groups(network.laterals, network.emitter_to_node, params.group_size)]
 
 
 def groups_from_order(order: list[int], params: Params, stage: str) -> list[Group]:
@@ -1292,12 +1234,13 @@ def init_worker(
     group_cache_max_items: int,
     plan_cache_max_items: int,
     pipe_loss_cache_max_items: int,
+    emitters: str | None = None,
 ) -> None:
     global WORKER_NETWORK, WORKER_PARAMS, WORKER_ROUGHNESS
     global WORKER_CACHE_ENABLED, WORKER_GROUP_CACHE_MAX_ITEMS, WORKER_PLAN_CACHE_MAX_ITEMS, WORKER_PIPE_LOSS_CACHE_MAX_ITEMS
     WORKER_PARAMS = Params(**params_dict)
     WORKER_ROUGHNESS = roughness
-    WORKER_NETWORK = load_network(Path(nodes), Path(pipes), roughness)
+    WORKER_NETWORK = load_network(Path(nodes), Path(pipes) if pipes else None, roughness, Path(emitters) if emitters else None)
     WORKER_CACHE_ENABLED = bool(cache_enabled)
     WORKER_GROUP_CACHE_MAX_ITEMS = int(group_cache_max_items)
     WORKER_PLAN_CACHE_MAX_ITEMS = int(plan_cache_max_items)
@@ -1815,8 +1758,7 @@ def parse_args() -> argparse.Namespace:
     root = Path(__file__).resolve().parents[1]
     network_dir = root / "data" / "network"
     p = argparse.ArgumentParser(description="Main irrigation experiments after hydraulic verification.")
-    p.add_argument("--nodes", type=Path, default=network_dir / "Nodes.xlsx")
-    p.add_argument("--pipes", type=Path, default=network_dir / "Pipes.xlsx")
+    add_network_args(p, network_dir)
     p.add_argument("--output-dir", type=Path, default=root / "outputs" / "main_experiments")
     p.add_argument("--workers", type=str, default="auto")
     p.add_argument("--base-seed", type=int, default=20260709)
@@ -1844,12 +1786,14 @@ def main() -> None:
     params = Params()
     roughness = {"UPVC": args.roughness_upvc_mm, "PE": args.roughness_pe_mm}
     dynamic_algorithms = [a.strip().lower() for a in args.dynamic_algorithms.split(",") if a.strip()]
+    nodes, pipes, emitters = network_paths(args)
     metadata = {
         "created_at": time.strftime("%Y-%m-%d %H:%M:%S"),
         "python": sys.version.replace("\n", " "),
         "platform": platform.platform(),
-        "nodes": str(args.nodes),
-        "pipes": str(args.pipes),
+        "nodes": nodes,
+        "pipes": pipes,
+        "emitters": emitters,
         "output_dir": str(args.output_dir),
         "params": params.__dict__,
         "roughness_mm": roughness,
@@ -1873,14 +1817,15 @@ def main() -> None:
     )
 
     init_args = (
-        str(args.nodes),
-        str(args.pipes),
+        nodes,
+        pipes,
         params.__dict__,
         roughness,
         not args.disable_cache,
         args.group_cache_max_items,
         args.plan_cache_max_items,
         args.pipe_loss_cache_max_items,
+        emitters,
     )
     all_rows: list[dict[str, Any]] = []
     all_records: list[dict[str, Any]] = []
