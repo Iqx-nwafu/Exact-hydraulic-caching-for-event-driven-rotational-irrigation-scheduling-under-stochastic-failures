@@ -109,6 +109,8 @@ Use each script's `--help` option for reduced-scale smoke tests and parameter ov
 
 ## Published data
 
+The published tables were produced before the model adopted the EPANET 2.2 friction law and the 1.1 local-loss factor; rerun the scripts for results under the current model.
+
 The CSV files retain scenario-level values, convergence traces, bootstrap confidence intervals, paired Wilcoxon tests, agricultural management metrics, exact cache hit/timing statistics, and paired cached-versus-uncached equivalence checks. JSON files record run parameters and software/hardware metadata. EPANET `.inp` files and the original Excel network tables are included to support independent hydraulic reconstruction.
 
 The exact-cache benchmark demonstrates evaluation equivalence using paired agricultural metrics. The surrogate outputs are retained as a comparative acceleration study; final reported surrogate candidates were reevaluated with the exact hydraulic model.

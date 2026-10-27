@@ -74,7 +74,7 @@ python src/surrogate_assisted_nsga2.py                 --network-json outputs/ne
 python src/variant_generalization_analysis.py          --network-json outputs/network.json --workers auto
 ```
 
-`--baseline-main-dir` pairs the surrogate runs with the main experiment just produced; its default is the published `data/main_experiments`. Wall-time results (cache benchmark, surrogate efficiency) depend on the machine; compare timings only within one machine and one worker count.
+`--baseline-main-dir` pairs the surrogate runs with the main experiment just produced; its default is the published `data/main_experiments`. Wall-time results (cache benchmark, surrogate efficiency) depend on the machine; compare timings only within one machine and one worker count. The cache's wall-time saving scales with the cost of the hydraulic solve it skips: with the explicit EPANET 2.2 law the full benchmark on the 24-core machine gives 53.6 s uncached and 50.6 s cached (1.06×), against 1.50× for the iterated Colebrook-White law of the published runs. Cached and uncached runs give identical agricultural metrics under both laws.
 
 ## 5. Model conventions
 
@@ -83,7 +83,7 @@ The research backend and the workbench evaluator implement the same model, check
 | Item | Convention |
 |---|---|
 | Hydraulics | steady, demand-driven, single-source tree: pipe flow is the sum of the design discharges of the open emitters downstream |
-| Friction | Darcy-Weisbach with material roughness; kinematic viscosity 1.0e-6 m²/s |
+| Friction | Darcy-Weisbach with material roughness and the EPANET 2.2 friction factor (64/Re, Dunlop transition, Swamee-Jain), the same law as EPANET and the workbench evaluator's `friction="epanet"`; kinematic viscosity 1.0e-6 m²/s |
 | Local losses | `h = 1.1 × h_friction` (`local_loss_ratio = 0.1`); the EPANET check compares friction losses only |
 | Source head | hydraulic grade line at the source, sampled in 20–30 m |
 | Pressure | `p = H_s − path loss − z`, a pressure head; at least 11.4 m at every node with an open emitter |
