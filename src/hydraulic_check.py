@@ -284,7 +284,7 @@ def compute_my_hydraulics(
 def original_groups(network: PipeNetworkData, group_size: int = 4) -> list[tuple[str, ...]]:
     return [
         tuple(network.emitters[i] for i in group)
-        for group in lateral_emitter_groups(network.laterals, network.emitter_to_node, group_size)
+        for group in lateral_emitter_groups(network.laterals, network.emitter_to_node, network.node_to_path, group_size)
     ]
 
 

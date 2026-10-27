@@ -264,13 +264,17 @@ def derive_tree(tables: NetworkTables) -> TreeTopology:
 
 
 def lateral_emitter_groups(
-    laterals: tuple[tuple[str, ...], ...], emitter_to_node: list[str], group_size: int
+    laterals: tuple[tuple[str, ...], ...],
+    emitter_to_node: list[str],
+    node_to_path: dict[str, tuple[int, ...]],
+    group_size: int,
 ) -> list[tuple[int, ...]]:
-    """Conventional rotation: walk each lateral from upstream to downstream, opening ``group_size`` emitters at a time."""
+    """Conventional rotation: walk each lateral from upstream to downstream (by path depth, ties in input order),
+    opening ``group_size`` emitters at a time."""
     groups: list[tuple[int, ...]] = []
     for lateral in laterals:
         members = set(lateral)
-        order = [i for i, n in enumerate(emitter_to_node) if n in members]
+        order = sorted((i for i, n in enumerate(emitter_to_node) if n in members), key=lambda i: len(node_to_path[emitter_to_node[i]]))
         groups.extend(tuple(order[s : s + group_size]) for s in range(0, len(order), group_size))
     return groups
 
@@ -393,6 +397,13 @@ def network_paths(args: argparse.Namespace) -> tuple[str, str, str | None]:
     if args.network_json is not None:
         return str(args.network_json), "", None
     return str(args.nodes), str(args.pipes), None if args.emitters is None else str(args.emitters)
+
+
+def network_files(nodes: str, pipes: str, emitters: str | None) -> list[Path]:
+    """Every input file behind ``network_paths``, with the default emitter table resolved."""
+    if not pipes:
+        return [Path(nodes)]
+    return [Path(nodes), Path(pipes), Path(emitters) if emitters else Path(nodes).with_name(DEFAULT_EMITTERS_FILE)]
 
 
 def network_cli_args(nodes: str, pipes: str, emitters: str | None) -> list[str]:
