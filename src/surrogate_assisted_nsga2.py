@@ -1188,8 +1188,8 @@ def run_surrogate_experiment(
     return metrics_df, summary_df
 
 
-def paired_surrogate_comparison(output_dir: Path, surrogate_df: pd.DataFrame) -> pd.DataFrame:
-    baseline_path = PUBLISHED_MAIN_DATA / "all_policy_metrics_after_verification.csv"
+def paired_surrogate_comparison(output_dir: Path, surrogate_df: pd.DataFrame, baseline_dir: Path = PUBLISHED_MAIN_DATA) -> pd.DataFrame:
+    baseline_path = baseline_dir / "all_policy_metrics_after_verification.csv"
     if not baseline_path.exists():
         return pd.DataFrame()
     baseline = pd.read_csv(baseline_path)
@@ -1239,8 +1239,8 @@ def paired_surrogate_comparison(output_dir: Path, surrogate_df: pd.DataFrame) ->
     return out
 
 
-def compare_against_existing_algorithms(output_dir: Path, surrogate_df: pd.DataFrame) -> pd.DataFrame:
-    baseline_path = PUBLISHED_MAIN_DATA / "all_policy_metrics_after_verification.csv"
+def compare_against_existing_algorithms(output_dir: Path, surrogate_df: pd.DataFrame, baseline_dir: Path = PUBLISHED_MAIN_DATA) -> pd.DataFrame:
+    baseline_path = baseline_dir / "all_policy_metrics_after_verification.csv"
     if not baseline_path.exists():
         return pd.DataFrame()
     baseline = pd.read_csv(baseline_path)
@@ -1393,6 +1393,8 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--roughness-pe-mm", type=float, default=0.020)
     p.add_argument("--skip-efficiency-benchmark", action="store_true")
     p.add_argument("--skip-final-experiment", action="store_true")
+    p.add_argument("--baseline-main-dir", type=Path, default=PUBLISHED_MAIN_DATA,
+                   help="Main-experiment results the surrogate runs are paired with; must come from the same hydraulic model.")
     return p.parse_args()
 
 
@@ -1443,8 +1445,8 @@ def main() -> None:
             args.generations,
             roughness,
         )
-        paired = paired_surrogate_comparison(args.output_dir, surrogate_df)
-        combined_summary = compare_against_existing_algorithms(args.output_dir, surrogate_df)
+        paired = paired_surrogate_comparison(args.output_dir, surrogate_df, args.baseline_main_dir)
+        combined_summary = compare_against_existing_algorithms(args.output_dir, surrogate_df, args.baseline_main_dir)
     efficiency = pd.DataFrame()
     if not args.skip_efficiency_benchmark:
         efficiency = run_method_efficiency_benchmark(args.output_dir, best_path, roughness, args.base_seed)

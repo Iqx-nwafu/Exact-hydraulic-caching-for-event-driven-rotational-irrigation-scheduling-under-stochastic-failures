@@ -356,7 +356,7 @@ def to_platform_json(
             # The platform loader rejects unknown pipe keys, so materials live here.
             "research_pipe_material": {r[0]: r[5] for r in tables.pipes[PIPE_COLUMNS].itertuples(index=False) if r[5]},
             "research_model": {
-                "friction": "Darcy-Weisbach, Colebrook-White friction factor",
+                "friction": "Darcy-Weisbach, EPANET 2.2 friction factor (Swamee-Jain, Dunlop transition)",
                 "local_loss_ratio": local_loss_ratio,
                 "emitter_outflow": "q = q_design * min(p / h_design, 1)",
                 "demand": "demand-driven, each field is one emitter",

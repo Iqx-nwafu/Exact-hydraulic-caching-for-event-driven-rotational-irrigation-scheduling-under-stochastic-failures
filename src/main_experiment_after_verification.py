@@ -111,6 +111,9 @@ WORKER_PIPE_LOSS_CACHE_MAX_ITEMS = 20000
 WORKER_GROUP_CACHE: OrderedDict[tuple[int, ...], dict[str, Any]] = OrderedDict()
 WORKER_PIPE_LOSS_CACHE: OrderedDict[tuple[int, float], tuple[float, float]] = OrderedDict()
 WORKER_CACHE_STATS: Counter[str] = Counter()
+WORKER_HYDRAULIC_BACKEND = "research"
+HYDRAULIC_BACKENDS = ("research", "platform")
+WORKER_PLATFORM_EVALUATOR: tuple[Any, Any] | None = None
 CACHE_STAT_KEYS = (
     "group_cache_hits",
     "group_cache_misses",
@@ -156,30 +159,28 @@ def load_network(
     )
 
 
-def colebrook_white_friction_factor(reynolds: float, roughness_m: float, diameter_m: float) -> float:
-    if reynolds <= EPS:
+def darcy_friction_factor(reynolds: float, roughness_m: float, diameter_m: float) -> float:
+    """EPANET 2.2 all-regime Darcy factor, identical to the workbench's ``friction.darcy_friction_factor``.
+
+    64/Re up to Re = 2000, Swamee-Jain from Re = 4000, Dunlop's cubic anchored at Re = 4000 in between.
+    """
+    if reynolds <= 0.0:
         return 0.0
-    if reynolds < 2000.0:
+    if reynolds <= 2000.0:
         return 64.0 / reynolds
-
-    def turbulent(re_value: float) -> float:
-        rr = max(roughness_m / max(diameter_m, EPS), 0.0)
-        f = 1.0 / max((-1.8 * math.log10((rr / 3.7) ** 1.11 + 6.9 / max(re_value, EPS))) ** 2, EPS)
-        for _ in range(30):
-            inv = -2.0 * math.log10(rr / 3.7 + 2.51 / (re_value * math.sqrt(f)))
-            new_f = 1.0 / max(inv * inv, EPS)
-            if abs(new_f - f) < 1e-12:
-                return float(new_f)
-            f = new_f
-        return float(f)
-
+    rr = max(roughness_m / diameter_m, 0.0)
     if reynolds >= 4000.0:
-        return turbulent(reynolds)
-
-    t = (reynolds - 2000.0) / 2000.0
-    smooth = t * t * (3.0 - 2.0 * t)
-    return float((1.0 - smooth) * (64.0 / reynolds) + smooth * turbulent(4000.0))
-
+        return 0.25 / math.log10(rr / 3.7 + 5.74 / reynolds**0.9) ** 2
+    y2 = rr / 3.7 + 0.0032889547634539906  # 5.74 / 4000**0.9
+    y3 = -2.0 * math.log10(y2)
+    fa = y3**-2
+    fb = fa * (2.0 - 0.005142149657990938 / (y2 * y3))
+    ratio = reynolds / 2000.0
+    x1 = 7.0 * fa - fb
+    x2 = 0.128 - 17.0 * fa + 2.5 * fb
+    x3 = -0.128 + 13.0 * fa - 2.0 * fb
+    x4 = ratio * (0.032 - 3.0 * fa + 0.5 * fb)
+    return x1 + ratio * (x2 + ratio * (x3 + x4))
 
 def source_head_at(source_profile: list[float], time_h: float, default: float = 25.0) -> float:
     if not source_profile:
@@ -237,6 +238,8 @@ def compute_hydraulic_base(
     params: Params,
     active_emitters_key: tuple[int, ...],
 ) -> dict[str, Any]:
+    if WORKER_HYDRAULIC_BACKEND == "platform":
+        return platform_hydraulic_base(network, params, active_emitters_key)
     node_counts = Counter(network.emitter_to_node[e] for e in active_emitters_key)
     node_demands = {node: count * params.design_flow_m3s for node, count in node_counts.items()}
     pipe_flows = np.zeros(len(network.pipe_ids), dtype=float)
@@ -264,7 +267,7 @@ def compute_hydraulic_base(
             continue
         if WORKER_CACHE_ENABLED:
             WORKER_CACHE_STATS["pipe_loss_cache_misses"] += 1
-        factor = colebrook_white_friction_factor(
+        factor = darcy_friction_factor(
             float(reynolds[idx]), float(roughness_m[idx]), float(network.diameters_m[idx])
         )
         loss = (
@@ -278,8 +281,10 @@ def compute_hydraulic_base(
         if WORKER_CACHE_ENABLED:
             put_lru(WORKER_PIPE_LOSS_CACHE, pipe_cache_key, (float(factor), float(loss)), WORKER_PIPE_LOSS_CACHE_MAX_ITEMS)
 
+    # Local losses are an engineering surcharge on friction: h = (1 + r) * h_f.
+    head_loss = friction_loss * (1.0 + params.local_loss_ratio)
     node_path_loss = {
-        node: float(friction_loss[list(network.node_to_path[node])].sum())
+        node: float(head_loss[list(network.node_to_path[node])].sum())
         for node in node_counts
     }
     velocity_violation_ms = 0.0
@@ -299,12 +304,22 @@ def compute_hydraulic_base(
         "pipe_flows": pipe_flows,
         "velocities": velocities,
         "friction_loss": friction_loss,
+        "head_loss": head_loss,
         "active_velocities": active_velocities,
         "max_velocity_ms": float(active_velocities.max()) if len(active_velocities) else 0.0,
         "min_velocity_ms": float(active_velocities.min()) if len(active_velocities) else 0.0,
         "velocity_violation_ms": velocity_violation_ms,
         "velocity_violation_count": velocity_violation_count,
     }
+
+
+def platform_hydraulic_base(network: Network, params: Params, active_emitters_key: tuple[int, ...]) -> dict[str, Any]:
+    global WORKER_PLATFORM_EVALUATOR
+    from hydraulics_backend import build_platform_evaluator, platform_base
+
+    if WORKER_PLATFORM_EVALUATOR is None or WORKER_PLATFORM_EVALUATOR[0] is not network:
+        WORKER_PLATFORM_EVALUATOR = (network, build_platform_evaluator(network, params))
+    return platform_base(WORKER_PLATFORM_EVALUATOR[1], network, params, active_emitters_key)
 
 
 def hydraulic_base(
@@ -1235,8 +1250,9 @@ def init_worker(
     plan_cache_max_items: int,
     pipe_loss_cache_max_items: int,
     emitters: str | None = None,
+    hydraulic_backend: str = "research",
 ) -> None:
-    global WORKER_NETWORK, WORKER_PARAMS, WORKER_ROUGHNESS
+    global WORKER_NETWORK, WORKER_PARAMS, WORKER_ROUGHNESS, WORKER_HYDRAULIC_BACKEND
     global WORKER_CACHE_ENABLED, WORKER_GROUP_CACHE_MAX_ITEMS, WORKER_PLAN_CACHE_MAX_ITEMS, WORKER_PIPE_LOSS_CACHE_MAX_ITEMS
     WORKER_PARAMS = Params(**params_dict)
     WORKER_ROUGHNESS = roughness
@@ -1245,6 +1261,9 @@ def init_worker(
     WORKER_GROUP_CACHE_MAX_ITEMS = int(group_cache_max_items)
     WORKER_PLAN_CACHE_MAX_ITEMS = int(plan_cache_max_items)
     WORKER_PIPE_LOSS_CACHE_MAX_ITEMS = int(pipe_loss_cache_max_items)
+    if hydraulic_backend not in HYDRAULIC_BACKENDS:
+        raise ValueError(f"hydraulic_backend must be one of {HYDRAULIC_BACKENDS}")
+    WORKER_HYDRAULIC_BACKEND = hydraulic_backend
     reset_worker_caches()
 
 
@@ -1709,7 +1728,7 @@ def write_report(
         "## Model",
         "",
         "- Hydraulic calculation uses the verified roughness-based Darcy-Weisbach model.",
-        "- Darcy friction factor is calculated from roughness and Reynolds number using Colebrook-White iteration.",
+        "- Darcy friction factor is calculated from roughness and Reynolds number using the EPANET 2.2 all-regime law (Swamee-Jain, Dunlop transition).",
         "- Irrigation delivery uses fixed emitter demand with pressure reduction only for agricultural achievement accounting.",
         "- Metrics are reported in agricultural management language rather than only Pareto quality indicators.",
         "",
@@ -1776,6 +1795,8 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--group-cache-max-items", type=int, default=50000)
     p.add_argument("--plan-cache-max-items", type=int, default=20000)
     p.add_argument("--pipe-loss-cache-max-items", type=int, default=20000)
+    p.add_argument("--hydraulic-backend", choices=HYDRAULIC_BACKENDS, default="research",
+                   help="research: built-in path model; platform: hydraulic_moc.irrigation_eval (same model).")
     return p.parse_args()
 
 
@@ -1811,6 +1832,7 @@ def main() -> None:
         "group_cache_max_items": args.group_cache_max_items,
         "plan_cache_max_items": args.plan_cache_max_items,
         "pipe_loss_cache_max_items": args.pipe_loss_cache_max_items,
+        "hydraulic_backend": args.hydraulic_backend,
     }
     (args.output_dir / "experiment_metadata_after_verification.json").write_text(
         json.dumps(metadata, ensure_ascii=False, indent=2), encoding="utf-8"
@@ -1826,6 +1848,7 @@ def main() -> None:
         args.plan_cache_max_items,
         args.pipe_loss_cache_max_items,
         emitters,
+        args.hydraulic_backend,
     )
     all_rows: list[dict[str, Any]] = []
     all_records: list[dict[str, Any]] = []

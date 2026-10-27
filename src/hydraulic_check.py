@@ -133,6 +133,8 @@ def build_wntr_model(
     wn = wntr.network.WaterNetworkModel()
     wn.options.hydraulic.headloss = "D-W"
     wn.options.hydraulic.demand_model = "DDA"
+    # EPANET's VISCOSITY is relative to 1.1e-5 ft2/s (1.022e-6 m2/s); match the model's 1.0e-6 m2/s.
+    wn.options.hydraulic.viscosity = WATER_KINEMATIC_VISCOSITY_M2S / (1.1e-5 * 0.3048**2)
     wn.options.time.duration = 0
     wn.options.time.hydraulic_timestep = 3600
     wn.options.time.report_timestep = 3600
@@ -173,42 +175,28 @@ def build_wntr_model(
     return wn
 
 
-def colebrook_white_friction_factor(
-    reynolds: float,
-    roughness_m: float,
-    diameter_m: float,
-    max_iter: int = 30,
-    tol: float = 1e-12,
-) -> float:
-    if reynolds <= EPS:
+def darcy_friction_factor(reynolds: float, roughness_m: float, diameter_m: float) -> float:
+    """EPANET 2.2 all-regime Darcy factor, identical to the workbench's ``friction.darcy_friction_factor``.
+
+    64/Re up to Re = 2000, Swamee-Jain from Re = 4000, Dunlop's cubic anchored at Re = 4000 in between.
+    """
+    if reynolds <= 0.0:
         return 0.0
-    if reynolds < 2000.0:
+    if reynolds <= 2000.0:
         return 64.0 / reynolds
-
-    def turbulent_factor(re_value: float) -> float:
-        rel_roughness = max(roughness_m / max(diameter_m, EPS), 0.0)
-        # Haaland approximation is used only as a stable initial value.
-        f = 1.0 / max(
-            (-1.8 * math.log10((rel_roughness / 3.7) ** 1.11 + 6.9 / max(re_value, EPS))) ** 2,
-            EPS,
-        )
-        for _ in range(max_iter):
-            inv_sqrt_f = -2.0 * math.log10(rel_roughness / 3.7 + 2.51 / (re_value * math.sqrt(f)))
-            new_f = 1.0 / max(inv_sqrt_f * inv_sqrt_f, EPS)
-            if abs(new_f - f) <= tol:
-                return float(new_f)
-            f = new_f
-        return float(f)
-
+    rr = max(roughness_m / diameter_m, 0.0)
     if reynolds >= 4000.0:
-        return turbulent_factor(reynolds)
-
-    laminar = 64.0 / reynolds
-    turbulent = turbulent_factor(4000.0)
-    t = (reynolds - 2000.0) / 2000.0
-    smooth = t * t * (3.0 - 2.0 * t)
-    return float((1.0 - smooth) * laminar + smooth * turbulent)
-
+        return 0.25 / math.log10(rr / 3.7 + 5.74 / reynolds**0.9) ** 2
+    y2 = rr / 3.7 + 0.0032889547634539906  # 5.74 / 4000**0.9
+    y3 = -2.0 * math.log10(y2)
+    fa = y3**-2
+    fb = fa * (2.0 - 0.005142149657990938 / (y2 * y3))
+    ratio = reynolds / 2000.0
+    x1 = 7.0 * fa - fb
+    x2 = 0.128 - 17.0 * fa + 2.5 * fb
+    x3 = -0.128 + 13.0 * fa - 2.0 * fb
+    x4 = ratio * (0.032 - 3.0 * fa + 0.5 * fb)
+    return x1 + ratio * (x2 + ratio * (x3 + x4))
 
 def darcy_factors_from_roughness(
     flows_m3s: np.ndarray,
@@ -223,7 +211,7 @@ def darcy_factors_from_roughness(
     reynolds[active] = np.abs(velocities_ms[active]) * diameters_m[active] / max(kinematic_viscosity_m2s, EPS)
     roughness_m = roughness_mm / 1000.0
     for idx in np.flatnonzero(active):
-        factors[idx] = colebrook_white_friction_factor(
+        factors[idx] = darcy_friction_factor(
             float(reynolds[idx]),
             float(roughness_m[idx]),
             float(diameters_m[idx]),
@@ -958,7 +946,7 @@ def write_random_validation_report(
         "- Each case uses 4 distinct emitters sampled without replacement from the 120 emitters.",
         "- Source head is sampled uniformly from 20-30 m.",
         "- EPANET/WNTR uses demand-driven Darcy-Weisbach analysis with fixed emitter demand.",
-        "- The project verification model uses roughness-based Darcy-Weisbach with Colebrook-White friction factors.",
+        "- The project verification model uses roughness-based Darcy-Weisbach with the EPANET 2.2 friction law (Swamee-Jain, Dunlop transition).",
         "- Minor/local loss is excluded from the direct EPANET comparison; `1.1 * h_friction` remains an engineering correction output.",
         "",
         "## Overall Error Metrics",
@@ -1032,7 +1020,7 @@ def write_report(
         "- Excel network data were converted to WNTR/EPANET models with the tree root (source node) as a fixed-head reservoir and all other nodes as junctions.",
         "- EPANET/WNTR was run in demand-driven mode with fixed emitter demand; pressure-flow reduction was intentionally excluded.",
         "- Headloss option was set to Darcy-Weisbach. Minor losses were set to zero in EPANET and excluded from the direct comparison.",
-        "- The project model was evaluated with the same Darcy-Weisbach roughness formulation: roughness, Reynolds number, and Colebrook-White friction factor.",
+        "- The project model was evaluated with the same Darcy-Weisbach roughness formulation: roughness, Reynolds number, and the EPANET 2.2 friction factor.",
         "- The engineering correction `h_total = 1.1 * h_friction` is reported separately and is not mixed into the EPANET comparison.",
         "",
         "## Environment",
@@ -1047,7 +1035,7 @@ def write_report(
         "",
         "EPANET's Darcy-Weisbach pipe parameter is roughness, not a fixed Darcy friction factor. "
         "The exported INP files use roughness values in millimetres (UPVC=0.018 mm, PE=0.020 mm). "
-        "The project-side verification model now calculates Darcy `f` from roughness and Reynolds number by Colebrook-White iteration, "
+        "The project-side verification model now calculates Darcy `f` from roughness and Reynolds number with the EPANET 2.2 all-regime law, "
         "so the comparison is no longer based on the earlier fixed-f simplification.",
         "",
         "## Typical Groups",
