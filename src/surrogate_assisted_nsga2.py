@@ -4,6 +4,7 @@ import argparse
 import importlib.util
 import json
 import math
+import multiprocessing
 import os
 import pickle
 import platform
@@ -1153,7 +1154,9 @@ def run_surrogate_experiment(
     start = time.perf_counter()
     print(f"Surrogate experiment workers: {workers}/{os.cpu_count() or 1}", flush=True)
     print(f"Normal tasks: {len(normal_tasks)}, fault tasks: {len(fault_tasks)}", flush=True)
-    with ProcessPoolExecutor(max_workers=workers, initializer=worker_init, initargs=init_args) as executor:
+    # Model training leaves OpenMP thread pools behind; forked workers deadlock on them, so spawn as on Windows.
+    context = multiprocessing.get_context("spawn")
+    with ProcessPoolExecutor(max_workers=workers, mp_context=context, initializer=worker_init, initargs=init_args) as executor:
         futures = [executor.submit(run_normal_surrogate_task, task) for task in normal_tasks]
         futures.extend(executor.submit(run_fault_surrogate_task, task) for task in fault_tasks)
         completed = 0
