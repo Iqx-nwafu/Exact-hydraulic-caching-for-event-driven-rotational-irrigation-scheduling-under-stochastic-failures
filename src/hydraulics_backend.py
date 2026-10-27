@@ -2,8 +2,9 @@
 
 ``--hydraulic-backend platform`` routes every cache miss of
 ``compute_hydraulic_base`` to ``hydraulic_moc.irrigation_eval.GroupEvaluator``.
-The group, plan and pipe-loss caches of the experiment stay in front of it, so
-cache statistics keep their meaning. ``hydraulic_moc`` ships with the
+The group and plan caches of the experiment stay in front of it; the
+per-pipe loss cache belongs to the research backend and records no traffic
+here, so cache benchmarks should use the research backend. ``hydraulic_moc`` ships with the
 workbench and is only imported when this backend is selected.
 """
 

@@ -43,7 +43,7 @@ python src/network_topology.py to-excel --network-json outputs/network.json --ou
 
 - Darcy-Weisbach friction losses use the EPANET 2.2 all-regime friction factor (64/Re, Dunlop transition, Swamee-Jain) and material roughness values, identical to the EPANET/WNTR verification model and the hydraulic workbench.
 - EPANET comparison uses friction losses only. The optimization model applies the separate engineering correction `h_total = 1.1 * h_friction` for local losses.
-- `--hydraulic-backend platform` routes group hydraulics to the workbench evaluator `hydraulic_moc.irrigation_eval` (same model; requires the workbench package on `PYTHONPATH`). `python src/platform_equivalence_check.py` compares both backends group by group.
+- `--hydraulic-backend platform` routes group hydraulics to the workbench evaluator `hydraulic_moc.irrigation_eval` (same model; requires the workbench package on `PYTHONPATH`). `python src/platform_equivalence_check.py` compares both backends group by group. Cache benchmarks use the default research backend, which owns the pipe-loss cache level.
 - Source pressure is sampled in the 20-30 m range in stochastic experiments.
 - Each emitter has a design discharge of 0.013 m3/s; available group flow is 0.052 m3/s.
 - Hydraulic feasibility requires node head at least 11.4 m and active-pipe velocity between 0.3 and 2.5 m/s.
