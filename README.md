@@ -37,7 +37,7 @@ python src/network_topology.py to-json --out outputs/network.json
 python src/network_topology.py to-excel --network-json outputs/network.json --out-dir outputs/network_tables --format csv
 ```
 
-`--format csv` writes a bit-exact copy; `.xlsx` output stores floats with 16 significant digits. The JSON keeps each pipe's `material`, so material roughness overrides still apply after conversion. The published tables and the converted JSON produce identical experiment results.
+`--format csv` writes a bit-exact copy; `.xlsx` output stores floats with 16 significant digits. The JSON keeps each pipe's material in `metadata.research_pipe_material` (the platform loader rejects unknown pipe keys), so material roughness overrides still apply after conversion. The published tables and the converted JSON produce identical experiment results.
 
 ## Model and experiment scope
 

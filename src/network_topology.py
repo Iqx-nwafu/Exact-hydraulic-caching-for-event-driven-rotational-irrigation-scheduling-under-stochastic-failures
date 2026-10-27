@@ -121,6 +121,7 @@ def read_platform_json(path: Path) -> NetworkTables:
     if data.get("schema") not in PLATFORM_SCHEMAS:
         raise ValueError(f"{path}: unsupported schema {data.get('schema')!r}; expected one of {PLATFORM_SCHEMAS}")
     topo = data["topology"]
+    materials = data.get("metadata", {}).get("research_pipe_material", {})
     nodes = pd.DataFrame(
         [{"node_id": n["node_id"], "X": n.get("x", 0.0), "Y": n.get("y", 0.0), "Z": n["elevation_m"]} for n in topo["nodes"]]
     )
@@ -136,7 +137,7 @@ def read_platform_json(path: Path) -> NetworkTables:
                 "ToNode": p["end_node"],
                 "Length_m": p["length_m"],
                 "Diameter_m": p["diameter_m"],
-                "Material": p.get("material") or "",
+                "Material": p.get("material") or materials.get(p["pipe_id"], ""),
                 "Roughness_mm": math.nan if roughness_m is None else float(roughness_m) * 1000.0,
             }
         )
@@ -309,13 +310,12 @@ def to_platform_json(
             "end_node": r[2],
             "length_m": float(r[3]),
             "diameter_m": float(r[4]),
-            "roughness_hw": None,
+            "roughness_hw": 150.0,
             "headloss_formula": "D-W",
             "roughness_m": rough / 1000.0,
             "minor_loss_coefficient": 0.0,
             "darcy_factor": None,
             "kinematic_viscosity_m2_s": kinematic_viscosity_m2s,
-            "material": r[5] or None,
         }
         for r, rough in zip(tables.pipes[PIPE_COLUMNS].itertuples(index=False), roughness)
     ]
@@ -349,6 +349,8 @@ def to_platform_json(
         "metadata": {
             "topology_source": tables.source,
             "source_sha256": {Path(p).name: file_sha256(p) for p in (source_files or [])},
+            # The platform loader rejects unknown pipe keys, so materials live here.
+            "research_pipe_material": {r[0]: r[5] for r in tables.pipes[PIPE_COLUMNS].itertuples(index=False) if r[5]},
             "research_model": {
                 "friction": "Darcy-Weisbach, Colebrook-White friction factor",
                 "local_loss_ratio": local_loss_ratio,
