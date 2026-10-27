@@ -1267,6 +1267,15 @@ def init_worker(
     reset_worker_caches()
 
 
+SCENARIO_KEY_COLUMNS = ("variant_category", "variant_level", "experiment", "scenario_id", "policy", "repeat")
+
+
+def canonical_row_order(df: pd.DataFrame) -> pd.DataFrame:
+    """Bootstrap resampling and float sums depend on row order; fix it independently of worker completion order."""
+    keys = [c for c in SCENARIO_KEY_COLUMNS if c in df.columns]
+    return df.sort_values(keys, kind="mergesort").reset_index(drop=True)
+
+
 def worker_count(value: str) -> int:
     cpu = os.cpu_count() or 1
     if value.lower() == "auto":
@@ -1912,16 +1921,17 @@ def main() -> None:
     metrics_df = pd.DataFrame(all_rows)
     records_df = pd.DataFrame(all_records)
     traces_df = pd.DataFrame(all_traces)
-    summary_df = aggregate_by_policy(metrics_df)
-    single_gain = paired_dynamic_value(metrics_df, "single_fault")
-    multi_gain = paired_dynamic_value(metrics_df, "multi_fault")
+    summary_input = canonical_row_order(metrics_df)
+    summary_df = aggregate_by_policy(summary_input)
+    single_gain = paired_dynamic_value(summary_input, "single_fault")
+    multi_gain = paired_dynamic_value(summary_input, "multi_fault")
     normal_management, dynamic_management, agricultural_management = management_comparison_tables(
         summary_df, single_gain, multi_gain
     )
-    ci_summary_df = agricultural_summary_with_ci(metrics_df, seed=args.base_seed + 909)
-    wilcoxon_df = paired_wilcoxon_tests(metrics_df)
-    algorithm_wilcoxon_df = paired_algorithm_wilcoxon_tests(metrics_df)
-    create_distribution_figures(args.output_dir, metrics_df, single_gain, multi_gain)
+    ci_summary_df = agricultural_summary_with_ci(summary_input, seed=args.base_seed + 909)
+    wilcoxon_df = paired_wilcoxon_tests(summary_input)
+    algorithm_wilcoxon_df = paired_algorithm_wilcoxon_tests(summary_input)
+    create_distribution_figures(args.output_dir, summary_input, single_gain, multi_gain)
 
     metrics_df.to_csv(args.output_dir / "all_policy_metrics_after_verification.csv", index=False, encoding="utf-8-sig")
     metrics_df[metrics_df["experiment"].eq("normal")].to_csv(args.output_dir / "normal_policy_metrics.csv", index=False, encoding="utf-8-sig")
