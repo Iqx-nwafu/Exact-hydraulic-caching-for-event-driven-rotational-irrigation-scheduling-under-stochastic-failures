@@ -9,8 +9,8 @@ Each step calls the published script with ``--network-json`` and writes under
 and the checks listed in ``CHECKS``. Run it on a new network or machine before
 launching full-scale experiments. The surrogate step skips its fixed-size
 wall-time benchmark, whose code paths the other steps already run. Platform
-steps need the workbench package ``hydraulic_moc`` on ``PYTHONPATH`` and are
-reported as skipped without it.
+steps need the workbench package ``hydraulic_moc`` on ``PYTHONPATH``; without
+it they are skipped and the report says ``"platform_available": false``.
 """
 
 from __future__ import annotations

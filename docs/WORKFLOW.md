@@ -59,7 +59,7 @@ Without `--network-json` it converts `data/network` first. Every step runs at re
 | `surrogate` | the surrogate comparison is paired with this run's main experiment |
 | `variant` | the network-variant summary is written |
 
-The run takes a few minutes on four cores. The surrogate step skips its fixed-size wall-time benchmark (`--skip-efficiency-benchmark`), whose code paths the cache benchmark and the surrogate experiment already run. Platform checks are skipped when `hydraulic_moc` is not importable; the research-only chain still runs.
+The run takes a few minutes on four cores. The surrogate step skips its fixed-size wall-time benchmark (`--skip-efficiency-benchmark`), whose code paths the cache benchmark and the surrogate experiment already run. Platform checks are skipped when `hydraulic_moc` is not importable (`"platform_available": false` in the report); the research-only chain still runs.
 
 ## 4. Full-scale experiments
 
