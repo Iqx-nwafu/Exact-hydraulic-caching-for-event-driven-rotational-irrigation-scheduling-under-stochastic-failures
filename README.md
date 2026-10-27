@@ -12,6 +12,13 @@ src/
   surrogate_assisted_nsga2.py              CatBoost/LightGBM/XGBoost comparison
   variant_generalization_analysis.py       pressure, failure, and elevation sensitivity
   network_topology.py                      network input, tree-derived topology, platform JSON converter
+  hydraulics_backend.py                    adapter to the workbench evaluator (--hydraulic-backend platform)
+  platform_equivalence_check.py            group-level research vs workbench evaluator comparison
+  run_workflow.py                          reduced-scale end-to-end check of the whole chain
+examples/
+  evaluate_groups.py                       calling the workbench evaluator on a planning JSON
+docs/
+  WORKFLOW.md                              workbench-to-results workflow, model conventions, limits
 data/
   network/                                  Nodes.xlsx, Pipes.xlsx, and Emitters.csv
   hydraulic_verification/                   100-case verification and EPANET INP files
@@ -61,6 +68,12 @@ python -m pip install -r requirements.txt
 ## Reproduction
 
 Run commands from the repository root. Each script writes new files under `outputs/`, leaving the published data unchanged.
+
+To check that the whole chain (planning JSON, EPANET verification, research and workbench backends, experiments, cache benchmark, surrogate and variant studies) runs on a network or machine, run the reduced-scale check first; [docs/WORKFLOW.md](docs/WORKFLOW.md) describes the workflow and its checks:
+
+```bash
+python src/run_workflow.py                      # or --network-json <planning JSON from the workbench>
+```
 
 Hydraulic verification:
 
