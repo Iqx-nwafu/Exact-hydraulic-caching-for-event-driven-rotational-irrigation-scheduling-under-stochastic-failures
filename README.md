@@ -14,6 +14,7 @@ src/
   network_topology.py                      network input, tree-derived topology, platform JSON converter
   hydraulics_backend.py                    adapter to the workbench evaluator (--hydraulic-backend platform)
   platform_equivalence_check.py            group-level research vs workbench evaluator comparison
+  platform_metrics_check.py                plan-level objectives: research vs workbench api.simulate
   run_workflow.py                          reduced-scale end-to-end check of the whole chain
 examples/
   evaluate_groups.py                       calling the workbench evaluator on a planning JSON
@@ -50,7 +51,7 @@ python src/network_topology.py to-excel --network-json outputs/network.json --ou
 
 - Darcy-Weisbach friction losses use the EPANET 2.2 all-regime friction factor (64/Re, Dunlop transition, Swamee-Jain) and material roughness values, identical to the EPANET/WNTR verification model and the hydraulic workbench.
 - EPANET comparison uses friction losses only. The optimization model applies the separate engineering correction `h_total = 1.1 * h_friction` for local losses.
-- `--hydraulic-backend platform` routes group hydraulics to the workbench evaluator `hydraulic_moc.irrigation_eval` (same model; requires the workbench package on `PYTHONPATH`). `python src/platform_equivalence_check.py` compares both backends group by group. Cache benchmarks use the default research backend, which owns the pipe-loss cache level.
+- `--hydraulic-backend platform` routes group hydraulics to the workbench evaluator `hydraulic_moc.irrigation_eval` (same model; requires the workbench package on `PYTHONPATH`). `python src/platform_equivalence_check.py` compares both backends group by group; `python src/platform_metrics_check.py` compares the three plan objectives and the constraint violation with the workbench `hydraulic_moc.api` (API 1.1, research convention `head_sampling="step_start"`, `pressure_weighting="segment"`). Cache benchmarks use the default research backend, which owns the pipe-loss cache level.
 - Source pressure is sampled in the 20-30 m range in stochastic experiments.
 - Each emitter has a design discharge of 0.013 m3/s; available group flow is 0.052 m3/s.
 - Hydraulic feasibility requires node head at least 11.4 m and active-pipe velocity between 0.3 and 2.5 m/s.
