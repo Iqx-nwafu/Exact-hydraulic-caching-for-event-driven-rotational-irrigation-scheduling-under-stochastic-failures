@@ -7,6 +7,9 @@ pressure-uniformity index is the objective that separates plans), the workbench
 groups of four with a proved upper bound.  NSGA-II, SPEA2, RVEA and MOEA/D
 (``optimize_nsga2_plan``) and random rotations are then scored on the same
 instance; the gap is the certified optimum minus the optimiser's uniformity.
+When the time limit stops the proof, ``gap_pct_points`` is measured from the best
+plan found (a lower bound on the true gap) and ``gap_to_bound_pct_points`` from
+the proved upper bound (an upper bound on it); for proved instances they agree.
 Requires ``hydraulic_moc`` on ``PYTHONPATH``.
 """
 
@@ -130,18 +133,21 @@ def main() -> None:
         print(json.dumps({k2: v for k2, v in cert.items() if k2 != "groups"}), flush=True)
         for row in heuristics(path, params, args.source_head, args.seeds, args.population, args.generations,
                               args.random_plans, cert["groups"]):
-            row.update(laterals=k, emitters=len(reduced.emitters),
+            row.update(laterals=k, emitters=len(reduced.emitters), proved=cert["proved"],
                        exact_pui_pct=cert["pressure_uniformity_pct"],
                        exact_upper_bound_pct=cert["uniformity_upper_bound_pct"])
             row["gap_pct_points"] = row["exact_pui_pct"] - row["pressure_uniformity_pct"]
+            row["gap_to_bound_pct_points"] = row["exact_upper_bound_pct"] - row["pressure_uniformity_pct"]
             rows.append(row)
     df = pd.DataFrame(rows)
     df.to_csv(args.output_dir / "gap_runs.csv", index=False)
     feasible = df[df["cv"] <= 1e-9]
-    summary = (feasible.groupby(["laterals", "emitters", "policy"])["gap_pct_points"]
-               .agg(["count", "mean", "std", "min", "max"]).reset_index())
+    summary = (feasible.groupby(["laterals", "emitters", "proved", "policy"])
+               .agg(count=("gap_pct_points", "size"), mean=("gap_pct_points", "mean"), std=("gap_pct_points", "std"),
+                    min=("gap_pct_points", "min"), max=("gap_pct_points", "max"),
+                    mean_to_bound=("gap_to_bound_pct_points", "mean")).reset_index())
     share = (df.assign(feasible_share_pct=(df["cv"] <= 1e-9) * 100.0)
-             .groupby(["laterals", "emitters", "policy"])["feasible_share_pct"].mean().reset_index())
+             .groupby(["laterals", "emitters", "proved", "policy"])["feasible_share_pct"].mean().reset_index())
     summary = share.merge(summary, how="left")
     summary.to_csv(args.output_dir / "gap_summary.csv", index=False)
     (args.output_dir / "certificates.json").write_text(json.dumps(certificates, indent=1), encoding="utf-8")
