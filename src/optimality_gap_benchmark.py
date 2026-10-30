@@ -73,6 +73,7 @@ def heuristics(path: Path, params: base.Params, head: float, seeds: int, populat
                random_plans: int, exact_groups: list[list[str]]) -> list[dict]:
     network = base.load_network(path, None, {})
     base.WORKER_NETWORK = network
+    base.reset_worker_caches()  # the group cache is keyed by emitter index: never carry it across networks
     profile = [head] * (int(params.horizon_h) + 1)
     original = [e for g in base.original_plan(network, params) for e in g.emitters]
     rows = []
