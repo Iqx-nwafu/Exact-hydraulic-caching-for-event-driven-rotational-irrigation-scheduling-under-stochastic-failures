@@ -70,7 +70,7 @@ def exact(path: Path, params: base.Params, head: float, time_limit: float) -> di
 
 
 def heuristics(path: Path, params: base.Params, head: float, seeds: int, population: int, generations: int,
-               random_plans: int) -> list[dict]:
+               random_plans: int, exact_groups: list[list[str]]) -> list[dict]:
     network = base.load_network(path, None, {})
     base.WORKER_NETWORK = network
     profile = [head] * (int(params.horizon_h) + 1)
@@ -82,6 +82,9 @@ def heuristics(path: Path, params: base.Params, head: float, seeds: int, populat
         rows.append({"policy": policy, "seed": seed, "pressure_uniformity_pct": m["pressure_uniformity_index_pct"],
                      "cv": cv, "achievement_pct": m["achievement_pct"], "elapsed_s": elapsed})
 
+    if exact_groups:  # the certified plan scored by the research evaluator (checks the two implementations agree)
+        score("exact", 0, [base.Group(tuple(network.emitter_index[e] for e in grp), params.target_duration_h, "exact")
+                           for grp in exact_groups], 0.0)
     score("original_near_far", 0, base.original_plan(network, params), 0.0)
     for s in range(1, random_plans + 1):
         score("random_rotation", s, base.random_plan(network, params, random.Random(s)), 0.0)
@@ -125,7 +128,7 @@ def main() -> None:
         certificates.append(cert)
         print(json.dumps({k2: v for k2, v in cert.items() if k2 != "groups"}), flush=True)
         for row in heuristics(path, params, args.source_head, args.seeds, args.population, args.generations,
-                              args.random_plans):
+                              args.random_plans, cert["groups"]):
             row.update(laterals=k, emitters=len(reduced.emitters),
                        exact_pui_pct=cert["pressure_uniformity_pct"],
                        exact_upper_bound_pct=cert["uniformity_upper_bound_pct"])
